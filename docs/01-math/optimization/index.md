@@ -23,7 +23,7 @@ graph LR
 | [凸集与凸函数](convex-basics.md) | 凸性定义、Jensen 不等式、局部=全局最小 | 优化分析 | 线性代数 |
 | [一阶最优性](first-order.md) | 梯度、方向导数、驻点条件 | 全部训练章节 | 矩阵求导 |
 | [二阶条件与曲率](second-order.md) | Hessian、正定性、鞍点问题 | 优化分析 | 一阶最优性 |
-| [梯度下降与收敛性](gradient-descent.md) | GD/SGD、学习率选择、收敛分析 | 神经网络训练 | 一阶最优性 |
+| [梯度下降与收敛性](gradient-descent.md) | GD / Mini-batch SGD / SGD 区别、学习率选择、收敛分析 | 神经网络训练 | 一阶最优性 |
 | [自适应优化方法](adaptive-methods.md) | Momentum、AdaGrad、RMSProp、Adam | 所有训练 | 梯度下降 |
 | [拉格朗日乘子与 KKT](lagrangian.md) | 约束优化、KKT 条件、对偶问题 | PPO、操作空间控制 | 凸函数 |
 | [ADMM 及相关算法](admm.md) | 增广拉格朗日、交替方向乘子法、近端梯度、LASSO | 分布式优化、稀疏学习 | 拉格朗日/KKT |
