@@ -115,6 +115,8 @@ nav:
       - 链式法则（矩阵形式）: 01-math/linear-algebra/chain-rule.md
       - 特征值分解: 01-math/linear-algebra/eigenvalue.md
       - SVD 与低秩近似: 01-math/linear-algebra/svd.md
+      - 复数与 Euler 公式: 01-math/linear-algebra/complex-numbers.md
+      - 叉积与刚体运动基础: 01-math/linear-algebra/rigid-body-basics.md
       - 几何变换与相机模型: 01-math/linear-algebra/geometry-transforms.md
       - 图的矩阵表示: 01-math/linear-algebra/graph-laplacian.md
     - 概率论:
@@ -136,6 +138,7 @@ nav:
       - 梯度下降与收敛性: 01-math/optimization/gradient-descent.md
       - 自适应优化方法: 01-math/optimization/adaptive-methods.md
       - 拉格朗日乘子与 KKT: 01-math/optimization/lagrangian.md
+      - 插值与样条基础: 01-math/optimization/interpolation.md
       - ODE 与向量场基础: 01-math/optimization/odes-vector-fields.md
 
   - Part 2 · 基础深度学习:
