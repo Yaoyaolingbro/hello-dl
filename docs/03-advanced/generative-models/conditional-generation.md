@@ -1,4 +1,4 @@
-# DDPM
+# 条件生成与 Cross-Attention
 
 !!! info "参考资料"
     待编写本节时补充论文和优质资源链接。

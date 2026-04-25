@@ -1,4 +1,4 @@
-# Classifier-Free Guidance
+# 图神经网络 (Graph Neural Network)
 
 !!! info "参考资料"
     待编写本节时补充论文和优质资源链接。

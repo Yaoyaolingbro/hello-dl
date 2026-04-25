@@ -134,24 +134,35 @@ nav:
 
   - Part 2 · 基础深度学习:
     - 02-deep-learning/index.md
-    - 神经网络与梯度下降: 02-deep-learning/gradient-descent.md
-    - 反向传播: 02-deep-learning/backprop.md
+    - 神经网络基础: 02-deep-learning/neural-networks.md
+    - 梯度下降与反向传播: 02-deep-learning/gradient-backprop.md
     - 卷积神经网络: 02-deep-learning/cnn.md
     - 循环神经网络: 02-deep-learning/rnn.md
     - Transformer: 02-deep-learning/transformer.md
+    - 图神经网络: 02-deep-learning/gnn.md
 
   - Part 3 · 深入深度学习:
     - 03-advanced/index.md
-    - 自编码器与 VAE:
-      - 03-advanced/ae-vae/index.md
-      - 自编码器: 03-advanced/ae-vae/autoencoder.md
-      - 变分自编码器: 03-advanced/ae-vae/vae.md
-    - 扩散模型:
-      - 03-advanced/diffusion/index.md
-      - DDPM: 03-advanced/diffusion/ddpm.md
-      - Score Matching: 03-advanced/diffusion/score-matching.md
-      - DDIM: 03-advanced/diffusion/ddim.md
-      - Classifier-Free Guidance: 03-advanced/diffusion/cfg.md
+    - 现代网络结构:
+      - 03-advanced/modern-architectures/index.md
+      - QFormer: 03-advanced/modern-architectures/qformer.md
+      - U-Net: 03-advanced/modern-architectures/unet.md
+      - ViT: 03-advanced/modern-architectures/vit.md
+      - DPT: 03-advanced/modern-architectures/dpt.md
+      - 等变网络: 03-advanced/modern-architectures/equivariant.md
+    - 生成模型:
+      - 03-advanced/generative-models/index.md
+      - GAN: 03-advanced/generative-models/gan.md
+      - 自编码器: 03-advanced/generative-models/ae.md
+      - VAE: 03-advanced/generative-models/vae.md
+      - DDPM & DDIM: 03-advanced/generative-models/ddpm-ddim.md
+      - Flow Matching: 03-advanced/generative-models/flow-matching.md
+      - 条件生成: 03-advanced/generative-models/conditional-generation.md
+    - 模仿学习:
+      - 03-advanced/imitation-learning/index.md
+      - 行为克隆: 03-advanced/imitation-learning/bc.md
+      - DAgger: 03-advanced/imitation-learning/dagger.md
+      - Diffusion Policy: 03-advanced/imitation-learning/diffusion-policy.md
     - 强化学习:
       - 03-advanced/rl/index.md
       - 强化学习基础: 03-advanced/rl/rl-basics.md
@@ -163,19 +174,27 @@ nav:
     - 04-applications/index.md
     - 三维视觉:
       - 04-applications/3dv/index.md
+      - 多视图重建: 04-applications/3dv/mvs.md
       - NeRF: 04-applications/3dv/nerf.md
       - 3D Gaussian Splatting: 04-applications/3dv/3dgs.md
-      - 多视图重建: 04-applications/3dv/mvs.md
-    - 计算机视觉:
-      - 04-applications/computer-vision/index.md
-      - 目标检测: 04-applications/computer-vision/object-detection.md
-      - 语义分割: 04-applications/computer-vision/segmentation.md
-      - Vision Transformer: 04-applications/computer-vision/vit.md
+      - Feed-Forward 3D 重建: 04-applications/3dv/feed-forward.md
+    - 传统感知:
+      - 04-applications/perception/index.md
+      - 目标检测: 04-applications/perception/object-detection.md
+      - 图像分割: 04-applications/perception/segmentation.md
+      - 深度估计: 04-applications/perception/depth-estimation.md
+      - 姿态估计: 04-applications/perception/pose-estimation.md
     - 多模态大模型:
       - 04-applications/multimodal/index.md
-      - CLIP: 04-applications/multimodal/clip.md
+      - 解码方式: 04-applications/multimodal/decoding.md
+      - 视觉编码器:
+        - 04-applications/multimodal/encoders/index.md
+        - CLIP: 04-applications/multimodal/encoders/clip.md
+        - BLIP & BLIP-2: 04-applications/multimodal/encoders/blip.md
+        - SigLIP: 04-applications/multimodal/encoders/siglip.md
       - 视觉语言模型: 04-applications/multimodal/vlm.md
       - 大语言模型基础: 04-applications/multimodal/llm-basics.md
+      - LoRA 与参数高效微调: 04-applications/multimodal/lora.md
     - Agent:
       - 04-applications/agent/index.md
       - RAG: 04-applications/agent/rag.md
