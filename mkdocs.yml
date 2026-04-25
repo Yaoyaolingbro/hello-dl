@@ -116,9 +116,12 @@ nav:
       - 特征值分解: 01-math/linear-algebra/eigenvalue.md
       - SVD 与低秩近似: 01-math/linear-algebra/svd.md
       - 复数与 Euler 公式: 01-math/linear-algebra/complex-numbers.md
-      - 叉积与刚体运动基础: 01-math/linear-algebra/rigid-body-basics.md
-      - 几何变换与相机模型: 01-math/linear-algebra/geometry-transforms.md
       - 图的矩阵表示: 01-math/linear-algebra/graph-laplacian.md
+    - 几何基础:
+      - 01-math/geometry/index.md
+      - 叉积与刚体运动基础: 01-math/geometry/rigid-body-basics.md
+      - 几何变换与相机模型: 01-math/geometry/geometry-transforms.md
+      - 贝塞尔曲线与 B 样条: 01-math/geometry/bezier-curves.md
     - 概率论:
       - 01-math/probability/index.md
       - 概率基础: 01-math/probability/basics.md
