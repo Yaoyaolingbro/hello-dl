@@ -201,9 +201,11 @@ nav:
         - SigLIP: 04-applications/multimodal/encoders/siglip.md
       - 视觉语言模型: 04-applications/multimodal/vlm.md
       - 大语言模型基础: 04-applications/multimodal/llm-basics.md
+      - 思维链（CoT）: 04-applications/multimodal/cot.md
       - LoRA 与参数高效微调: 04-applications/multimodal/lora.md
     - Agent:
       - 04-applications/agent/index.md
+      - Agent 设计范式: 04-applications/agent/agent-design.md
       - RAG: 04-applications/agent/rag.md
       - 工具调用: 04-applications/agent/tool-use.md
       - 多智能体: 04-applications/agent/multi-agent.md
