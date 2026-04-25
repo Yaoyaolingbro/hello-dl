@@ -21,15 +21,13 @@ theme:
     - content.code.copy
     - content.code.annotate
   palette:
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
+    - scheme: default
       primary: indigo
       accent: deep purple
       toggle:
         icon: material/weather-sunny
         name: 切换暗色模式
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
+    - scheme: slate
       primary: indigo
       accent: deep purple
       toggle:
