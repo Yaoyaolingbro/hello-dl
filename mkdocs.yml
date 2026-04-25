@@ -138,6 +138,7 @@ nav:
       - 梯度下降与收敛性: 01-math/optimization/gradient-descent.md
       - 自适应优化方法: 01-math/optimization/adaptive-methods.md
       - 拉格朗日乘子与 KKT: 01-math/optimization/lagrangian.md
+      - ADMM 及相关算法: 01-math/optimization/admm.md
       - 插值与样条基础: 01-math/optimization/interpolation.md
       - ODE 与向量场基础: 01-math/optimization/odes-vector-fields.md
 

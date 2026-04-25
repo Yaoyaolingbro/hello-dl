@@ -24,4 +24,4 @@ graph LR
 | [Part 1 · 数学基础](01-math/index.md) | 线性代数、概率论、优化理论 | 所有人 |
 | [Part 2 · 基础深度学习](02-deep-learning/index.md) | 梯度下降、反向传播、CNN、RNN、Transformer | 有 Part 1 基础 |
 | [Part 3 · 深入深度学习](03-advanced/index.md) | VAE、扩散模型、强化学习 | 有 Part 2 基础 |
-| [Part 4 · 现代应用](04-applications/index.md) | 3D 视觉、多模态、Agent、具身智能 | 有 Part 2/3 基础 |
+| [Part 4 · 现代应用](04-applications/index.md) | 3D 视觉、多模态、Agent、具身智能 | 有 Part 2 & 3 基础 |
