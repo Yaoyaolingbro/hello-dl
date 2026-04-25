@@ -1,0 +1,31 @@
+name: Deploy MkDocs to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0        # 让 git-revision-date 能读到完整历史
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: pip install \
+          mkdocs-material \
+          mkdocs-mermaid2-plugin \
+          mkdocs-glightbox \
+          mkdocs-git-revision-date-localized-plugin
+
+      - name: Deploy
+        run: mkdocs gh-deploy --force
