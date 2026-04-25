@@ -192,6 +192,10 @@ nav:
       - NeRF: 04-applications/3dv/nerf.md
       - 3D Gaussian Splatting: 04-applications/3dv/3dgs.md
       - Feed-Forward 3D 重建: 04-applications/3dv/feed-forward.md
+      - 三维模型生成:
+        - 04-applications/3dv/3d-generation/index.md
+        - TRELLIS: 04-applications/3dv/3d-generation/trellis.md
+        - SAM3D: 04-applications/3dv/3d-generation/sam3d.md
     - 传统感知:
       - 04-applications/perception/index.md
       - 目标检测: 04-applications/perception/object-detection.md

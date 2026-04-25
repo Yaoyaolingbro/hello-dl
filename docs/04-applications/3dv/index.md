@@ -11,3 +11,4 @@
 | [NeRF](nerf.md) | 神经辐射场、体渲染方程 | MLP、概率论 |
 | [3D Gaussian Splatting](3dgs.md) | 高斯点云表示、可微光栅化 | NeRF |
 | [Feed-Forward 3D 重建](feed-forward.md) | 以 VGGT 为代表的端到端前向模型 | NeRF、Transformer |
+| [三维模型生成](3d-generation/index.md) | TRELLIS、SAM3D、文本/图像驱动的 3D 生成 | NeRF、3DGS、扩散模型 |
