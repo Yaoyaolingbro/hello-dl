@@ -209,4 +209,14 @@ nav:
       - 多智能体: 04-applications/agent/multi-agent.md
     - 具身智能:
       - 04-applications/embodied/index.md
+      - 传统运动控制算法:
+        - 04-applications/embodied/classical-control/index.md
+        - 空间描述与齐次变换: 04-applications/embodied/classical-control/spatial-descriptions.md
+        - 正运动学: 04-applications/embodied/classical-control/forward-kinematics.md
+        - 速度雅可比: 04-applications/embodied/classical-control/jacobian.md
+        - 逆运动学: 04-applications/embodied/classical-control/inverse-kinematics.md
+        - 轨迹规划: 04-applications/embodied/classical-control/trajectory-generation.md
+        - 动力学: 04-applications/embodied/classical-control/dynamics.md
+        - 关节空间控制: 04-applications/embodied/classical-control/joint-space-control.md
+        - 操作空间控制: 04-applications/embodied/classical-control/operational-space-control.md
       - 操作与控制: 04-applications/embodied/manipulation.md
