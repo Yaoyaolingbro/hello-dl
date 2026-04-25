@@ -180,6 +180,7 @@ nav:
     - 04-applications/index.md
     - 三维视觉:
       - 04-applications/3dv/index.md
+      - 相机模型与 Plücker Embedding: 04-applications/3dv/camera-embedding.md
       - 多视图重建: 04-applications/3dv/mvs.md
       - NeRF: 04-applications/3dv/nerf.md
       - 3D Gaussian Splatting: 04-applications/3dv/3dgs.md
