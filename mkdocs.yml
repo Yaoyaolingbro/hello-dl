@@ -1,0 +1,186 @@
+site_name: 深度学习入门指南
+site_url: https://yaoyaolingbro.github.io/deep-learning
+site_author: yaoyaoling
+site_description: 面向 AI 入门者的系统性教程，涵盖数学基础、深度学习、前沿模型与现代应用。
+
+repo_url: https://github.com/Yaoyaolingbro/deep-learning
+repo_name: Yaoyaolingbro/deep-learning
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.indexes
+    - navigation.tracking
+    - navigation.top
+    - navigation.prune
+    - header.autohide
+    - search.highlight
+    - search.suggest
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: deep purple
+      toggle:
+        icon: material/weather-sunny
+        name: 切换暗色模式
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: deep purple
+      toggle:
+        icon: material/weather-night
+        name: 切换亮色模式
+  font:
+    text: Roboto
+    code: Roboto Mono
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - toc:
+      permalink: true
+      toc_depth: 4
+  - meta
+  - def_list
+  - attr_list
+  - md_in_html
+  - admonition
+  - footnotes
+  - pymdownx.details
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.critic
+  - pymdownx.snippets
+  - pymdownx.magiclink
+  - pymdownx.inlinehilite
+  - pymdownx.smartsymbols
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:mermaid2.fence_mermaid
+  - pymdownx.arithmatex:
+      generic: true
+
+plugins:
+  - search:
+      lang: zh
+  - mermaid2
+  - glightbox
+  - git-revision-date-localized:
+      type: datetime
+      timezone: Asia/Shanghai
+      locale: zh
+      enable_creation_date: true
+
+extra_css:
+  - https://unpkg.com/katex@0/dist/katex.min.css
+  - assets/css/custom.css
+
+extra_javascript:
+  - assets/js/katex.js
+  - https://unpkg.com/katex@0/dist/katex.min.js
+  - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Yaoyaolingbro/deep-learning
+
+nav:
+  - 首页: index.md
+
+  - Part 1 · 数学基础:
+    - 01-math/index.md
+    - 线性代数:
+      - 01-math/linear-algebra/index.md
+      - 向量与范数: 01-math/linear-algebra/vectors-spaces.md
+      - 矩阵运算与性质: 01-math/linear-algebra/matrix-ops.md
+      - 特殊矩阵: 01-math/linear-algebra/special-matrices.md
+      - 矩阵求导: 01-math/linear-algebra/matrix-calculus.md
+      - 链式法则（矩阵形式）: 01-math/linear-algebra/chain-rule.md
+      - 特征值分解: 01-math/linear-algebra/eigenvalue.md
+      - SVD 与低秩近似: 01-math/linear-algebra/svd.md
+    - 概率论:
+      - 01-math/probability/index.md
+      - 概率基础: 01-math/probability/basics.md
+      - 随机变量: 01-math/probability/random-variables.md
+      - 常用分布: 01-math/probability/distributions.md
+      - 期望与方差: 01-math/probability/expectation-variance.md
+      - 贝叶斯推断: 01-math/probability/bayesian.md
+      - 信息论: 01-math/probability/information-theory.md
+    - 优化理论:
+      - 01-math/optimization/index.md
+      - 凸集与凸函数: 01-math/optimization/convex-basics.md
+      - 一阶最优性: 01-math/optimization/first-order.md
+      - 二阶条件与曲率: 01-math/optimization/second-order.md
+      - 梯度下降与收敛性: 01-math/optimization/gradient-descent.md
+      - 自适应优化方法: 01-math/optimization/adaptive-methods.md
+      - 拉格朗日乘子与 KKT: 01-math/optimization/lagrangian.md
+
+  - Part 2 · 基础深度学习:
+    - 02-deep-learning/index.md
+    - 神经网络与梯度下降: 02-deep-learning/gradient-descent.md
+    - 反向传播: 02-deep-learning/backprop.md
+    - 卷积神经网络: 02-deep-learning/cnn.md
+    - 循环神经网络: 02-deep-learning/rnn.md
+    - Transformer: 02-deep-learning/transformer.md
+
+  - Part 3 · 深入深度学习:
+    - 03-advanced/index.md
+    - 自编码器与 VAE:
+      - 03-advanced/ae-vae/index.md
+      - 自编码器: 03-advanced/ae-vae/autoencoder.md
+      - 变分自编码器: 03-advanced/ae-vae/vae.md
+    - 扩散模型:
+      - 03-advanced/diffusion/index.md
+      - DDPM: 03-advanced/diffusion/ddpm.md
+      - Score Matching: 03-advanced/diffusion/score-matching.md
+      - DDIM: 03-advanced/diffusion/ddim.md
+      - Classifier-Free Guidance: 03-advanced/diffusion/cfg.md
+    - 强化学习:
+      - 03-advanced/rl/index.md
+      - 强化学习基础: 03-advanced/rl/rl-basics.md
+      - PPO: 03-advanced/rl/ppo.md
+      - DPO: 03-advanced/rl/dpo.md
+      - GRPO: 03-advanced/rl/grpo.md
+
+  - Part 4 · 现代应用:
+    - 04-applications/index.md
+    - 三维视觉:
+      - 04-applications/3dv/index.md
+      - NeRF: 04-applications/3dv/nerf.md
+      - 3D Gaussian Splatting: 04-applications/3dv/3dgs.md
+      - 多视图重建: 04-applications/3dv/mvs.md
+    - 计算机视觉:
+      - 04-applications/computer-vision/index.md
+      - 目标检测: 04-applications/computer-vision/object-detection.md
+      - 语义分割: 04-applications/computer-vision/segmentation.md
+      - Vision Transformer: 04-applications/computer-vision/vit.md
+    - 多模态大模型:
+      - 04-applications/multimodal/index.md
+      - CLIP: 04-applications/multimodal/clip.md
+      - 视觉语言模型: 04-applications/multimodal/vlm.md
+      - 大语言模型基础: 04-applications/multimodal/llm-basics.md
+    - Agent:
+      - 04-applications/agent/index.md
+      - RAG: 04-applications/agent/rag.md
+      - 工具调用: 04-applications/agent/tool-use.md
+      - 多智能体: 04-applications/agent/multi-agent.md
+    - 具身智能:
+      - 04-applications/embodied/index.md
+      - 操作与控制: 04-applications/embodied/manipulation.md

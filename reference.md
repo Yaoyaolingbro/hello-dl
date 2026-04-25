@@ -1,0 +1,3 @@
+- 李宏毅《机器学习》《生成模型》课程
+- 3b1b 线性代数的本质、深度学习入门
+- https://github.com/labmlai/annotated_deep_learning_paper_implementations 代码讲解。

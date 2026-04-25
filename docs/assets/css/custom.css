@@ -1,0 +1,27 @@
+/* 正文字体略微加大，提高可读性 */
+.md-typeset {
+  font-size: 0.8rem;
+  line-height: 1.8;
+}
+
+/* 数学公式块居中 */
+.arithmatex {
+  overflow-x: auto;
+}
+
+/* 代码块行号 */
+.md-typeset .highlight .linenums {
+  color: #aaa;
+}
+
+/* 图片自动居中 */
+.md-typeset img {
+  display: block;
+  margin: 1rem auto;
+  border-radius: 4px;
+}
+
+/* admonition 标题字体 */
+.md-typeset .admonition-title {
+  font-weight: 600;
+}
