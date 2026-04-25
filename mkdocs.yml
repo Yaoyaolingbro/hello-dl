@@ -115,6 +115,8 @@ nav:
       - 链式法则（矩阵形式）: 01-math/linear-algebra/chain-rule.md
       - 特征值分解: 01-math/linear-algebra/eigenvalue.md
       - SVD 与低秩近似: 01-math/linear-algebra/svd.md
+      - 几何变换与相机模型: 01-math/linear-algebra/geometry-transforms.md
+      - 图的矩阵表示: 01-math/linear-algebra/graph-laplacian.md
     - 概率论:
       - 01-math/probability/index.md
       - 概率基础: 01-math/probability/basics.md
@@ -123,6 +125,9 @@ nav:
       - 期望与方差: 01-math/probability/expectation-variance.md
       - 贝叶斯推断: 01-math/probability/bayesian.md
       - 信息论: 01-math/probability/information-theory.md
+      - 随机过程与马尔科夫链: 01-math/probability/stochastic-processes.md
+      - 蒙特卡洛与重要性采样: 01-math/probability/sampling.md
+      - 变分推断与 ELBO: 01-math/probability/variational-inference.md
     - 优化理论:
       - 01-math/optimization/index.md
       - 凸集与凸函数: 01-math/optimization/convex-basics.md
@@ -131,6 +136,7 @@ nav:
       - 梯度下降与收敛性: 01-math/optimization/gradient-descent.md
       - 自适应优化方法: 01-math/optimization/adaptive-methods.md
       - 拉格朗日乘子与 KKT: 01-math/optimization/lagrangian.md
+      - ODE 与向量场基础: 01-math/optimization/odes-vector-fields.md
 
   - Part 2 · 基础深度学习:
     - 02-deep-learning/index.md

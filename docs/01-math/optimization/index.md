@@ -1,6 +1,6 @@
 # 优化理论
 
-训练神经网络本质上是求解一个高维优化问题。这一章讲清楚梯度下降为什么能工作，以及 Adam 为什么比 SGD 好。
+训练神经网络本质上是求解一个高维优化问题。这一章讲清楚梯度下降为什么能工作，Adam 为什么比 SGD 好，以及 Flow Matching 需要的 ODE 直觉。
 
 ## 你将学到
 
@@ -12,3 +12,4 @@
 | [梯度下降与收敛性](gradient-descent.md) | GD/SGD、学习率、收敛分析 | 一阶最优性 |
 | [自适应优化方法](adaptive-methods.md) | Momentum、AdaGrad、RMSProp、Adam | 梯度下降 |
 | [拉格朗日乘子与 KKT](lagrangian.md) | 约束优化、KKT 条件 | 凸函数 |
+| [ODE 与向量场基础](odes-vector-fields.md) | 常微分方程直觉、向量场、数值求解器 | 一阶最优性 |

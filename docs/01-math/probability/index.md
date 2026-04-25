@@ -12,3 +12,6 @@
 | [期望与方差](expectation-variance.md) | 期望、方差、协方差矩阵 | 随机变量 |
 | [贝叶斯推断](bayesian.md) | 先验/后验、MLE vs MAP | 期望与方差 |
 | [信息论](information-theory.md) | 熵、交叉熵、KL 散度、互信息 | 贝叶斯推断 |
+| [随机过程与马尔科夫链](stochastic-processes.md) | 随机过程、马尔科夫性、平稳分布、SDE 直觉 | 概率基础、常用分布 |
+| [蒙特卡洛与重要性采样](sampling.md) | MC 估计、重要性采样、方差减小 | 期望与方差 |
+| [变分推断与 ELBO](variational-inference.md) | 变分推断框架、ELBO 推导、重参数化预备 | 信息论、KL 散度 |
