@@ -31,11 +31,26 @@
 
 ## 开始编写前（必做）
 
-1. **读 `writing-style.md`** — 重点看"直觉段模板"、"数学的写法四条规则"、"去除 AI 痕迹规则"
-2. **读上表对应的 Part 风格文件** — 了解本 Part 的特殊要求和章节结构
-3. **确认主要参考论文** — 在章节开头 `!!! info "参考资料"` 块里列出
-4. **确认符号约定** — 所有公式符号与主要论文保持一致；有冲突时在 `!!! note` 里声明
-5. 可以编写前联网搜索相关资料查找，但不要过于依赖。参考重要精华内容，讲出核心直觉和观点。
+1. **先看 `docs/` 下的 Markdown 目录树（排除 `docs/superpowers/`）** — 先建立全书级上下文，只看 `.md` 文件即可。优先运行：
+
+   ```bash
+   cd "/Users/yaoyaoling/Desktop/博士生资料/deep learning"
+   tree docs -P "*.md" -I "superpowers|assets|.obsidian"
+   ```
+
+   如果本机没有 `tree`，则改用：
+
+   ```bash
+   cd "/Users/yaoyaoling/Desktop/博士生资料/deep learning"
+   find docs -path "docs/superpowers" -prune -o -path "docs/assets" -prune -o -name "*.md" -print | sort
+   ```
+
+   看完后，先用一句话总结：**当前章节在整本书里的位置、前置依赖、后续会被哪些章节引用。**
+2. **读 `writing-style.md`** — 重点看"直觉段模板"、"数学的写法四条规则"、"去除 AI 痕迹规则"
+3. **读上表对应的 Part 风格文件** — 了解本 Part 的特殊要求和章节结构
+4. **确认主要参考论文** — 在章节开头 `!!! info "参考资料"` 块里列出
+5. **确认符号约定** — 所有公式符号与主要论文保持一致；有冲突时在 `!!! note` 里声明
+6. 可以编写前联网搜索相关资料查找，但不要过于依赖。参考重要精华内容，讲出核心直觉和观点。
 
 ---
 
