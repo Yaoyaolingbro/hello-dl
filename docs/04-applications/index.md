@@ -22,9 +22,6 @@ graph TD
     P44 --> P48
     P46 --> P49["4.9 具身智能"]
     P48 --> P49
-
-    P46 --> P410["4.10 AI for Science"]
-    P411["4.11 量化与金融"]
 ```
 
 ## 各章概览
@@ -40,5 +37,3 @@ graph TD
 | [4.7 MLSys](mlsys/index.md) | 怎么让模型跑得更快更省？ | 并行、量化、KV Cache |
 | [4.8 Agent](agent/index.md) | 怎么让模型自主完成任务？ | ReAct、Planning、Memory |
 | [4.9 具身智能](embodied/index.md) | 怎么让机器人行动？ | VLA、Sim2Real、World Model |
-| [4.10 AI for Science](ai4science/index.md) | AI 怎么加速科学发现？ | 蛋白质、分子、气象、PDE |
-| [4.11 量化与金融](quant/index.md) | 量化投资里的 AI 方法 | → Quant Wiki |
