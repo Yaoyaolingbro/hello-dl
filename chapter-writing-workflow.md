@@ -14,11 +14,27 @@
 
 ---
 
+## 选择写作风格文件（必做第一步）
+
+根据你要编写的章节所在的 Part，**额外 @ 对应的风格文件**。这些文件不重复通用规则，只补充该 Part 特有的要求。
+
+| Part | 额外 @ 文件 | 核心侧重 |
+|------|------------|---------|
+| Part 1 数学基础（`01-math/`） | `docs/superpowers/style-part1-math.md` | 直觉先于定义、NumPy 验证、定理框、禁用"显然" |
+| Part 2 基础深度学习（`02-deep-learning/`） | `docs/superpowers/style-part2-dl-basics.md` | 每概念必须有 PyTorch 代码、注释说 WHY、消融式解释 |
+| Part 3 深入深度学习（`03-advanced/`） | `docs/superpowers/style-part3-advanced.md` | 以论文为主线、推导不跳步、严格对齐原文符号、引用消融实验 |
+| Part 4 现代 AI 应用（`04-applications/`） | `docs/superpowers/style-part4-applications.md` | 时间脉络叙事、价值优先于推导、真实工程 tip、必写开放问题 |
+
+**示例：** 编写 `04-applications/3dv/nerf.md` 时，同时 @ `writing-style.md` 和 `docs/superpowers/style-part4-applications.md`。
+
+---
+
 ## 开始编写前（必做）
 
 1. **读 `writing-style.md`** — 重点看"直觉段模板"、"数学的写法四条规则"、"去除 AI 痕迹规则"
-2. **确认主要参考论文** — 在章节开头 `!!! info "参考资料"` 块里列出
-3. **确认符号约定** — 所有公式符号与主要论文保持一致；有冲突时在 `!!! note` 里声明
+2. **读上表对应的 Part 风格文件** — 了解本 Part 的特殊要求和章节结构
+3. **确认主要参考论文** — 在章节开头 `!!! info "参考资料"` 块里列出
+4. **确认符号约定** — 所有公式符号与主要论文保持一致；有冲突时在 `!!! note` 里声明
 
 ---
 
