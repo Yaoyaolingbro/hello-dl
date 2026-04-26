@@ -15,3 +15,4 @@
 | [LoRA 与参数高效微调](lora.md) | LoRA、QLoRA、Adapter | LLM 基础 |
 | [对齐与强化](alignment.md) | DPO、GRPO、DAPO | RL 基础、LLM |
 | [多图理解](multi-image.md) | 多图输入、时序帧、长上下文视觉推理 | VLM |
+| [统一生成与理解](unified-gen-understanding.md) | BAGEL、Janus、Show-o：同一模型理解+生成 | VLM、生成模型 |

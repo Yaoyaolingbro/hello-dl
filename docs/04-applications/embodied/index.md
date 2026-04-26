@@ -12,6 +12,7 @@
 | [操作](manipulation.md) | 抓取、操作、扩散策略 | RL、3D 视觉 |
 | [运动控制](locomotion.md) | 双足/四足运动、RL 训练 | PPO、Sim2Real |
 | [VLA 模型](vla.md) | RT-2、OpenVLA、π₀ | 多模态大模型 |
+| [π 系列工作](pi-series.md) | π₀、π₀.5，流匹配策略网络与真实部署 | VLA 模型 |
 | [Real2Sim](real2sim.md) | 真实场景重建仿真、数字孪生 | 3D 视觉 |
 | [Sim2Real](sim2real.md) | Domain Randomization、Adaptation | RL |
 | [World Model](world-model.md) | Dreamer、RSSM、UniSim | 生成模型、RL |

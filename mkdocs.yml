@@ -107,6 +107,7 @@ nav:
     - 线性代数:
       - 01-math/linear-algebra/index.md
       - 向量与范数: 01-math/linear-algebra/vectors-spaces.md
+      - 度量空间: 01-math/linear-algebra/metric-spaces.md
       - 矩阵运算与性质: 01-math/linear-algebra/matrix-ops.md
       - 特殊矩阵: 01-math/linear-algebra/special-matrices.md
       - 矩阵求导: 01-math/linear-algebra/matrix-calculus.md
@@ -114,11 +115,13 @@ nav:
       - 特征值分解: 01-math/linear-algebra/eigenvalue.md
       - SVD 与低秩近似: 01-math/linear-algebra/svd.md
       - 复数与 Euler 公式: 01-math/linear-algebra/complex-numbers.md
+      - 傅里叶变换: 01-math/linear-algebra/fourier.md
       - 图的矩阵表示: 01-math/linear-algebra/graph-laplacian.md
     - 几何基础:
       - 01-math/geometry/index.md
       - 叉积与刚体运动基础: 01-math/geometry/rigid-body-basics.md
       - 几何变换与相机模型: 01-math/geometry/geometry-transforms.md
+      - Lie 群与 SE(3): 01-math/geometry/lie-groups.md
       - 贝塞尔曲线与 B 样条: 01-math/geometry/bezier-curves.md
     - 概率论:
       - 01-math/probability/index.md
@@ -129,6 +132,7 @@ nav:
       - 贝叶斯推断: 01-math/probability/bayesian.md
       - 信息论: 01-math/probability/information-theory.md
       - 随机过程与马尔科夫链: 01-math/probability/stochastic-processes.md
+      - 状态估计与卡尔曼滤波: 01-math/probability/state-estimation.md
       - 蒙特卡洛与重要性采样: 01-math/probability/sampling.md
       - 变分推断与 ELBO: 01-math/probability/variational-inference.md
     - 优化理论:
@@ -138,10 +142,12 @@ nav:
       - 二阶条件与曲率: 01-math/optimization/second-order.md
       - 梯度下降与收敛性: 01-math/optimization/gradient-descent.md
       - 自适应优化方法: 01-math/optimization/adaptive-methods.md
+      - 动态规划: 01-math/optimization/dynamic-programming.md
       - 拉格朗日乘子与 KKT: 01-math/optimization/lagrangian.md
       - ADMM 及相关算法: 01-math/optimization/admm.md
       - 插值与样条基础: 01-math/optimization/interpolation.md
       - ODE 与向量场基础: 01-math/optimization/odes-vector-fields.md
+      - PDE 基础: 01-math/optimization/pdes.md
 
   - Part 2 · 基础深度学习:
     - 02-deep-learning/index.md

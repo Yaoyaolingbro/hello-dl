@@ -6,14 +6,18 @@
 
 ```mermaid
 graph LR
-    A[向量与范数] --> B[矩阵运算与性质]
-    B --> C[特殊矩阵]
-    C --> D[矩阵求导]
-    D --> E[链式法则]
-    C --> F[特征值分解]
-    F --> G[SVD]
-    G --> H[复数与Euler公式]
-    F --> K[图的矩阵表示]
+    A[向量与范数] --> B[度量空间]
+    A --> C[矩阵运算与性质]
+    B --> C
+    C --> D[特殊矩阵]
+    C --> E[矩阵求导]
+    E --> F[链式法则]
+    D --> G[特征值分解]
+    C --> G
+    G --> H[SVD]
+    G --> I[复数与Euler公式]
+    I --> J[傅里叶变换]
+    G --> K[图的矩阵表示]
 ```
 
 ## 你将学到
@@ -21,11 +25,13 @@ graph LR
 | 小节 | 核心内容 | 被引用于 | 前置依赖 |
 |------|----------|----------|----------|
 | [向量与范数](vectors-spaces.md) | 向量空间、内积、L1/L2/Frobenius 范数 | 全部 | 无 |
-| [矩阵运算与性质](matrix-ops.md) | 迹、行列式、秩、矩阵乘法技巧 | 全部 | 向量 |
+| [度量空间](metric-spaces.md) | 度量的一般定义、L1/L2/余弦距离的几何含义 | ANN/HNSW、隐空间 | 向量与范数 |
+| [矩阵运算与性质](matrix-ops.md) | 迹、行列式、秩、矩阵乘法技巧 | 全部 | 向量与范数 |
 | [特殊矩阵](special-matrices.md) | 对称、正定、正交、投影矩阵 | 优化、几何变换 | 矩阵运算 |
 | [矩阵求导](matrix-calculus.md) | 标量/向量/矩阵对向量求导、Jacobian、Hessian | 反向传播、优化 | 矩阵运算 |
 | [链式法则（矩阵形式）](chain-rule.md) | 矩阵版链式法则 | 反向传播 | 矩阵求导 |
 | [特征值分解](eigenvalue.md) | 特征值、特征向量、谱定理 | 优化、PCA、GNN | 特殊矩阵 |
-| [SVD 与低秩近似](svd.md) | 奇异值分解、低秩近似、LoRA 的数学基础 | LoRA、NeRF | 特征值 |
-| [复数与 Euler 公式](complex-numbers.md) | 复平面、$e^{i\theta}$、四元数的代数引子、RoPE 基础 | Transformer 位置编码、几何变换 | SVD |
-| [图的矩阵表示](graph-laplacian.md) | 邻接矩阵、度矩阵、拉普拉斯矩阵、谱分解 | GNN | 特征值 |
+| [SVD 与低秩近似](svd.md) | 奇异值分解、低秩近似、LoRA 的数学基础 | LoRA、NeRF | 特征值分解 |
+| [复数与 Euler 公式](complex-numbers.md) | 复平面、$e^{i\theta}$、四元数代数引子、RoPE 基础 | Transformer 位置编码、几何变换 | 特征值分解 |
+| [傅里叶变换](fourier.md) | DFT/FFT/STFT、频域直觉 | 语音处理、RoPE、FNO | 复数与 Euler 公式 |
+| [图的矩阵表示](graph-laplacian.md) | 邻接矩阵、度矩阵、拉普拉斯矩阵、谱分解 | GNN | 特征值分解 |
