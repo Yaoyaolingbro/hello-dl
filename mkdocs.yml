@@ -169,6 +169,8 @@ nav:
       - DPT: 03-advanced/modern-architectures/dpt.md
       - 等变网络: 03-advanced/modern-architectures/equivariant.md
       - 对比学习: 03-advanced/modern-architectures/contrastive-learning.md
+      - MAE: 03-advanced/modern-architectures/mae.md
+      - JEPA: 03-advanced/modern-architectures/jepa.md
     - 生成模型:
       - 03-advanced/generative-models/index.md
       - GAN: 03-advanced/generative-models/gan.md
