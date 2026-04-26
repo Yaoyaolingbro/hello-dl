@@ -9,6 +9,7 @@
 | [神经网络基础](neural-networks.md) | 线性层、MLP、激活函数 | Part 1 线性代数 |
 | [梯度下降与反向传播](gradient-backprop.md) | Mini-batch 训练循环、计算图、反向传播推导 | 矩阵链式法则、优化理论 |
 | [卷积神经网络](cnn.md) | 图像识别的经典架构 | 神经网络基础 |
-| [循环神经网络](rnn.md) | 序列建模、LSTM、GRU | 神经网络基础 |
+| [ResNet 与残差连接](resnet.md) | 残差块、跳跃连接、深层网络训练 | CNN |
+| [循环神经网络](rnn.md) | 序列建模、LSTM、GRU、LRU | 神经网络基础 |
 | [Transformer](transformer.md) | 注意力机制、现代大模型的基础 | 线性代数、概率论 |
 | [图神经网络](gnn.md) | 图结构数据的表示与学习 | 神经网络基础 |

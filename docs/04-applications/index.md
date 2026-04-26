@@ -1,13 +1,44 @@
-# Part 4 · 现代应用
+# Part 4 · 现代 AI 应用
 
-深度学习在各领域的落地形态。这一章偏工程和应用，每节都会标注面试和科研的关注重点。
+前三部分打好了基础，这一部分看真实世界的应用。从感知到生成，从语音到机器人，从系统优化到科学计算。每章相对独立，可以按需阅读。
 
-## 你将学到
+## 章节导图
 
-| 章节 | 核心内容 | 前置依赖 |
+```mermaid
+graph TD
+    Base["Part 1-3\n数学 · 深度学习基础"] --> P41["4.1 感知"]
+    Base --> P42["4.2 3D 视觉"]
+    Base --> P43["4.3 语音"]
+    Base --> P44["4.4 检索"]
+    Base --> P47["4.7 MLSys"]
+
+    P41 --> P45["4.5 图像/视频生成"]
+    P42 --> P45
+    P41 --> P46["4.6 多模态大模型"]
+    P43 --> P46
+    P45 --> P46
+
+    P46 --> P48["4.8 Agent"]
+    P44 --> P48
+    P46 --> P49["4.9 具身智能"]
+    P48 --> P49
+
+    P46 --> P410["4.10 AI for Science"]
+    P411["4.11 量化与金融"]
+```
+
+## 各章概览
+
+| 章节 | 核心问题 | 代表方向 |
 |------|----------|----------|
-| [三维视觉](3dv/index.md) | MVS、NeRF、3DGS、前向重建模型 | CNN、Transformer |
-| [传统感知](perception/index.md) | 目标检测、分割、深度估计、姿态估计 | CNN |
-| [多模态大模型](multimodal/index.md) | 编码器、解码范式、VLM、LoRA | Transformer |
-| [Agent](agent/index.md) | RAG、工具调用、多智能体 | LLM 基础 |
-| [具身智能](embodied/index.md) | 操作策略、模仿学习落地 | RL、3D 视觉 |
+| [4.1 感知](perception/index.md) | 图像里有什么？ | 分类、检测、分割、光流、OCR |
+| [4.2 3D 视觉](3dv/index.md) | 世界的三维结构是什么？ | NeRF、3DGS、SLAM、生成 |
+| [4.3 语音](audio/index.md) | 声音里有什么信息？ | ASR、TTS、增强 |
+| [4.4 检索](retrieval/index.md) | 怎么快速找到相关信息？ | HNSW、RAG、Neural Ranking |
+| [4.5 生成](generation/index.md) | 怎么生成逼真的图像/视频？ | SD、FLUX、DiT、视频生成 |
+| [4.6 多模态大模型](multimodal/index.md) | 怎么让模型同时理解图和文？ | CLIP、VLM、LLM、对齐 |
+| [4.7 MLSys](mlsys/index.md) | 怎么让模型跑得更快更省？ | 并行、量化、KV Cache |
+| [4.8 Agent](agent/index.md) | 怎么让模型自主完成任务？ | ReAct、Planning、Memory |
+| [4.9 具身智能](embodied/index.md) | 怎么让机器人行动？ | VLA、Sim2Real、World Model |
+| [4.10 AI for Science](ai4science/index.md) | AI 怎么加速科学发现？ | 蛋白质、分子、气象、PDE |
+| [4.11 量化与金融](quant/index.md) | 量化投资里的 AI 方法 | → Quant Wiki |

@@ -148,6 +148,7 @@ nav:
     - 神经网络基础: 02-deep-learning/neural-networks.md
     - 梯度下降与反向传播: 02-deep-learning/gradient-backprop.md
     - 卷积神经网络: 02-deep-learning/cnn.md
+    - ResNet 与残差连接: 02-deep-learning/resnet.md
     - 循环神经网络: 02-deep-learning/rnn.md
     - Transformer: 02-deep-learning/transformer.md
     - 图神经网络: 02-deep-learning/gnn.md
@@ -161,6 +162,7 @@ nav:
       - ViT: 03-advanced/modern-architectures/vit.md
       - DPT: 03-advanced/modern-architectures/dpt.md
       - 等变网络: 03-advanced/modern-architectures/equivariant.md
+      - 对比学习: 03-advanced/modern-architectures/contrastive-learning.md
     - 生成模型:
       - 03-advanced/generative-models/index.md
       - GAN: 03-advanced/generative-models/gan.md
@@ -177,48 +179,95 @@ nav:
     - 强化学习:
       - 03-advanced/rl/index.md
       - 强化学习基础: 03-advanced/rl/rl-basics.md
+      - 策略梯度: 03-advanced/rl/policy-gradient.md
+      - Actor-Critic: 03-advanced/rl/actor-critic.md
+      - 价值函数方法: 03-advanced/rl/value-methods.md
       - PPO: 03-advanced/rl/ppo.md
+      - 基于模型的 RL: 03-advanced/rl/model-based.md
       - DPO: 03-advanced/rl/dpo.md
-      - GRPO: 03-advanced/rl/grpo.md
 
-  - Part 4 · 现代应用:
+  - Part 4 · 现代 AI 应用:
     - 04-applications/index.md
-    - 三维视觉:
+    - 4.1 感知:
+      - 04-applications/perception/index.md
+      - 图像分类: 04-applications/perception/image-classification.md
+      - 目标检测: 04-applications/perception/object-detection.md
+      - 图像分割: 04-applications/perception/segmentation.md
+      - 光流估计: 04-applications/perception/optical-flow.md
+      - 深度估计: 04-applications/perception/depth-estimation.md
+      - OCR 与文档智能: 04-applications/perception/ocr.md
+    - 4.2 3D 视觉与空间智能:
       - 04-applications/3dv/index.md
       - 相机模型与 Plücker Embedding: 04-applications/3dv/camera-embedding.md
-      - 多视图重建: 04-applications/3dv/mvs.md
+      - MVS 与 SfM: 04-applications/3dv/mvs.md
+      - SLAM: 04-applications/3dv/slam.md
       - NeRF: 04-applications/3dv/nerf.md
-      - 3D Gaussian Splatting: 04-applications/3dv/3dgs.md
-      - Feed-Forward 3D 重建: 04-applications/3dv/feed-forward.md
+      - Gaussian Splatting: 04-applications/3dv/gaussian-splatting.md
+      - Feed-Forward 重建: 04-applications/3dv/feed-forward.md
+      - 后向优化方法: 04-applications/3dv/optical-methods.md
       - 三维模型生成:
         - 04-applications/3dv/3d-generation/index.md
         - TRELLIS: 04-applications/3dv/3d-generation/trellis.md
         - SAM3D: 04-applications/3dv/3d-generation/sam3d.md
-    - 传统感知:
-      - 04-applications/perception/index.md
-      - 目标检测: 04-applications/perception/object-detection.md
-      - 图像分割: 04-applications/perception/segmentation.md
-      - 深度估计: 04-applications/perception/depth-estimation.md
-      - 姿态估计: 04-applications/perception/pose-estimation.md
-    - 多模态大模型:
+      - 多模态大模型在 3D 中的应用: 04-applications/3dv/multimodal-3d.md
+    - 4.3 语音与音频智能:
+      - 04-applications/audio/index.md
+      - ASR 语音识别: 04-applications/audio/asr.md
+      - TTS 语音合成: 04-applications/audio/tts.md
+      - 语音增强: 04-applications/audio/speech-enhancement.md
+      - 音视频多模态理解: 04-applications/audio/audio-visual.md
+    - 4.4 搜索、排序与信息检索:
+      - 04-applications/retrieval/index.md
+      - ANN 与 HNSW: 04-applications/retrieval/ann-hnsw.md
+      - Learning to Rank: 04-applications/retrieval/learning-to-rank.md
+      - 稠密检索: 04-applications/retrieval/dense-retrieval.md
+      - 神经排序: 04-applications/retrieval/neural-ranking.md
+      - RAG: 04-applications/retrieval/rag.md
+      - 多模态 RAG: 04-applications/retrieval/multimodal-rag.md
+      - Agentic Retrieval: 04-applications/retrieval/agentic-retrieval.md
+    - 4.5 图像与视频生成:
+      - 04-applications/generation/index.md
+      - SD 与 FLUX: 04-applications/generation/sd-flux.md
+      - SVD 视频生成: 04-applications/generation/svd.md
+      - DiT 架构: 04-applications/generation/dit.md
+      - 编辑与定制化: 04-applications/generation/editing-customization.md
+      - 条件生成: 04-applications/generation/conditional-generation.md
+      - 流式生成: 04-applications/generation/streaming-generation.md
+      - 生成模型做感知任务: 04-applications/generation/generation-for-perception.md
+      - 扩散模型上的强化学习: 04-applications/generation/diffusion-rl.md
+    - 4.6 多模态大模型:
       - 04-applications/multimodal/index.md
-      - 解码方式: 04-applications/multimodal/decoding.md
+      - 语言编码器: 04-applications/multimodal/language-encoder.md
       - 视觉编码器:
         - 04-applications/multimodal/encoders/index.md
         - CLIP: 04-applications/multimodal/encoders/clip.md
         - BLIP & BLIP-2: 04-applications/multimodal/encoders/blip.md
         - SigLIP: 04-applications/multimodal/encoders/siglip.md
+      - 解码方式: 04-applications/multimodal/decoding.md
       - 视觉语言模型: 04-applications/multimodal/vlm.md
       - 大语言模型基础: 04-applications/multimodal/llm-basics.md
       - 思维链（CoT）: 04-applications/multimodal/cot.md
       - LoRA 与参数高效微调: 04-applications/multimodal/lora.md
-    - Agent:
+      - 对齐与强化: 04-applications/multimodal/alignment.md
+      - 多图理解: 04-applications/multimodal/multi-image.md
+    - 4.7 MLSys:
+      - 04-applications/mlsys/index.md
+      - 训练并行策略: 04-applications/mlsys/training-parallelism.md
+      - 量化: 04-applications/mlsys/quantization.md
+      - KV Cache 优化: 04-applications/mlsys/kv-cache.md
+      - Flash Attention: 04-applications/mlsys/flash-attention.md
+      - Sparse 与 MoE: 04-applications/mlsys/sparse-moe.md
+      - Speculative Decoding: 04-applications/mlsys/speculative-decoding.md
+      - 编译优化: 04-applications/mlsys/compilation.md
+    - 4.8 Agent 与工具使用:
       - 04-applications/agent/index.md
       - Agent 设计范式: 04-applications/agent/agent-design.md
-      - RAG: 04-applications/agent/rag.md
       - 工具调用: 04-applications/agent/tool-use.md
+      - Planning: 04-applications/agent/planning.md
+      - Memory: 04-applications/agent/memory.md
       - 多智能体: 04-applications/agent/multi-agent.md
-    - 具身智能:
+      - Workflow Agent: 04-applications/agent/workflow-agent.md
+    - 4.9 具身智能与机器人:
       - 04-applications/embodied/index.md
       - 传统运动控制算法:
         - 04-applications/embodied/classical-control/index.md
@@ -230,4 +279,20 @@ nav:
         - 动力学: 04-applications/embodied/classical-control/dynamics.md
         - 关节空间控制: 04-applications/embodied/classical-control/joint-space-control.md
         - 操作空间控制: 04-applications/embodied/classical-control/operational-space-control.md
-      - 操作与控制: 04-applications/embodied/manipulation.md
+      - 模仿学习（应用层）: 04-applications/embodied/imitation-learning.md
+      - 导航: 04-applications/embodied/navigation.md
+      - 操作: 04-applications/embodied/manipulation.md
+      - 运动控制: 04-applications/embodied/locomotion.md
+      - VLA 模型: 04-applications/embodied/vla.md
+      - Real2Sim: 04-applications/embodied/real2sim.md
+      - Sim2Real: 04-applications/embodied/sim2real.md
+      - World Model: 04-applications/embodied/world-model.md
+    - 4.10 AI for Science:
+      - 04-applications/ai4science/index.md
+      - 结构、序列与功能: 04-applications/ai4science/structure-function.md
+      - 蛋白质结构预测: 04-applications/ai4science/protein.md
+      - 分子与材料设计: 04-applications/ai4science/molecular-materials.md
+      - 气象预测: 04-applications/ai4science/weather.md
+      - PDE 与科学计算代理: 04-applications/ai4science/scientific-computing.md
+    - 4.11 量化与金融:
+      - 04-applications/quant/index.md

@@ -11,3 +11,4 @@
 | [ViT](vit.md) | Patch Embedding、图像分类与预训练 | Transformer |
 | [DPT](dpt.md) | 稠密预测 Transformer、深度/分割头 | ViT |
 | [等变网络](equivariant.md) | 旋转/平移等变性、几何深度学习 | 线性代数 |
+| [对比学习](contrastive-learning.md) | InfoNCE、正负样本构造、zero-shot transfer | Transformer |
