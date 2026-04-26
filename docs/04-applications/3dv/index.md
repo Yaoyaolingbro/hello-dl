@@ -12,5 +12,7 @@
 | [Gaussian Splatting](gaussian-splatting.md) | 3D/4D GS、稀疏化、可微光栅化 | NeRF |
 | [Feed-Forward 重建](feed-forward.md) | Dust3r、Cut3r、VGGT 端到端重建 | NeRF、Transformer |
 | [后向优化方法](optical-methods.md) | RAFT 及迭代优化框架 | CNN |
+| [场景流](scene-flow.md) | SpatialTracker、动态三维追踪 | 光流、3DGS |
+| [物体位姿估计](pose-estimation.md) | 6DoF 位姿、PnP、FoundationPose | 相机模型、深度估计 |
 | [三维模型生成](3d-generation/index.md) | TRELLIS、文本/图像驱动的 3D 生成 | 扩散模型、3DGS |
 | [多模态大模型在 3D 中的应用](multimodal-3d.md) | 3D-LLM、SpatialVLM | VLM |

@@ -205,6 +205,8 @@ nav:
       - Gaussian Splatting: 04-applications/3dv/gaussian-splatting.md
       - Feed-Forward 重建: 04-applications/3dv/feed-forward.md
       - 后向优化方法: 04-applications/3dv/optical-methods.md
+      - 场景流: 04-applications/3dv/scene-flow.md
+      - 物体位姿估计: 04-applications/3dv/pose-estimation.md
       - 三维模型生成:
         - 04-applications/3dv/3d-generation/index.md
         - TRELLIS: 04-applications/3dv/3d-generation/trellis.md
@@ -250,6 +252,7 @@ nav:
       - LoRA 与参数高效微调: 04-applications/multimodal/lora.md
       - 对齐与强化: 04-applications/multimodal/alignment.md
       - 多图理解: 04-applications/multimodal/multi-image.md
+      - 统一生成与理解: 04-applications/multimodal/unified-gen-understanding.md
     - 4.7 MLSys:
       - 04-applications/mlsys/index.md
       - 训练并行策略: 04-applications/mlsys/training-parallelism.md
@@ -284,6 +287,7 @@ nav:
       - 操作: 04-applications/embodied/manipulation.md
       - 运动控制: 04-applications/embodied/locomotion.md
       - VLA 模型: 04-applications/embodied/vla.md
+      - π 系列工作: 04-applications/embodied/pi-series.md
       - Real2Sim: 04-applications/embodied/real2sim.md
       - Sim2Real: 04-applications/embodied/sim2real.md
       - World Model: 04-applications/embodied/world-model.md
