@@ -2,10 +2,12 @@
 
 !!! info "参考资料"
     **教程**
+
     - [Backpropagation, Intuitions](https://cs231n.github.io/optimization-2/) — Stanford CS231n，用计算图讲链式法则，非常直观
     - [Yes you should understand backprop](https://karpathy.medium.com/yes-you-should-understand-backprop-e2f06eab496b) — Andrej Karpathy，说明为什么不能只靠自动微分
 
     **教材**
+
     - *Mathematics for Machine Learning* (Deisenroth et al.) — Chapter 5.6
 
 ---
@@ -165,6 +167,7 @@ for d in [5, 10, 20, 50]:
 ```
 
 !!! tip "在深度学习中的应用"
+
     - **所有反向传播**：本节公式就是 `Linear` 层 `.backward()` 的底层实现。理解它才能调 batch size 时判断梯度累积对不对。
     - **梯度裁剪**：监控 Jacobian 乘积的范数，超过阈值就缩放梯度（`torch.nn.utils.clip_grad_norm_`）。
     - **残差连接**：让 Jacobian 包含单位矩阵分量，梯度传播路径上始终有"恒等捷径"。

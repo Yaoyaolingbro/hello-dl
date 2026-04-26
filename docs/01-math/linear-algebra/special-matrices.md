@@ -2,6 +2,7 @@
 
 !!! info "参考资料"
     **教材**
+
     - Gilbert Strang, *Introduction to Linear Algebra*, 5th ed. — Chapter 6（对称矩阵与正定）
     - *Mathematics for Machine Learning* (Deisenroth et al.) — Chapter 3.4–3.5
 
@@ -31,6 +32,7 @@
 对称矩阵的所有特征值都是**实数**，且不同特征值对应的特征向量**正交**。这个性质（谱定理）允许对其做正交对角化，是后面特征值分解章节的核心。
 
 深度学习里的对称矩阵：
+
 - 协方差矩阵 $\Sigma = \mathbb{E}[(\mathbf{x} - \mu)(\mathbf{x} - \mu)^\top]$
 - 注意力分数矩阵（若 Q = K，则 $\mathbf{Q}\mathbf{K}^\top$ 对称）
 - Hessian 矩阵（二阶偏导数矩阵，当函数足够光滑时）
@@ -78,6 +80,7 @@ $$\mathbf{v}^\top \mathbf{S} \mathbf{v} = \frac{1}{n-1} \mathbf{v}^\top \mathbf{
 几何含义：正交矩阵只做**旋转**（$\det(\mathbf{Q}) = 1$）或**旋转加反射**（$\det(\mathbf{Q}) = -1$），不缩放长度。所以正交变换保长度：$\|\mathbf{Q}\mathbf{x}\|_2 = \|\mathbf{x}\|_2$。
 
 正交矩阵在深度学习里的用途：
+
 - SVD 的左右奇异向量矩阵 $\mathbf{U}$、$\mathbf{V}$ 是正交的
 - 旋转矩阵（SE(3) 群）是 $3 \times 3$ 正交矩阵（$\det = 1$）
 - 正交初始化（Orthogonal Initialization）：让初始权重矩阵是正交的，防止梯度爆炸/消失
@@ -139,6 +142,7 @@ print(np.allclose(P @ P, P))  # True
 ```
 
 !!! tip "在深度学习中的应用"
+
     - **BatchNorm / LayerNorm 的稳定性**：归一化操作本质上是把激活值映射到单位超球面，涉及正交变换。
     - **Attention 的数值稳定性**：Softmax 前除以 $\sqrt{d_k}$ 是为了让注意力分数矩阵的特征值不会过大，防止梯度饱和。
     - **权重初始化**：Orthogonal Initialization（PyTorch `nn.init.orthogonal_`）使初始权重保长度，防止深层网络的梯度爆炸/消失。

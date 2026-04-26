@@ -2,10 +2,12 @@
 
 !!! info "参考资料"
     **教材**
+
     - *Mathematics for Machine Learning* (Deisenroth et al.) — Chapter 2.3
     - Rudin, *Principles of Mathematical Analysis*, Chapter 2（完整数学处理，可选）
 
     **工程参考**
+
     - [FAISS 文档](https://faiss.ai/) — 工业界最常用的近似最近邻库，内置 L2/内积/余弦距离
     - [Annoy](https://github.com/spotify/annoy) — Spotify 开源，树结构 ANN
 
@@ -140,6 +142,7 @@ print(scores)   # 最近邻的余弦相似度，范围 [-1, 1]
 ```
 
 !!! tip "在深度学习中的应用"
+
     - **向量检索（ANN）**：FAISS 支持 $L^2$ 和内积两种索引，归一化后内积 = 余弦检索。工业界图文检索一般用余弦距离。
     - **HNSW 算法**：目前最主流的近似最近邻算法，依赖三角不等式来剪枝搜索路径，因此要用满足三角不等式的距离。
     - **RAG 文档检索**：文档 chunk 和 query 的相似度几乎全部用余弦距离，因为文本长度（幅度）不应影响语义相似度。

@@ -2,10 +2,12 @@
 
 !!! info "参考资料"
     **教材**
+
     - Spielman, *Spectral Graph Theory* — [课程讲义免费](http://www.cs.yale.edu/homes/spielman/sgt/)（进阶）
     - *Graph Neural Networks: Foundations, Frontiers, and Applications* — Chapter 3
 
     **论文**
+
     - Kipf & Welling, "Semi-Supervised Classification with Graph Convolutional Networks", ICLR 2017
     - Defferrard et al., "Convolutional Neural Networks on Graphs with Fast Localized Spectral Filtering" (ChebNet), NeurIPS 2016
 
@@ -178,6 +180,7 @@ print(prop.round(3))
 ```
 
 !!! tip "在深度学习中的应用"
+
     - **图神经网络（GNN）**：GCN、GAT、GraphSAGE 都依赖邻接矩阵的各种变体来做消息传递。理解拉普拉斯矩阵是读懂 GCN 论文的关键。
     - **分子性质预测**：原子是节点，化学键是边，GNN 直接在分子图上学习分子性质（如药物活性）。
     - **知识图谱嵌入**：TransE、RotatE 等方法把实体和关系嵌入到向量空间，依赖图的邻接结构做归纳。

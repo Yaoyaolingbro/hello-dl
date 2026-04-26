@@ -2,10 +2,12 @@
 
 !!! info "参考资料"
     **教材**
+
     - *Mathematics for Machine Learning* (Deisenroth et al.) — Chapter 3.9（简要）
     - Needham, *Visual Complex Analysis* — 最直观的复分析入门（可选延伸）
 
     **论文（应用）**
+
     - Su et al., "RoFormer: Enhanced Transformer with Rotary Position Embedding", 2021
 
 ---
@@ -150,6 +152,7 @@ print(q1_encoded @ q2_encoded)
 ```
 
 !!! tip "在深度学习中的应用"
+
     - **RoPE 位置编码**：LLaMA/Qwen/Mistral 的标准选择，支持外推到训练长度以外（相比绝对位置编码更灵活）。
     - **频域分析**：复数是傅里叶变换的数学语言，下一节会详细展开。
     - **3D 旋转**：四元数在机器人学、3D 生成（如 AnyDoor、ZeroScope）中用于表示和插值旋转。

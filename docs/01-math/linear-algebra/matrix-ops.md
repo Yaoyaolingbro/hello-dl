@@ -2,6 +2,7 @@
 
 !!! info "参考资料"
     **教材**
+
     - Gilbert Strang, *Introduction to Linear Algebra*, 5th ed. — Chapter 2–3
     - *Mathematics for Machine Learning* (Deisenroth et al.) — Chapter 2.2
 

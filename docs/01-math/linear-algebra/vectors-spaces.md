@@ -2,10 +2,12 @@
 
 !!! info "参考资料"
     **教材**
+
     - Gilbert Strang, *Introduction to Linear Algebra*, 5th ed. — Chapter 1–2
     - *Mathematics for Machine Learning* (Deisenroth et al.) — Chapter 2.4–2.7，[免费 PDF](https://mml-book.github.io/)
 
     **延伸阅读**
+
     - 3Blue1Brown, *Essence of Linear Algebra*（YouTube 可视化系列，强烈推荐配合本节）
 
 ---
@@ -112,6 +114,7 @@ $$\|\mathbf{A}\|_F = \sqrt{\sum_{i,j} A_{ij}^2} = \sqrt{\text{tr}(\mathbf{A}^\to
 将向量除以自身的 $L^2$ 范数，得到单位向量：$\hat{\mathbf{x}} = \mathbf{x} / \|\mathbf{x}\|_2$。
 
 标准化是深度学习里的高频操作：
+
 - 余弦相似度 = 标准化后的内积
 - Layer Normalization 把每层激活值的范数控制在可控范围内
 - 对比学习（SimCLR、CLIP）的 loss 在特征标准化后才有意义
@@ -166,6 +169,7 @@ print("Ridge 系数（均匀）：", ridge.coef_.round(2))
 ```
 
 !!! tip "在深度学习中的应用"
+
     - **损失函数**：MSE 用 $L^2$ 范数，MAE 用 $L^1$ 范数。$L^1$ 对离群点更鲁棒，因为误差不被平方放大。
     - **正则化**：L2 正则化（Weight Decay）= 约束参数向量的 $L^2$ 范数，防止模型过拟合。
     - **注意力机制**：$\text{softmax}(\mathbf{Q}\mathbf{K}^\top / \sqrt{d_k})$ 里的分母 $\sqrt{d_k}$ 就是为了控制内积的幅度——随着维度 $d_k$ 增大，点积绝对值也会增大，除以 $\sqrt{d_k}$ 让其保持在合理范围。

@@ -2,10 +2,12 @@
 
 !!! info "参考资料"
     **教材**
+
     - Gilbert Strang, *Introduction to Linear Algebra*, 5th ed. — Chapter 7
     - *Mathematics for Machine Learning* (Deisenroth et al.) — Chapter 4.5
 
     **论文**
+
     - Hu et al., "LoRA: Low-Rank Adaptation of Large Language Models", ICLR 2022
 
 ---
@@ -38,6 +40,7 @@
     $$\mathbf{A} = \mathbf{U} \mathbf{\Sigma} \mathbf{V}^\top$$
 
     其中：
+
     - $\mathbf{U} \in \mathbb{R}^{m \times m}$：正交矩阵，列为**左奇异向量**
     - $\mathbf{\Sigma} \in \mathbb{R}^{m \times n}$：仅主对角线非零的矩阵，对角元素为奇异值 $\sigma_1 \geq \cdots \geq \sigma_r \geq 0$
     - $\mathbf{V} \in \mathbb{R}^{n \times n}$：正交矩阵，列为**右奇异向量**
@@ -135,6 +138,7 @@ for r in [4, 8, 16, 32]:
 ```
 
 !!! tip "在深度学习中的应用"
+
     - **LoRA 微调**：在 ChatGPT 之后几乎成为 LLM 微调的标准方法。秩 $r=8$ 在大多数任务上就能取得接近全量微调的效果。
     - **权重压缩**：对预训练权重做截断 SVD，可以减少推理时的存储和计算量。
     - **注意力矩阵的低秩近似**：Linformer 用低秩近似 attention 矩阵，把 Transformer 的复杂度从 $O(n^2)$ 降到 $O(n)$。

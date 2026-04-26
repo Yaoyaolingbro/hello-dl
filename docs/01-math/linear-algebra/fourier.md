@@ -2,10 +2,12 @@
 
 !!! info "参考资料"
     **教程**
+
     - [An Interactive Introduction to Fourier Transforms](https://www.jezzamon.com/fourier/) — 可交互可视化，强烈推荐先看这个
     - 3Blue1Brown, "But what is the Fourier Transform?" （YouTube）
 
     **论文（应用）**
+
     - Li et al., "Fourier Neural Operator for Parametric Partial Differential Equations", ICLR 2021
     - Su et al., "RoFormer", 2021（RoPE 与旋转频率）
 
@@ -153,6 +155,7 @@ print(log_mel.shape)  # (80, 87)：80 个 mel 通道，87 个时间帧
 ```
 
 !!! tip "在深度学习中的应用"
+
     - **语音识别**：Whisper 用 80 通道 mel 谱图作为输入，窗长 25ms，帧移 10ms。
     - **音乐生成**：MusicLM、AudioLDM 在 mel 谱图空间里做扩散，再用 vocoder 转回波形。
     - **FNO**：直接在频域里学习 PDE 的解，在 Navier-Stokes 方程求解上比传统数值方法快 1000 倍。

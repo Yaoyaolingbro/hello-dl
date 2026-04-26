@@ -2,10 +2,12 @@
 
 !!! info "参考资料"
     **教程**
+
     - [Matrix Cookbook](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf) — 矩阵求导公式手册，遇到具体公式直接查
     - [Matrix Calculus](https://explained.ai/matrix-calculus/) (Parr & Howard) — 讲解最清晰的在线教程，强烈推荐
 
     **教材**
+
     - *Mathematics for Machine Learning* (Deisenroth et al.) — Chapter 5.3–5.5
 
 ---
@@ -172,6 +174,7 @@ print(torch.allclose(J, W))  # True
 ```
 
 !!! tip "在深度学习中的应用"
+
     - **线性层梯度**：$\mathbf{y} = \mathbf{W}\mathbf{x}$ 时，$\partial L / \partial \mathbf{x} = \mathbf{W}^\top (\partial L / \partial \mathbf{y})$，$\partial L / \partial \mathbf{W} = (\partial L / \partial \mathbf{y}) \mathbf{x}^\top$。这就是全连接层反向传播的完整公式。
     - **Weight Decay**：对损失加 $\frac{\lambda}{2}\|\mathbf{W}\|_F^2$ 后，梯度额外多了 $\lambda \mathbf{W}$，即参数向零衰减。
     - **二阶优化**：L-BFGS、K-FAC 等方法近似使用 Hessian 信息，在小批量或凸问题上收敛更快。

@@ -2,10 +2,12 @@
 
 !!! info "参考资料"
     **教材**
+
     - Gilbert Strang, *Introduction to Linear Algebra*, 5th ed. — Chapter 6
     - *Mathematics for Machine Learning* (Deisenroth et al.) — Chapter 4.2–4.4
 
     **可视化**
+
     - 3Blue1Brown, "Eigenvectors and eigenvalues"（YouTube）
 
 ---
@@ -72,6 +74,7 @@ $$\mathbf{A} = \mathbf{Q} \mathbf{\Lambda} \mathbf{Q}^{-1}$$
 **证明思路（归纳）：** 对 $n=1$ 显然成立。对一般 $n$，可以证明实对称矩阵至少有一个实特征值 $\lambda_1$，对应特征向量 $\mathbf{v}_1$。在 $\mathbf{v}_1$ 的正交补空间里，$\mathbf{A}$ 的限制仍然是对称矩阵，递归应用即可。
 
 **推论：**
+
 - 对称矩阵的所有特征值都是实数
 - 不同特征值对应的特征向量相互正交
 - 正定矩阵 $\Leftrightarrow$ 所有特征值 $> 0$（正定性等价条件）
@@ -99,6 +102,7 @@ $$f(\mathbf{A}) = \mathbf{Q} f(\mathbf{\Lambda}) \mathbf{Q}^\top = \mathbf{Q} \,
 主成分分析（PCA）的核心就是对协方差矩阵做特征值分解。给定数据矩阵 $\mathbf{X} \in \mathbb{R}^{n \times d}$（已中心化），协方差矩阵 $\mathbf{S} = \mathbf{X}^\top \mathbf{X} / n$ 是对称正半定的。
 
 对 $\mathbf{S}$ 做特征值分解 $\mathbf{S} = \mathbf{Q}\mathbf{\Lambda}\mathbf{Q}^\top$：
+
 - 特征向量（$\mathbf{Q}$ 的列）是主成分方向
 - 特征值是各方向上的方差
 - 取前 $k$ 个最大特征值对应的特征向量，即可将数据从 $d$ 维降到 $k$ 维
@@ -164,6 +168,7 @@ print(f"主成分解释方差: {eigenvalues[-1]:.3f} / {eigenvalues.sum():.3f} =
 ```
 
 !!! tip "在深度学习中的应用"
+
     - **PCA 预处理**：高维特征降维，去除冗余信息，在 NLP 早期和图像处理中常用。
     - **谱图卷积**：GNN 的谱方法（ChebNet、GCN）依赖图拉普拉斯矩阵的特征分解，下一节详解。
     - **注意力矩阵分析**：分析 Transformer 的注意力头时，用特征值分析其"信息混合"方式。
