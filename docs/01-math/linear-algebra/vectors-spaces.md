@@ -176,4 +176,4 @@ print("Ridge 系数（均匀）：", ridge.coef_.round(2))
     - **对比学习**：CLIP、SimCLR 在计算相似度前都先做 $L^2$ 标准化，让内积直接等于余弦相似度。
 
 !!! note "本节结论在后面的用处"
-    $L^2$ 范数和内积是**矩阵求导**（下下节）的基础：梯度 $\nabla_\mathbf{x} \|\mathbf{x}\|^2 = 2\mathbf{x}$ 的推导直接用到这里的定义。Cauchy-Schwarz 不等式在分析**优化收敛速度**时也会反复出现。
+    $L^2$ 范数和内积是**矩阵求导**（第五节）的基础：梯度 $\nabla_\mathbf{x} \|\mathbf{x}\|^2 = 2\mathbf{x}$ 的推导直接用到这里的定义。Cauchy-Schwarz 不等式在分析**优化收敛速度**时也会反复出现。
