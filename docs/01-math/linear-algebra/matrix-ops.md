@@ -158,65 +158,6 @@ $$\mathbf{A}^{-1}\mathbf{A} = \mathbf{A}\mathbf{A}^{-1} = \mathbf{I}$$
 
 在深度学习里，很少直接计算逆矩阵（计算量 $O(n^3)$，且数值不稳定）。遇到需要解线性系统 $\mathbf{A}\mathbf{x} = \mathbf{b}$ 的情形，通常用 LU 分解或共轭梯度法代替。
 
----
-
-## 代码验证
-
-```python
-import numpy as np
-
-A = np.array([[1.0, 2.0], [3.0, 4.0]])
-B = np.array([[5.0, 6.0], [7.0, 8.0]])
-
-# 矩阵乘法不可交换
-print(A @ B)
-# [[19. 22.]
-#  [43. 50.]]
-print(B @ A)
-# [[23. 34.]
-#  [31. 46.]]
-# <- 结果不同
-
-# 迹
-print(np.trace(A))  # 1 + 4 = 5.0
-
-# 迹的循环置换：tr(AB) = tr(BA)
-print(np.trace(A @ B))  # 67.0
-print(np.trace(B @ A))  # 67.0  <- 相等
-
-# 行列式
-print(np.linalg.det(A))  # 1*4 - 2*3 = -2.0
-
-# 行列式的乘法性质：det(AB) = det(A) * det(B)
-print(np.linalg.det(A @ B))              # ≈ -4.0
-print(np.linalg.det(A) * np.linalg.det(B))  # -2 * 2 = -4.0  <- 相等
-
-# 秩
-C = np.array([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0], [7.0, 8.0, 9.0]])
-print(np.linalg.matrix_rank(C))  # 2（第三行 = 第一行 + 2*(第二行 - 第一行)）
-
-# 逆矩阵
-A_inv = np.linalg.inv(A)
-print(A_inv @ A)
-# [[1. 0.]
-#  [0. 1.]]  <- 确实是单位矩阵（浮点误差级别）
-```
-
-```python
-# LoRA 低秩分解示意
-import numpy as np
-
-d, r = 512, 8   # d: 原矩阵维度，r: 低秩近似秩
-
-# 假设权重更新矩阵是低秩的
-A = np.random.randn(d, r) * 0.01   # d×r 的小矩阵
-B = np.random.randn(r, d) * 0.01   # r×d 的小矩阵
-delta_W = A @ B                     # d×d，但秩 <= r=8
-
-print(f"原始参数量: {d*d:,}")        # 262,144
-print(f"LoRA 参数量: {d*r + r*d:,}") # 8,192  <- 节省 32 倍
-print(f"delta_W 的秩: {np.linalg.matrix_rank(delta_W)}")  # 8
-```
 
 !!! note "本节结论在后面的用处"
     **迹的循环置换性**在矩阵求导的推导（下一节）中会反复用到，是化简矩阵偏导数的主要工具。**秩**的概念是理解 SVD 低秩近似（后续章节）的直接前置知识。

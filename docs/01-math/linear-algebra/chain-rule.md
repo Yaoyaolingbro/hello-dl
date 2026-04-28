@@ -133,63 +133,6 @@ $$
 
 残差连接（ResNet）通过让 $\mathbf{J}_i = \mathbf{I} + \text{小量}$ 来保证梯度在传播时不消失，这是其成功的数学原因。
 
----
-
-## 代码验证
-
-```python
-import torch
-import torch.nn as nn
-
-# 手动实现全连接层反向传播，与 PyTorch autograd 对比
-torch.manual_seed(0)
-
-batch = 3
-n_in, n_out = 4, 5
-W = torch.randn(n_out, n_in, requires_grad=True)
-b = torch.randn(n_out, requires_grad=True)
-x = torch.randn(n_in)
-
-# 前向传播
-y = W @ x + b
-L = y.sum()  # 简单 loss
-
-# PyTorch 自动求导
-L.backward()
-grad_W_auto = W.grad.clone()
-grad_x_auto = torch.autograd.grad(L, x, retain_graph=True)[0]  # 需要 x.requires_grad=True
-
-# 手动公式
-# dL/dy = 全 1 向量（L = sum(y)）
-grad_y = torch.ones(n_out)
-grad_W_manual = grad_y.unsqueeze(1) @ x.unsqueeze(0)  # (n_out, 1) @ (1, n_in)
-grad_x_manual = W.T @ grad_y
-
-print(torch.allclose(grad_W_auto, grad_W_manual))  # True
-```
-
-```python
-# 演示梯度消失：深层无残差网络 vs 有残差网络
-import torch
-
-def grad_norm_deep(depth, use_residual=False):
-    x = torch.randn(64, requires_grad=True)
-    h = x
-    for _ in range(depth):
-        W = torch.randn(64, 64) * 0.1  # 小权重模拟深层
-        h_new = torch.tanh(W @ h)
-        h = h + h_new if use_residual else h_new
-    L = h.sum()
-    L.backward()
-    return x.grad.norm().item()
-
-for d in [5, 10, 20, 50]:
-    g_plain = grad_norm_deep(d, use_residual=False)
-    g_res   = grad_norm_deep(d, use_residual=True)
-    print(f"depth={d}: plain={g_plain:.2e}, residual={g_res:.2e}")
-# depth=5:  plain=5.34e-03, residual=3.21e-01
-# depth=50: plain=2.71e-26, residual=1.87e-01  <- 残差网络梯度几乎不消失
-```
 
 !!! tip "在深度学习中的应用"
 

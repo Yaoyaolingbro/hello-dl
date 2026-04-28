@@ -18,6 +18,10 @@
 
 特征值分解把矩阵"对角化"，把一个复杂的线性变换分解成：先旋转到自然坐标系，做纯缩放，再旋转回去。理解这个分解，是理解 PCA、谱聚类、GNN 谱卷积的共同基础。
 
+![特征向量在矩阵变换下的行为](https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Eigenvalue_equation.svg/600px-Eigenvalue_equation.svg.png)
+
+*矩阵 $\mathbf{A}$ 作用在不同向量上：普通向量（紫色）方向和长度都改变；特征向量（红色、蓝色）方向不变，只被各自的特征值缩放。来源：[Wikipedia](https://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors)*
+
 ---
 
 ## 符号约定
@@ -130,65 +134,6 @@ $$f(\mathbf{A}) = \mathbf{Q} f(\mathbf{\Lambda}) \mathbf{Q}^\top = \mathbf{Q} \,
 - 特征值是各方向上的方差
 - 取前 $k$ 个最大特征值对应的特征向量，即可将数据从 $d$ 维降到 $k$ 维
 
----
-
-## 代码验证
-
-```python
-import numpy as np
-
-# 对称矩阵的特征值分解
-A = np.array([[4.0, 2.0], [2.0, 3.0]])  # 对称正定矩阵
-
-# eigvalsh 专门用于对称矩阵，返回实数特征值，比 eig 更稳定
-eigenvalues, eigenvectors = np.linalg.eigh(A)
-print("特征值:", eigenvalues)   # [1.697..., 5.302...]，全正（正定）
-
-# 验证 A = Q Λ Q^T
-Lambda = np.diag(eigenvalues)
-Q = eigenvectors
-reconstructed = Q @ Lambda @ Q.T
-print(np.allclose(reconstructed, A))  # True
-
-# 验证特征向量正交：Q^T Q = I
-print(np.allclose(Q.T @ Q, np.eye(2)))  # True
-
-# 验证特征方程：A v = λ v
-for i in range(2):
-    lhs = A @ Q[:, i]
-    rhs = eigenvalues[i] * Q[:, i]
-    print(np.allclose(lhs, rhs))  # True, True
-
-# 用特征值分解快速计算矩阵幂次
-A_power_5_direct = np.linalg.matrix_power(A, 5)
-A_power_5_evd = Q @ np.diag(eigenvalues ** 5) @ Q.T
-print(np.allclose(A_power_5_direct, A_power_5_evd))  # True
-```
-
-```python
-# PCA 的完整实现（基于特征值分解）
-import numpy as np
-
-np.random.seed(42)
-# 生成相关数据：主方向是 [1, 2] / sqrt(5)
-n, d = 100, 2
-X = np.random.randn(n, d) @ np.array([[2, 0], [1, 1]])  # 数据有相关性
-
-# 中心化
-X_centered = X - X.mean(axis=0)
-
-# 协方差矩阵
-S = X_centered.T @ X_centered / n
-
-# 特征值分解（eigh 保证结果按升序排列）
-eigenvalues, eigenvectors = np.linalg.eigh(S)
-
-# PCA 降维：取最大特征值对应的方向（降到 1 维）
-principal_component = eigenvectors[:, -1]  # 最大特征值对应的列
-X_projected = X_centered @ principal_component
-print(f"原始数据方差: {X_centered.var(axis=0)}")
-print(f"主成分解释方差: {eigenvalues[-1]:.3f} / {eigenvalues.sum():.3f} = {eigenvalues[-1]/eigenvalues.sum():.1%}")
-```
 
 !!! tip "在深度学习中的应用"
 

@@ -131,45 +131,6 @@ $$\hat{\mathbf{v}} = \mathbf{P}\mathbf{v} = \begin{pmatrix}3\\0\end{pmatrix}, \q
 
 验证正交性：$\begin{pmatrix}1&0\end{pmatrix}\begin{pmatrix}0\\4\end{pmatrix} = 0$ ✓，验证幂等性：$\mathbf{P}^2 = \mathbf{P}$ ✓
 
----
-
-## 代码验证
-
-```python
-import numpy as np
-
-# 生成正定矩阵（A^T A 总是正半定的；若 A 满秩，则正定）
-A = np.random.randn(4, 4)
-S = A.T @ A                      # 正半定矩阵
-
-eigenvalues = np.linalg.eigvalsh(S)
-print(eigenvalues)  # 全部 >= 0，验证正半定
-
-# Cholesky 分解（只对正定矩阵有效）
-S_pd = S + np.eye(4) * 1e-6     # 加小扰动确保正定
-L = np.linalg.cholesky(S_pd)    # S_pd = L @ L.T
-print(np.allclose(L @ L.T, S_pd))  # True
-
-# 正交矩阵：验证 Q^T Q = I
-Q, _ = np.linalg.qr(np.random.randn(4, 4))   # QR 分解得到正交矩阵
-print(np.allclose(Q.T @ Q, np.eye(4)))         # True
-print(np.allclose(np.linalg.norm(Q[:, 0]), 1.0))  # 列向量是单位向量: True
-
-# 正交变换保长度
-x = np.random.randn(4)
-print(np.allclose(np.linalg.norm(Q @ x), np.linalg.norm(x)))  # True
-
-# 投影矩阵：向列空间投影
-A_col = np.array([[1.0], [0.0], [0.0]])       # R^3 中 x 轴方向
-P = A_col @ np.linalg.inv(A_col.T @ A_col) @ A_col.T
-print(P)
-# [[1. 0. 0.]
-#  [0. 0. 0.]
-#  [0. 0. 0.]]  <- 投影到 x 轴
-
-# 验证幂等性：P^2 = P
-print(np.allclose(P @ P, P))  # True
-```
 
 !!! tip "在深度学习中的应用"
 

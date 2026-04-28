@@ -22,16 +22,17 @@ applies_to: 01-math/**
 每个数学小节的固定结构：
 
 ```
-## 直觉 (Intuition)          ← 最多 5 句，必须放第一位
+## 直觉 (Intuition)          ← 最多 5 句，必须放第一位；可在此处插入示意图
 
 ## 定义与性质                ← 先说结论，再给出形式化定义
+                               ← 每个关键性质后跟一个 2D/3D 数值例子
 
 ## 推导 / 证明思路           ← 分步写，每步说目的（可选，视难度决定深度）
 
-## 代码验证                  ← NumPy / PyTorch 验证关键性质
-
 ## 在深度学习中的应用        ← 明确说"这个数学工具出现在哪里"
 ```
+
+**不写代码**：Part 1 数学基础章节用手算数值例子替代代码验证，用示意图替代可视化输出。
 
 ---
 
@@ -75,24 +76,37 @@ applies_to: 01-math/**
 
 ---
 
-## 代码规范（数学章节）
+## 示意图规范（数学章节）
 
-优先用 **NumPy** 验证数学性质，PyTorch 只在需要演示自动求导时使用。
+**每小节至少插入一张示意图**，没有示意图的章节是不完整的。图的来源和嵌入规范见 `writing-style.md` 的"图的使用规范"一节。
 
-代码的目的是**验证直觉**，不是实现算法：
+数学章节常用图的类型及搜索词：
 
-```python
-import numpy as np
+| 概念 | 推荐搜索词 |
+|------|-----------|
+| 向量、内积、投影 | `dot product projection visualization` |
+| L1/L2 范数单位球 | `L1 L2 norm unit ball comparison` |
+| 特征向量变换 | `eigenvector matrix transformation` |
+| SVD 几何含义 | `SVD singular value decomposition geometry` |
+| 梯度下降 | `gradient descent loss landscape` |
+| 正定矩阵二次型 | `positive definite quadratic form bowl` |
+| 正交投影 | `orthogonal projection vector subspace` |
 
-# 验证正定矩阵的特征值全为正
-A = np.array([[4, 2], [2, 3]])
-eigenvalues = np.linalg.eigvalsh(A)
-print(eigenvalues)  # [1.697..., 5.302...]，确实全正
+嵌入格式（Caption 必须说明图展示了什么）：
+
+```markdown
+![向量内积的几何含义](图片URL)
+
+*两向量夹角越小，内积越大；正交时内积为零。来源：[Wikipedia](链接)*
 ```
 
-每段代码前说一句"这段代码在验证什么"，输出结果写在注释里。
+## 数值例子规范
 
-偏工程的代码可以给出对应好用的一些python包的推荐。
+不写代码，改用手算数值例子：
+
+- 使用 2D 或 3D 具体数字（避免 $n$ 维泛化）
+- 给出完整计算过程，最后写验证等式（如 $=\mathbf{A}\checkmark$）
+- 几何类概念给出几何解释（"方向不变"、"面积缩放 $k$ 倍"等）
 
 ---
 
@@ -123,5 +137,6 @@ print(eigenvalues)  # [1.697..., 5.302...]，确实全正
 - [ ] 每个新符号是否有文字定义（不只是"令 $X$ 为..."）？
 - [ ] 有没有写"显然"、"不难证明"、"容易验证"？
 - [ ] 推导中每步目的是否说清楚了？
-- [ ] 代码输出结果是否写在注释里？
+- [ ] 每个重要概念后是否有 2D/3D 数值例子？
+- [ ] 是否插入了至少一张示意图，并附有 Caption 和来源？
 - [ ] 节末有没有一句话说"这个结论在后面哪一章会用到"？
