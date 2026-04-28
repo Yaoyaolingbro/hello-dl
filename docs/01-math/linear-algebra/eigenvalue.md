@@ -43,6 +43,28 @@ $$\mathbf{A} \mathbf{v} = \lambda \mathbf{v}$$
 
 求特征值：$(A - \lambda \mathbf{I})\mathbf{v} = \mathbf{0}$ 有非零解的条件是 $\det(\mathbf{A} - \lambda\mathbf{I}) = 0$（特征多项式）。
 
+### 数值例子（2×2）
+
+取对称矩阵 $\mathbf{A} = \begin{pmatrix}3&1\\1&3\end{pmatrix}$。
+
+**第一步：求特征值**
+
+$$\det(\mathbf{A}-\lambda\mathbf{I}) = (3-\lambda)^2 - 1 = \lambda^2 - 6\lambda + 8 = (\lambda-2)(\lambda-4) = 0$$
+
+得 $\lambda_1 = 2$，$\lambda_2 = 4$。
+
+**第二步：求特征向量**
+
+$\lambda_1 = 2$：$(\mathbf{A}-2\mathbf{I})\mathbf{v} = \begin{pmatrix}1&1\\1&1\end{pmatrix}\mathbf{v} = \mathbf{0}$，得 $\mathbf{v}_1 = \dfrac{1}{\sqrt{2}}\begin{pmatrix}1\\-1\end{pmatrix}$
+
+$\lambda_2 = 4$：$(\mathbf{A}-4\mathbf{I})\mathbf{v} = \begin{pmatrix}-1&1\\1&-1\end{pmatrix}\mathbf{v} = \mathbf{0}$，得 $\mathbf{v}_2 = \dfrac{1}{\sqrt{2}}\begin{pmatrix}1\\1\end{pmatrix}$
+
+**几何含义：** $\mathbf{A}$ 沿对角线方向 $\mathbf{v}_2 = [1,1]/\sqrt{2}$ 拉伸 4 倍，沿反对角线方向 $\mathbf{v}_1 = [1,-1]/\sqrt{2}$ 拉伸 2 倍。普通向量 $[3,1]^\top$ 经变换后方向和长度都变，而这两个特殊方向只被缩放。
+
+**验证分解** $\mathbf{A} = \mathbf{Q}\mathbf{\Lambda}\mathbf{Q}^\top$：
+
+$$\mathbf{Q}\mathbf{\Lambda}\mathbf{Q}^\top = \frac{1}{2}\begin{pmatrix}1&1\\-1&1\end{pmatrix}\begin{pmatrix}2&0\\0&4\end{pmatrix}\begin{pmatrix}1&-1\\1&1\end{pmatrix} = \frac{1}{2}\begin{pmatrix}2&4\\-2&4\end{pmatrix}\begin{pmatrix}1&-1\\1&1\end{pmatrix} = \begin{pmatrix}3&1\\1&3\end{pmatrix} = \mathbf{A} \checkmark$$
+
 ---
 
 ## 特征值分解（EVD）
@@ -54,6 +76,7 @@ $$\mathbf{A} = \mathbf{Q} \mathbf{\Lambda} \mathbf{Q}^{-1}$$
 其中 $\mathbf{Q} = [\mathbf{v}_1, \ldots, \mathbf{v}_n]$（列为特征向量），$\mathbf{\Lambda} = \text{diag}(\lambda_1, \ldots, \lambda_n)$。
 
 矩阵乘以向量 $\mathbf{A}\mathbf{x}$ 的计算过程可以理解为：
+
 1. $\mathbf{Q}^{-1}\mathbf{x}$：将 $\mathbf{x}$ 变换到特征基下
 2. $\mathbf{\Lambda}(\cdot)$：在特征基下做纯缩放（每个分量乘以对应特征值）
 3. $\mathbf{Q}(\cdot)$：变换回原坐标系
@@ -169,7 +192,7 @@ print(f"主成分解释方差: {eigenvalues[-1]:.3f} / {eigenvalues.sum():.3f} =
 
 !!! tip "在深度学习中的应用"
 
-    - **PCA 预处理**：高维特征降维，去除冗余信息，在 NLP 早期和图像处理中常用。
+    - **PCA 预处理**：高维特征降维，去除冗余信息，在 NLP 早期和图像处理中常用。（例如：人脸识别、图片压缩）
     - **谱图卷积**：GNN 的谱方法（ChebNet、GCN）依赖图拉普拉斯矩阵的特征分解，下一节详解。
     - **注意力矩阵分析**：分析 Transformer 的注意力头时，用特征值分析其"信息混合"方式。
     - **Hessian 分析**：优化理论里用 Hessian 的特征值分析 loss landscape 的曲率（尖锐最小值 vs 平坦最小值）。

@@ -49,6 +49,34 @@ $$\mathbf{c}_j = \mathbf{A} \mathbf{b}_j = \sum_{l=1}^k B_{lj} \mathbf{a}_l$$
 
 **外积和（最适合并行）：** $\mathbf{C} = \sum_{l=1}^k \mathbf{a}_l \mathbf{b}_l^\top$，每项是一个秩 1 矩阵。这个视角是现代矩阵乘法加速的基础。
 
+### 数值例子：矩阵乘法的三种视角
+
+取 $\mathbf{A} = \begin{pmatrix}1&2\\3&4\end{pmatrix}$，$\mathbf{B} = \begin{pmatrix}5&6\\7&8\end{pmatrix}$，计算 $\mathbf{C} = \mathbf{A}\mathbf{B}$。
+
+**逐元素视角：** $C_{11} = [1,2]\cdot[5,7]^\top = 5+14 = 19$，$C_{12} = [1,2]\cdot[6,8]^\top = 22$，以此类推。
+
+**外积和视角（最直观）：**
+
+$$\mathbf{C} = \underbrace{\begin{pmatrix}1\\3\end{pmatrix}\begin{pmatrix}5&6\end{pmatrix}}_{\text{第1列} \times \text{第1行}} + \underbrace{\begin{pmatrix}2\\4\end{pmatrix}\begin{pmatrix}7&8\end{pmatrix}}_{\text{第2列} \times \text{第2行}} = \begin{pmatrix}5&6\\15&18\end{pmatrix} + \begin{pmatrix}14&16\\28&32\end{pmatrix} = \begin{pmatrix}19&22\\43&50\end{pmatrix}$$
+
+每一项 $\mathbf{a}_l \mathbf{b}_l^\top$ 是一个**秩 1 矩阵**——整个矩阵乘法是若干秩 1 矩阵的叠加。
+
+### 外积（Outer Product）
+
+向量 $\mathbf{a} \in \mathbb{R}^m$，$\mathbf{b} \in \mathbb{R}^n$，它们的**外积**（outer product）是一个 $m \times n$ 矩阵：
+
+$$\mathbf{a} \otimes \mathbf{b} = \mathbf{a}\mathbf{b}^\top, \quad (\mathbf{a}\mathbf{b}^\top)_{ij} = a_i b_j$$
+
+外积是秩 1 矩阵，所有行都是 $\mathbf{b}^\top$ 的标量倍，所有列都是 $\mathbf{a}$ 的标量倍。
+
+**2D 例子：** $\mathbf{a} = \begin{pmatrix}1\\2\end{pmatrix}$，$\mathbf{b} = \begin{pmatrix}3\\4\end{pmatrix}$：
+
+$$\mathbf{a}\mathbf{b}^\top = \begin{pmatrix}1\\2\end{pmatrix}\begin{pmatrix}3&4\end{pmatrix} = \begin{pmatrix}1\cdot3 & 1\cdot4\\ 2\cdot3 & 2\cdot4\end{pmatrix} = \begin{pmatrix}3&4\\6&8\end{pmatrix}$$
+
+注意行之比 $[3,4] : [6,8] = 1:2$ 恰好是 $a_1:a_2$，秩为 1。
+
+与内积（$\mathbf{a}^\top\mathbf{b} = 11$，标量）对比：外积"保留了全部方向信息"，内积只保留了"相似度"。
+
 !!! warning "矩阵乘法不可交换"
     $\mathbf{A}\mathbf{B} \neq \mathbf{B}\mathbf{A}$（一般情况下）。这是矩阵运算最容易出错的地方。反向传播公式里的转置来自于此：梯度的形状必须与原矩阵一致，推导时要时刻注意维度。
 
@@ -94,6 +122,12 @@ $$\det(\mathbf{A}^{-1}) = 1 / \det(\mathbf{A})$$
 $$\det(\mathbf{A}) = \prod_{i=1}^n \lambda_i \quad \text{（特征值之积）}$$
 
 在深度学习里，行列式最常出现在归一化流（Normalizing Flows）的 log-likelihood 计算中，需要计算 Jacobian 矩阵的行列式。
+
+### 数值例子：行列式的几何含义
+
+取 $\mathbf{A} = \begin{pmatrix}2&0\\0&3\end{pmatrix}$（纯缩放）：$\det(\mathbf{A}) = 6$，单位正方形被拉伸为 $2\times3$ 的矩形，面积正好是 6 倍。
+
+取 $\mathbf{B} = \begin{pmatrix}1&2\\1&2\end{pmatrix}$（两列相同方向）：$\det(\mathbf{B}) = 2-2 = 0$，空间被压缩到一维直线，面积为 0，矩阵不可逆。
 
 ---
 

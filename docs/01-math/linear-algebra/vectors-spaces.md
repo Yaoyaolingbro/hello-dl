@@ -56,6 +56,20 @@ $$\langle \mathbf{x}, \mathbf{y} \rangle = \mathbf{x}^\top \mathbf{y} = \sum_{i=
 
 当 $\langle \mathbf{x}, \mathbf{y} \rangle = 0$ 时，称 $\mathbf{x}$ 与 $\mathbf{y}$ **正交**。正交向量在几何上垂直，在信息上互不重叠——这是 Transformer 注意力机制里 Query 和 Key 点积的直觉基础。
 
+### 数值例子（2D）
+
+取 $\mathbf{x} = \begin{pmatrix}3\\4\end{pmatrix}$，$\mathbf{y} = \begin{pmatrix}1\\2\end{pmatrix}$。
+
+**内积：** $\langle \mathbf{x}, \mathbf{y} \rangle = 3 \cdot 1 + 4 \cdot 2 = 11$
+
+**夹角：** $\|\mathbf{x}\|_2 = 5$，$\|\mathbf{y}\|_2 = \sqrt{5}$，所以 $\cos\theta = \dfrac{11}{5\sqrt{5}} \approx 0.984$，$\theta \approx 10.3°$——两向量几乎同向。
+
+**$\mathbf{y}$ 在 $\mathbf{x}$ 方向上的投影：**
+
+$$\text{proj}_\mathbf{x}\mathbf{y} = \frac{\langle \mathbf{x}, \mathbf{y} \rangle}{\|\mathbf{x}\|^2}\mathbf{x} = \frac{11}{25}\begin{pmatrix}3\\4\end{pmatrix} = \begin{pmatrix}1.32\\1.76\end{pmatrix}$$
+
+**正交分量（残差）：** $\mathbf{y} - \text{proj}_\mathbf{x}\mathbf{y} = \begin{pmatrix}-0.32\\0.24\end{pmatrix}$，验证：$\langle \mathbf{x},\, \mathbf{y} - \text{proj}_\mathbf{x}\mathbf{y} \rangle = 3(-0.32) + 4(0.24) = 0$ ✓
+
 ---
 
 ## 范数
@@ -87,6 +101,14 @@ $L^2$ 球是圆（2D）。它处处可微，是梯度下降的自然配套，也
 $$\|\mathbf{x}\|_\infty = \max_i |x_i|$$
 
 控制向量中绝对值最大的分量，在量化和数值稳定性分析中偶尔出现。
+
+### 数值例子：同一向量的三种范数
+
+取 $\mathbf{x} = \begin{pmatrix}3\\-4\\0\end{pmatrix}$：
+
+$$\|\mathbf{x}\|_1 = |3| + |-4| + |0| = 7, \quad \|\mathbf{x}\|_2 = \sqrt{9+16} = 5, \quad \|\mathbf{x}\|_\infty = \max(3,4,0) = 4$$
+
+三者满足 $\|\mathbf{x}\|_\infty \leq \|\mathbf{x}\|_2 \leq \|\mathbf{x}\|_1$（$4 \leq 5 \leq 7$）。单位向量 $\hat{\mathbf{x}} = \mathbf{x}/5 = (0.6,\,-0.8,\,0)^\top$。
 
 ### Frobenius 范数
 

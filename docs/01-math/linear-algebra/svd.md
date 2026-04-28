@@ -63,6 +63,30 @@ $$\mathbf{A} = \sum_{i=1}^r \sigma_i \mathbf{u}_i \mathbf{v}_i^\top$$
 
 每项 $\sigma_i \mathbf{u}_i \mathbf{v}_i^\top$ 是一个**秩 1 矩阵**，代表矩阵 $\mathbf{A}$ 的一个"成分"，重要程度由 $\sigma_i$ 决定。
 
+### 数值例子（3×2）
+
+取 $\mathbf{A} = \begin{pmatrix}1&1\\1&0\\0&1\end{pmatrix}$（3 行 2 列，秩为 2）。
+
+**求奇异值：** $\mathbf{A}^\top\mathbf{A} = \begin{pmatrix}1&1\\1&0\\0&1\end{pmatrix}^\top\begin{pmatrix}1&1\\1&0\\0&1\end{pmatrix} = \begin{pmatrix}2&1\\1&2\end{pmatrix}$
+
+$\mathbf{A}^\top\mathbf{A}$ 的特征值：$(2-\lambda)^2 - 1 = 0 \Rightarrow \lambda_1 = 3,\, \lambda_2 = 1$，奇异值 $\sigma_1 = \sqrt{3} \approx 1.732$，$\sigma_2 = 1$。
+
+**右奇异向量**（$\mathbf{A}^\top\mathbf{A}$ 的特征向量）：$\mathbf{v}_1 = \dfrac{1}{\sqrt{2}}\begin{pmatrix}1\\1\end{pmatrix}$，$\mathbf{v}_2 = \dfrac{1}{\sqrt{2}}\begin{pmatrix}1\\-1\end{pmatrix}$
+
+**左奇异向量：** $\mathbf{u}_i = \mathbf{A}\mathbf{v}_i / \sigma_i$
+
+$$\mathbf{u}_1 = \frac{1}{\sqrt{3}}\begin{pmatrix}1&1\\1&0\\0&1\end{pmatrix}\frac{1}{\sqrt{2}}\begin{pmatrix}1\\1\end{pmatrix} = \frac{1}{\sqrt{6}}\begin{pmatrix}2\\1\\1\end{pmatrix}, \quad \mathbf{u}_2 = \frac{1}{1}\begin{pmatrix}1&1\\1&0\\0&1\end{pmatrix}\frac{1}{\sqrt{2}}\begin{pmatrix}1\\-1\end{pmatrix} = \frac{1}{\sqrt{2}}\begin{pmatrix}0\\1\\-1\end{pmatrix}$$
+
+**外积展开验证：**
+
+$$\sigma_1\mathbf{u}_1\mathbf{v}_1^\top = \sqrt{3}\cdot\frac{1}{\sqrt{6}}\begin{pmatrix}2\\1\\1\end{pmatrix}\cdot\frac{1}{\sqrt{2}}\begin{pmatrix}1&1\end{pmatrix} = \frac{\sqrt{3}}{\sqrt{12}}\begin{pmatrix}2&2\\1&1\\1&1\end{pmatrix} = \frac{1}{2}\begin{pmatrix}2&2\\1&1\\1&1\end{pmatrix} = \begin{pmatrix}1&1\\0.5&0.5\\0.5&0.5\end{pmatrix}$$
+
+$$\sigma_2\mathbf{u}_2\mathbf{v}_2^\top = 1\cdot\frac{1}{\sqrt{2}}\begin{pmatrix}0\\1\\-1\end{pmatrix}\cdot\frac{1}{\sqrt{2}}\begin{pmatrix}1&-1\end{pmatrix} = \begin{pmatrix}0&0\\0.5&-0.5\\-0.5&0.5\end{pmatrix}$$
+
+$$\mathbf{A}_1 + \mathbf{A}_2 = \begin{pmatrix}1&1\\1&0\\0&1\end{pmatrix} = \mathbf{A} \checkmark$$
+
+**低秩近似的含义：** 如果只保留 $\mathbf{A}_1$（秩 1 近似），误差 $= \sigma_2 = 1$，而 $\mathbf{A}_1$ 捕获了 $\mathbf{A}$ 的主要方向——两列大体相似（正相关），这正是 $\sigma_1 > \sigma_2$ 告诉我们的信息。
+
 ---
 
 ## 低秩近似与 Eckart-Young 定理

@@ -69,6 +69,16 @@ $$\mathbf{x}^\top \mathbf{A} \mathbf{x} \geq 0$$
 
 $$\mathbf{v}^\top \mathbf{S} \mathbf{v} = \frac{1}{n-1} \mathbf{v}^\top \mathbf{X}^\top \mathbf{X} \mathbf{v} = \frac{1}{n-1} \|\mathbf{X}\mathbf{v}\|^2 \geq 0$$
 
+### 数值例子：2×2 正定矩阵验证
+
+取 $\mathbf{A} = \begin{pmatrix}2&1\\1&3\end{pmatrix}$。
+
+**Sylvester 判据：** $\Delta_1 = 2 > 0$，$\Delta_2 = \det(\mathbf{A}) = 6-1 = 5 > 0$，所以 $\mathbf{A}$ 是正定的。
+
+**特征值：** $\det(\mathbf{A}-\lambda\mathbf{I}) = (2-\lambda)(3-\lambda) - 1 = \lambda^2 - 5\lambda + 5 = 0$，得 $\lambda = \frac{5\pm\sqrt{5}}{2}$，即 $\lambda_1 \approx 1.38 > 0$，$\lambda_2 \approx 3.62 > 0$ ✓
+
+**二次型验证：** 取 $\mathbf{x} = \begin{pmatrix}1\\-1\end{pmatrix}$：$\mathbf{x}^\top\mathbf{A}\mathbf{x} = [1,-1]\begin{pmatrix}1\\-2\end{pmatrix} = 1\cdot1 + (-1)\cdot(-2) = 3 > 0$ ✓
+
 ---
 
 ## 正交矩阵
@@ -85,6 +95,16 @@ $$\mathbf{v}^\top \mathbf{S} \mathbf{v} = \frac{1}{n-1} \mathbf{v}^\top \mathbf{
 - 旋转矩阵（SE(3) 群）是 $3 \times 3$ 正交矩阵（$\det = 1$）
 - 正交初始化（Orthogonal Initialization）：让初始权重矩阵是正交的，防止梯度爆炸/消失
 
+### 数值例子：2D 旋转矩阵
+
+旋转 $\theta = 30°$ 的正交矩阵：
+
+$$\mathbf{Q} = \begin{pmatrix}\cos 30° & -\sin 30° \\ \sin 30° & \cos 30°\end{pmatrix} = \begin{pmatrix}\frac{\sqrt{3}}{2} & -\frac{1}{2} \\ \frac{1}{2} & \frac{\sqrt{3}}{2}\end{pmatrix}$$
+
+验证 $\mathbf{Q}^\top\mathbf{Q} = \mathbf{I}$：$\frac{3}{4}+\frac{1}{4} = 1$，对角线为 1；非对角线 $\frac{\sqrt{3}}{4}-\frac{\sqrt{3}}{4} = 0$ ✓
+
+取 $\mathbf{x} = \begin{pmatrix}1\\0\end{pmatrix}$（水平单位向量），旋转后：$\mathbf{Q}\mathbf{x} = \begin{pmatrix}\sqrt{3}/2 \\ 1/2\end{pmatrix}$，长度 $= \sqrt{3/4+1/4} = 1$ ✓（正交变换**保长度**）
+
 ---
 
 ## 投影矩阵
@@ -100,6 +120,16 @@ $$\mathbf{P} = \mathbf{A}(\mathbf{A}^\top \mathbf{A})^{-1}\mathbf{A}^\top$$
 $$\hat{\mathbf{x}} = \mathbf{P}\mathbf{x}$$
 
 这是最小二乘法的几何理解：$\hat{\mathbf{x}}$ 是 $\mathbf{x}$ 在 $\mathbf{A}$ 的列空间上的正交投影，残差 $\mathbf{x} - \hat{\mathbf{x}}$ 与列空间垂直。
+
+### 数值例子：2D 正交投影
+
+将向量 $\mathbf{v} = \begin{pmatrix}3\\4\end{pmatrix}$ 投影到 $x$ 轴方向 $\mathbf{a} = \begin{pmatrix}1\\0\end{pmatrix}$ 上：
+
+$$\mathbf{P} = \mathbf{a}\mathbf{a}^\top = \begin{pmatrix}1\\0\end{pmatrix}\begin{pmatrix}1&0\end{pmatrix} = \begin{pmatrix}1&0\\0&0\end{pmatrix}$$
+
+$$\hat{\mathbf{v}} = \mathbf{P}\mathbf{v} = \begin{pmatrix}3\\0\end{pmatrix}, \quad \text{残差：}\mathbf{v} - \hat{\mathbf{v}} = \begin{pmatrix}0\\4\end{pmatrix}$$
+
+验证正交性：$\begin{pmatrix}1&0\end{pmatrix}\begin{pmatrix}0\\4\end{pmatrix} = 0$ ✓，验证幂等性：$\mathbf{P}^2 = \mathbf{P}$ ✓
 
 ---
 

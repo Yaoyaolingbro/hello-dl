@@ -77,6 +77,34 @@ $$\nabla_\mathbf{x} f = 2\mathbf{W}^\top (\mathbf{W}\mathbf{x} - \mathbf{b})$$
 
 推导：令 $\mathbf{r} = \mathbf{W}\mathbf{x} - \mathbf{b}$，则 $f = \mathbf{r}^\top \mathbf{r}$，$\nabla_\mathbf{r} f = 2\mathbf{r}$，再对 $\mathbf{x}$ 用链式法则（下一节）。
 
+### 数值例子：逐步计算三个梯度
+
+**例 1：线性函数梯度**
+
+取 $\mathbf{a} = \begin{pmatrix}1\\3\end{pmatrix}$，$\mathbf{x} = \begin{pmatrix}2\\-1\end{pmatrix}$，$f(\mathbf{x}) = \mathbf{a}^\top\mathbf{x} = 1\cdot2 + 3\cdot(-1) = -1$。
+
+梯度：$\nabla_\mathbf{x} f = \mathbf{a} = \begin{pmatrix}1\\3\end{pmatrix}$——与 $\mathbf{x}$ 的具体取值无关，函数在任何点的上升方向都是 $\mathbf{a}$。
+
+**例 2：二次型梯度**
+
+取对称矩阵 $\mathbf{A} = \begin{pmatrix}2&1\\1&2\end{pmatrix}$，$\mathbf{x} = \begin{pmatrix}1\\1\end{pmatrix}$，$f(\mathbf{x}) = \mathbf{x}^\top\mathbf{A}\mathbf{x}$。
+
+先算函数值：$\mathbf{A}\mathbf{x} = \begin{pmatrix}3\\3\end{pmatrix}$，$f = \mathbf{x}^\top\begin{pmatrix}3\\3\end{pmatrix} = 6$。
+
+梯度公式 $\nabla f = 2\mathbf{A}\mathbf{x} = 2\begin{pmatrix}3\\3\end{pmatrix} = \begin{pmatrix}6\\6\end{pmatrix}$。
+
+验证（数值差分）：将 $x_1$ 加 $\varepsilon = 0.001$，$f\approx 6 + 6\times0.001 = 6.006$，$\partial f/\partial x_1 \approx (6.006-6)/0.001 = 6$ ✓
+
+**例 3：最小二乘梯度**
+
+取 $\mathbf{W} = \begin{pmatrix}1&0\\0&2\end{pmatrix}$，$\mathbf{b} = \begin{pmatrix}1\\1\end{pmatrix}$，$\mathbf{x} = \begin{pmatrix}2\\1\end{pmatrix}$。
+
+残差：$\mathbf{r} = \mathbf{W}\mathbf{x} - \mathbf{b} = \begin{pmatrix}2\\2\end{pmatrix} - \begin{pmatrix}1\\1\end{pmatrix} = \begin{pmatrix}1\\1\end{pmatrix}$，$f = \|\mathbf{r}\|^2 = 2$。
+
+梯度：$\nabla_\mathbf{x} f = 2\mathbf{W}^\top\mathbf{r} = 2\begin{pmatrix}1&0\\0&2\end{pmatrix}\begin{pmatrix}1\\1\end{pmatrix} = 2\begin{pmatrix}1\\2\end{pmatrix} = \begin{pmatrix}2\\4\end{pmatrix}$。
+
+含义：把 $\mathbf{x}$ 沿 $(-2,-4)$ 方向移动一小步，$f$ 会下降——梯度下降找最小二乘解就是反复做这件事。
+
 ---
 
 ## Jacobian 矩阵
