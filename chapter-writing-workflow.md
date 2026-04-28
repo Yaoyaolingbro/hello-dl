@@ -8,7 +8,7 @@
 
 你在帮我维护一份面向 AI 入门者的中文教程，托管于 MkDocs Material + GitHub Pages。
 项目路径：`/Users/yaoyaoling/Desktop/博士生资料/deep learning/`
-远程仓库：`git@github.com:Yaoyaolingbro/deep-learing.git`（注意仓库名拼写）
+远程仓库：`git@github.com:Yaoyaolingbro/hello-dl.git`
 
 写作风格规范在 `writing-style.md`，项目整体结构在 `docs/superpowers/specs/2026-04-25-ai-tutorial-design.md`。
 
@@ -20,7 +20,7 @@
 
 | Part | 额外 @ 文件 | 核心侧重 |
 |------|------------|---------|
-| Part 1 数学基础（`01-math/`） | `docs/superpowers/style-part1-math.md` | 直觉先于定义、NumPy 验证、定理框、禁用"显然" |
+| Part 1 数学基础（`01-math/`） | `docs/superpowers/style-part1-math.md` | 直觉先于定义、**无代码改用数值例子**、示意图必须插入、定理框、禁用"显然" |
 | Part 2 基础深度学习（`02-deep-learning/`） | `docs/superpowers/style-part2-dl-basics.md` | 每概念必须有 PyTorch 代码、注释说 WHY、消融式解释 |
 | Part 3 深入深度学习（`03-advanced/`） | `docs/superpowers/style-part3-advanced.md` | 以论文为主线、推导不跳步、严格对齐原文符号、引用消融实验 |
 | Part 4 现代 AI 应用（`04-applications/`） | `docs/superpowers/style-part4-applications.md` | 时间脉络叙事、价值优先于推导、真实工程 tip、必写开放问题 |
@@ -152,7 +152,7 @@ git push origin main
 检查 `docs/assets/js/katex.js` 是否存在，行内公式用 `$...$`，块级用 `$$...$$`。
 
 **Mermaid 图不显示？**
-代码块标记必须是 ` ```mermaid `，mkdocs.yml 里 superfences 的 tag 用 `!!python/name:mermaid2.fence_mermaid`（IDE 报 warning 是误报，运行时正常）。
+代码块标记必须是 ` ```mermaid `，mkdocs.yml 里 superfences 的 format 用 `!!python/name:pymdownx.superfences.fence_code_format`（已配置，无需修改）。
 
 **git-revision-date 报 WARNING？**
 新文件在 commit 之前会报"no git logs"，提交后自动消失，不影响构建。

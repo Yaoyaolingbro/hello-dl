@@ -56,6 +56,20 @@ $$\langle \mathbf{x}, \mathbf{y} \rangle = \mathbf{x}^\top \mathbf{y} = \sum_{i=
 
 当 $\langle \mathbf{x}, \mathbf{y} \rangle = 0$ 时，称 $\mathbf{x}$ 与 $\mathbf{y}$ **正交**。正交向量在几何上垂直，在信息上互不重叠——这是 Transformer 注意力机制里 Query 和 Key 点积的直觉基础。
 
+### 数值例子（2D）
+
+取 $\mathbf{x} = \begin{pmatrix}3\\4\end{pmatrix}$，$\mathbf{y} = \begin{pmatrix}1\\2\end{pmatrix}$。
+
+**内积：** $\langle \mathbf{x}, \mathbf{y} \rangle = 3 \cdot 1 + 4 \cdot 2 = 11$
+
+**夹角：** $\|\mathbf{x}\|_2 = 5$，$\|\mathbf{y}\|_2 = \sqrt{5}$，所以 $\cos\theta = \dfrac{11}{5\sqrt{5}} \approx 0.984$，$\theta \approx 10.3°$——两向量几乎同向。
+
+**$\mathbf{y}$ 在 $\mathbf{x}$ 方向上的投影：**
+
+$$\text{proj}_\mathbf{x}\mathbf{y} = \frac{\langle \mathbf{x}, \mathbf{y} \rangle}{\|\mathbf{x}\|^2}\mathbf{x} = \frac{11}{25}\begin{pmatrix}3\\4\end{pmatrix} = \begin{pmatrix}1.32\\1.76\end{pmatrix}$$
+
+**正交分量（残差）：** $\mathbf{y} - \text{proj}_\mathbf{x}\mathbf{y} = \begin{pmatrix}-0.32\\0.24\end{pmatrix}$，验证：$\langle \mathbf{x},\, \mathbf{y} - \text{proj}_\mathbf{x}\mathbf{y} \rangle = 3(-0.32) + 4(0.24) = 0$ ✓
+
 ---
 
 ## 范数
@@ -76,6 +90,10 @@ $$\|\mathbf{x}\|_1 = \sum_{i=1}^n |x_i|$$
 
 $L^1$ 球的形状是一个菱形（2D）。由于它在原点处不可微，用它做正则化（LASSO）时会产生稀疏解——很多分量恰好为零。
 
+![不同 Lp 范数的单位球形状](https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Vector_norms.svg/640px-Vector_norms.svg.png)
+
+*$p=1$（菱形）、$p=2$（圆）、$p=\infty$（正方形）的单位"球"形状对比。正则化时，约束区域的角点会造成稀疏解（$L^1$），而圆形约束（$L^2$）则均匀收缩所有分量。来源：[Wikipedia](https://en.wikipedia.org/wiki/Norm_(mathematics))*
+
 **$L^2$ 范数（欧氏距离）：**
 
 $$\|\mathbf{x}\|_2 = \sqrt{\sum_{i=1}^n x_i^2} = \sqrt{\mathbf{x}^\top \mathbf{x}}$$
@@ -87,6 +105,14 @@ $L^2$ 球是圆（2D）。它处处可微，是梯度下降的自然配套，也
 $$\|\mathbf{x}\|_\infty = \max_i |x_i|$$
 
 控制向量中绝对值最大的分量，在量化和数值稳定性分析中偶尔出现。
+
+### 数值例子：同一向量的三种范数
+
+取 $\mathbf{x} = \begin{pmatrix}3\\-4\\0\end{pmatrix}$：
+
+$$\|\mathbf{x}\|_1 = |3| + |-4| + |0| = 7, \quad \|\mathbf{x}\|_2 = \sqrt{9+16} = 5, \quad \|\mathbf{x}\|_\infty = \max(3,4,0) = 4$$
+
+三者满足 $\|\mathbf{x}\|_\infty \leq \|\mathbf{x}\|_2 \leq \|\mathbf{x}\|_1$（$4 \leq 5 \leq 7$）。单位向量 $\hat{\mathbf{x}} = \mathbf{x}/5 = (0.6,\,-0.8,\,0)^\top$。
 
 ### Frobenius 范数
 
@@ -119,54 +145,6 @@ $$\|\mathbf{A}\|_F = \sqrt{\sum_{i,j} A_{ij}^2} = \sqrt{\text{tr}(\mathbf{A}^\to
 - Layer Normalization 把每层激活值的范数控制在可控范围内
 - 对比学习（SimCLR、CLIP）的 loss 在特征标准化后才有意义
 
----
-
-## 代码验证
-
-```python
-import numpy as np
-
-x = np.array([3.0, 4.0])
-y = np.array([1.0, 0.0])
-
-# 验证三种范数的计算
-l1 = np.linalg.norm(x, ord=1)   # 3 + 4 = 7.0
-l2 = np.linalg.norm(x, ord=2)   # sqrt(9+16) = 5.0
-linf = np.linalg.norm(x, ord=np.inf)  # max(3,4) = 4.0
-print(l1, l2, linf)  # 7.0  5.0  4.0
-
-# 验证 Cauchy-Schwarz：|<x,y>| <= ||x|| * ||y||
-inner = np.dot(x, y)             # 3.0
-bound = l2 * np.linalg.norm(y)  # 5.0 * 1.0 = 5.0
-print(abs(inner) <= bound)  # True
-
-# 余弦相似度：<x,y> / (||x|| ||y||)
-cos_sim = inner / (l2 * np.linalg.norm(y))
-print(cos_sim)  # 0.6  （夹角约 53.1°）
-
-# Frobenius 范数
-A = np.array([[1, 2], [3, 4]])
-frob = np.linalg.norm(A, 'fro')  # sqrt(1+4+9+16) = sqrt(30) ≈ 5.477
-print(frob)  # 5.477...
-```
-
-```python
-# L1 vs L2 正则化的稀疏性差异
-# L1 惩罚产生稀疏解，L2 惩罚产生均匀收缩
-from sklearn.linear_model import Lasso, Ridge
-import numpy as np
-
-np.random.seed(0)
-X = np.random.randn(50, 10)
-y = X[:, 0] + 0.5 * X[:, 1] + np.random.randn(50) * 0.1  # 只有两个特征有效
-
-lasso = Lasso(alpha=0.1).fit(X, y)
-ridge = Ridge(alpha=0.1).fit(X, y)
-print("Lasso 系数（稀疏）：", lasso.coef_.round(2))
-# [ 0.86  0.42  0.    0.    0.    0.    0.    0.    0.    0.  ]  <- 大多数为0
-print("Ridge 系数（均匀）：", ridge.coef_.round(2))
-# [ 0.82  0.39  0.01 -0.01  0.02 ...]  <- 所有分量都非零但小
-```
 
 !!! tip "在深度学习中的应用"
 
