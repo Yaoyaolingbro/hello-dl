@@ -2,6 +2,7 @@
 
 !!! info "参考资料"
     **主要资料**
+    
     - Nocedal & Wright, *Numerical Optimization*, 2nd ed. — 第 2–4 章（驻点分类与牛顿法）
     - Dauphin et al., "Identifying and attacking the saddle point problem in high-dimensional non-convex optimization", NeurIPS 2014 — 深度学习鞍点问题的实证分析
 

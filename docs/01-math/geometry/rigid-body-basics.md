@@ -2,6 +2,7 @@
 
 !!! info "参考资料"
     **主要资料**
+    
     - Murray, Li & Sastry, *A Mathematical Introduction to Robotic Manipulation* — 免费 PDF，第 2 章
     - [Deep Learning Book: Appendix](https://www.deeplearningbook.org/contents/linear_algebra.html) — 向量运算部分
     - Lynch & Park, *Modern Robotics* — 第 3 章，刚体运动的现代处理

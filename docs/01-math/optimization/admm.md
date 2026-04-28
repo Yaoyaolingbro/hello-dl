@@ -2,6 +2,7 @@
 
 !!! info "参考资料"
     **主要资料**
+    
     - Boyd et al., "Distributed Optimization and Statistical Learning via the Alternating Direction Method of Multipliers", *Foundations and Trends in ML* 2011 — ADMM 标准综述，免费 PDF
     - Parikh & Boyd, "Proximal Algorithms", *Foundations and Trends in Optimization* 2014 — 近端算法综述
 

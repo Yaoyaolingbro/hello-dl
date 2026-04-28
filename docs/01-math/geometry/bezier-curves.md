@@ -2,11 +2,13 @@
 
 !!! info "参考资料"
     **主要资料**
+
     - Farin, *Curves and Surfaces for CAGD*, 5th ed. — 第 4–6 章（贝塞尔与 B 样条的标准参考）
     - de Boor, *A Practical Guide to Splines* — B 样条的权威教材
     - Prautzsch, Boehm & Paluszny, *Bézier and B-Spline Techniques* — 免费 PDF
 
     **工具文档**
+    
     - [SciPy: `BSpline`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.BSpline.html)
 
 ## 直觉 (Intuition)

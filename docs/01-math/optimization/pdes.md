@@ -2,6 +2,7 @@
 
 !!! info "参考资料"
     **主要资料**
+    
     - Strauss, *Partial Differential Equations: An Introduction* — 第 1–2 章，直觉友好的入门
     - Raissi et al., "Physics-Informed Neural Networks", *J. Computational Physics* 2019 — PINN 原始论文
     - Evans, *Partial Differential Equations* — 研究生水平参考，严格证明

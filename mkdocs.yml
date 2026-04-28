@@ -149,7 +149,7 @@ nav:
       - ODE 与向量场基础: 01-math/optimization/odes-vector-fields.md
       - PDE 基础: 01-math/optimization/pdes.md
 
-  - Part 2 · 基础深度学习:
+  - Part 2 · 深度学习基础:
     - 02-deep-learning/index.md
     - 神经网络基础: 02-deep-learning/neural-networks.md
     - 梯度下降与反向传播: 02-deep-learning/gradient-backprop.md
@@ -189,7 +189,7 @@ nav:
       - 基于模型的 RL: 03-advanced/rl/model-based.md
       - DPO: 03-advanced/rl/dpo.md
 
-  - Part 4 · 现代 AI 应用:
+  - Part 4 · 现代人工智能应用:
     - 04-applications/index.md
     - 4.1 感知:
       - 04-applications/perception/index.md

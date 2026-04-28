@@ -2,11 +2,13 @@
 
 !!! info "参考资料"
     **主要资料**
+
     - [Deep Learning Book: Chapter 17](https://www.deeplearningbook.org/contents/monte_carlo.html) — Ian Goodfellow et al.
     - Robert & Casella, *Monte Carlo Statistical Methods* — 经典教材，前三章覆盖本节内容
     - [Arjovsky et al., "Wasserstein GAN"](https://arxiv.org/abs/1701.07875) — 重要性采样的实际应用
 
     **工具文档**
+    
     - [NumPy: `numpy.random`](https://numpy.org/doc/stable/reference/random/index.html)
     - [PyTorch: `torch.distributions`](https://pytorch.org/docs/stable/distributions.html)
 

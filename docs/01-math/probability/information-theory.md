@@ -2,10 +2,12 @@
 
 !!! info "参考资料"
     **主要资料**
+
     - [Deep Learning Book: Chapter 3.13](https://www.deeplearningbook.org/contents/prob.html) — Ian Goodfellow et al.
     - Shannon, "A Mathematical Theory of Communication", 1948 — 信息论的奠基论文
 
     **工具文档**
+    
     - [SciPy: `scipy.stats.entropy`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.entropy.html)
 
 ## 直觉 (Intuition)

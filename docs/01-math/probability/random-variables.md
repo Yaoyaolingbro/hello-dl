@@ -2,10 +2,12 @@
 
 !!! info "参考资料"
     **主要资料**
+
     - [Deep Learning Book: Chapter 3](https://www.deeplearningbook.org/contents/prob.html) — Ian Goodfellow et al.
     - [Introduction to Probability](https://www.probabilitycourse.com/) — Hossein Pishro-Nik
 
     **工具文档**
+    
     - [SciPy: Statistical functions](https://docs.scipy.org/doc/scipy/reference/stats.html)
 
 ## 直觉 (Intuition)

@@ -2,6 +2,7 @@
 
 !!! info "参考资料"
     **主要资料**
+    
     - [Deep Learning Book: Chapter 4](https://www.deeplearningbook.org/contents/numerical.html) — Ian Goodfellow et al.
     - [Mathematics for Machine Learning](https://mml-book.github.io/) — Deisenroth et al., Chapter 5–7
     - Nocedal & Wright, *Numerical Optimization*, 2nd ed. — 第 2 章，优化理论的标准教材

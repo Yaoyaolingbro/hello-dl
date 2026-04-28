@@ -2,11 +2,13 @@
 
 !!! info "参考资料"
     **主要资料**
+
     - [Deep Learning Book: Chapter 19](https://www.deeplearningbook.org/contents/inference.html) — Ian Goodfellow et al.
     - Blei et al., "Variational Inference: A Review for Statisticians", *JASA* 2017 — 变分推断综述
     - Kingma & Welling, "Auto-Encoding Variational Bayes", ICLR 2014 — VAE 原始论文
 
     **工具文档**
+    
     - [PyTorch: `torch.distributions`](https://pytorch.org/docs/stable/distributions.html)
     - [Pyro](https://pyro.ai/) — 概率编程库，变分推断的工程实现
 

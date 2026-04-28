@@ -2,10 +2,12 @@
 
 !!! info "参考资料"
     **主要资料**
+
     - Boyd & Vandenberghe, *Convex Optimization* — 免费 PDF，第 2–3 章是标准参考
     - [Deep Learning Book: Chapter 4](https://www.deeplearningbook.org/contents/numerical.html) — Ian Goodfellow et al.
 
     **工具文档**
+    
     - [CVXPY](https://www.cvxpy.org/) — Python 凸优化建模库
 
 ## 直觉 (Intuition)

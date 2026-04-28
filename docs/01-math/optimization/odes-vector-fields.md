@@ -2,6 +2,7 @@
 
 !!! info "参考资料"
     **主要资料**
+    
     - Strogatz, *Nonlinear Dynamics and Chaos* — 第 1–2 章，直觉驱动的 ODE 入门
     - Chen et al., "Neural Ordinary Differential Equations", NeurIPS 2018 — Neural ODE 原始论文
     - [SciPy: `solve_ivp`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html)

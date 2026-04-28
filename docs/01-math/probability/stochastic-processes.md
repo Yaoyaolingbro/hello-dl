@@ -2,6 +2,7 @@
 
 !!! info "参考资料"
     **主要资料**
+    
     - [Deep Learning Book: Chapter 17](https://www.deeplearningbook.org/contents/graphical_models.html) — Ian Goodfellow et al.
     - Norris, *Markov Chains* — 经典教材，前两章覆盖本节内容
     - [Intro to Stochastic Processes](https://ocw.mit.edu/courses/6-262-discrete-stochastic-processes-spring-2011/) — MIT 6.262
