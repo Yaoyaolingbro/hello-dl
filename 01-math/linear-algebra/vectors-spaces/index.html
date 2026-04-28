@@ -697,6 +697,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="内积与正交">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数值例子（2D）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -723,6 +740,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数值例子：同一向量的三种范数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#frobenius" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -739,21 +767,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        向量的标准化与单位球
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
-        代码验证
+        向量的标准化与单位球
       
     </span>
   </a>
@@ -1565,6 +1582,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="内积与正交">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数值例子（2D）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1591,6 +1625,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数值例子：同一向量的三种范数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#frobenius" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1607,21 +1652,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        向量的标准化与单位球
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
-        代码验证
+        向量的标准化与单位球
       
     </span>
   </a>
@@ -1729,6 +1763,13 @@
 <li>测量投影长度：<span class="arithmatex">\(\mathbf{y}\)</span> 在 <span class="arithmatex">\(\mathbf{x}\)</span> 方向上的投影长度为 <span class="arithmatex">\(\langle \mathbf{x}/\|\mathbf{x}\|, \mathbf{y} \rangle\)</span></li>
 </ol>
 <p>当 <span class="arithmatex">\(\langle \mathbf{x}, \mathbf{y} \rangle = 0\)</span> 时，称 <span class="arithmatex">\(\mathbf{x}\)</span> 与 <span class="arithmatex">\(\mathbf{y}\)</span> <strong>正交</strong>。正交向量在几何上垂直，在信息上互不重叠——这是 Transformer 注意力机制里 Query 和 Key 点积的直觉基础。</p>
+<h3 id="2d">数值例子（2D）<a class="headerlink" href="#2d" title="Permanent link">¶</a></h3>
+<p>取 <span class="arithmatex">\(\mathbf{x} = \begin{pmatrix}3\\4\end{pmatrix}\)</span>，<span class="arithmatex">\(\mathbf{y} = \begin{pmatrix}1\\2\end{pmatrix}\)</span>。</p>
+<p><strong>内积：</strong> <span class="arithmatex">\(\langle \mathbf{x}, \mathbf{y} \rangle = 3 \cdot 1 + 4 \cdot 2 = 11\)</span></p>
+<p><strong>夹角：</strong> <span class="arithmatex">\(\|\mathbf{x}\|_2 = 5\)</span>，<span class="arithmatex">\(\|\mathbf{y}\|_2 = \sqrt{5}\)</span>，所以 <span class="arithmatex">\(\cos\theta = \dfrac{11}{5\sqrt{5}} \approx 0.984\)</span>，<span class="arithmatex">\(\theta \approx 10.3°\)</span>——两向量几乎同向。</p>
+<p><strong><span class="arithmatex">\(\mathbf{y}\)</span> 在 <span class="arithmatex">\(\mathbf{x}\)</span> 方向上的投影：</strong></p>
+<div class="arithmatex">\[\text{proj}_\mathbf{x}\mathbf{y} = \frac{\langle \mathbf{x}, \mathbf{y} \rangle}{\|\mathbf{x}\|^2}\mathbf{x} = \frac{11}{25}\begin{pmatrix}3\\4\end{pmatrix} = \begin{pmatrix}1.32\\1.76\end{pmatrix}\]</div>
+<p><strong>正交分量（残差）：</strong> <span class="arithmatex">\(\mathbf{y} - \text{proj}_\mathbf{x}\mathbf{y} = \begin{pmatrix}-0.32\\0.24\end{pmatrix}\)</span>，验证：<span class="arithmatex">\(\langle \mathbf{x},\, \mathbf{y} - \text{proj}_\mathbf{x}\mathbf{y} \rangle = 3(-0.32) + 4(0.24) = 0\)</span> ✓</p>
 <hr>
 <h2 id="_5">范数<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
 <p>范数是向量长度的推广。直觉上，范数 <span class="arithmatex">\(\|\mathbf{x}\|\)</span> 越大，向量"幅度"越大。</p>
@@ -1739,12 +1780,18 @@
 <p><strong><span class="arithmatex">\(L^1\)</span> 范数（曼哈顿距离）：</strong></p>
 <div class="arithmatex">\[\|\mathbf{x}\|_1 = \sum_{i=1}^n |x_i|\]</div>
 <p><span class="arithmatex">\(L^1\)</span> 球的形状是一个菱形（2D）。由于它在原点处不可微，用它做正则化（LASSO）时会产生稀疏解——很多分量恰好为零。</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Vector_norms.svg/640px-Vector_norms.svg.png" data-desc-position="bottom"><img alt="不同 Lp 范数的单位球形状" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Vector_norms.svg/640px-Vector_norms.svg.png"></a></p>
+<p><em><span class="arithmatex">\(p=1\)</span>（菱形）、<span class="arithmatex">\(p=2\)</span>（圆）、<span class="arithmatex">\(p=\infty\)</span>（正方形）的单位"球"形状对比。正则化时，约束区域的角点会造成稀疏解（<span class="arithmatex">\(L^1\)</span>），而圆形约束（<span class="arithmatex">\(L^2\)</span>）则均匀收缩所有分量。来源：<a href="https://en.wikipedia.org/wiki/Norm_(mathematics)">Wikipedia</a></em></p>
 <p><strong><span class="arithmatex">\(L^2\)</span> 范数（欧氏距离）：</strong></p>
 <div class="arithmatex">\[\|\mathbf{x}\|_2 = \sqrt{\sum_{i=1}^n x_i^2} = \sqrt{\mathbf{x}^\top \mathbf{x}}\]</div>
 <p><span class="arithmatex">\(L^2\)</span> 球是圆（2D）。它处处可微，是梯度下降的自然配套，也是权重衰减（Weight Decay）的数学形式。</p>
 <p><strong><span class="arithmatex">\(L^\infty\)</span> 范数（最大范数）：</strong></p>
 <div class="arithmatex">\[\|\mathbf{x}\|_\infty = \max_i |x_i|\]</div>
 <p>控制向量中绝对值最大的分量，在量化和数值稳定性分析中偶尔出现。</p>
+<h3 id="_6">数值例子：同一向量的三种范数<a class="headerlink" href="#_6" title="Permanent link">¶</a></h3>
+<p>取 <span class="arithmatex">\(\mathbf{x} = \begin{pmatrix}3\\-4\\0\end{pmatrix}\)</span>：</p>
+<div class="arithmatex">\[\|\mathbf{x}\|_1 = |3| + |-4| + |0| = 7, \quad \|\mathbf{x}\|_2 = \sqrt{9+16} = 5, \quad \|\mathbf{x}\|_\infty = \max(3,4,0) = 4\]</div>
+<p>三者满足 <span class="arithmatex">\(\|\mathbf{x}\|_\infty \leq \|\mathbf{x}\|_2 \leq \|\mathbf{x}\|_1\)</span>（<span class="arithmatex">\(4 \leq 5 \leq 7\)</span>）。单位向量 <span class="arithmatex">\(\hat{\mathbf{x}} = \mathbf{x}/5 = (0.6,\,-0.8,\,0)^\top\)</span>。</p>
 <h3 id="frobenius">Frobenius 范数<a class="headerlink" href="#frobenius" title="Permanent link">¶</a></h3>
 <p>矩阵 <span class="arithmatex">\(\mathbf{A} \in \mathbb{R}^{m \times n}\)</span> 的 Frobenius 范数是把矩阵"展平"后取 <span class="arithmatex">\(L^2\)</span> 范数：</p>
 <div class="arithmatex">\[\|\mathbf{A}\|_F = \sqrt{\sum_{i,j} A_{ij}^2} = \sqrt{\text{tr}(\mathbf{A}^\top \mathbf{A})}\]</div>
@@ -1758,7 +1805,7 @@
 </div>
 <p><strong>证明思路：</strong> 考虑二次函数 <span class="arithmatex">\(f(t) = \|\mathbf{x} + t\mathbf{y}\|_2^2 = \|\mathbf{x}\|^2 + 2t\langle\mathbf{x},\mathbf{y}\rangle + t^2\|\mathbf{y}\|^2 \geq 0\)</span>。这个二次式对所有 <span class="arithmatex">\(t\)</span> 非负，说明判别式 <span class="arithmatex">\(\leq 0\)</span>，即 <span class="arithmatex">\(4\langle\mathbf{x},\mathbf{y}\rangle^2 - 4\|\mathbf{x}\|^2\|\mathbf{y}\|^2 \leq 0\)</span>。</p>
 <hr>
-<h2 id="_6">向量的标准化与单位球<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
+<h2 id="_7">向量的标准化与单位球<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
 <p>将向量除以自身的 <span class="arithmatex">\(L^2\)</span> 范数，得到单位向量：<span class="arithmatex">\(\hat{\mathbf{x}} = \mathbf{x} / \|\mathbf{x}\|_2\)</span>。</p>
 <p>标准化是深度学习里的高频操作：</p>
 <ul>
@@ -1766,49 +1813,6 @@
 <li>Layer Normalization 把每层激活值的范数控制在可控范围内</li>
 <li>对比学习（SimCLR、CLIP）的 loss 在特征标准化后才有意义</li>
 </ul>
-<hr>
-<h2 id="_7">代码验证<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">])</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1"># 验证三种范数的计算</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">l1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>   <span class="c1"># 3 + 4 = 7.0</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">l2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>   <span class="c1"># sqrt(9+16) = 5.0</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">linf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>  <span class="c1"># max(3,4) = 4.0</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="p">,</span> <span class="n">linf</span><span class="p">)</span>  <span class="c1"># 7.0  5.0  4.0</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1"># 验证 Cauchy-Schwarz：|&lt;x,y&gt;| &lt;= ||x|| * ||y||</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="n">inner</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>             <span class="c1"># 3.0</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="n">bound</span> <span class="o">=</span> <span class="n">l2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>  <span class="c1"># 5.0 * 1.0 = 5.0</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="nb">print</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">inner</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">bound</span><span class="p">)</span>  <span class="c1"># True</span>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="c1"># 余弦相似度：&lt;x,y&gt; / (||x|| ||y||)</span>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="n">cos_sim</span> <span class="o">=</span> <span class="n">inner</span> <span class="o">/</span> <span class="p">(</span><span class="n">l2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="nb">print</span><span class="p">(</span><span class="n">cos_sim</span><span class="p">)</span>  <span class="c1"># 0.6  （夹角约 53.1°）</span>
-</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="c1"># Frobenius 范数</span>
-</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
-</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="n">frob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="s1">'fro'</span><span class="p">)</span>  <span class="c1"># sqrt(1+4+9+16) = sqrt(30) ≈ 5.477</span>
-</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="nb">print</span><span class="p">(</span><span class="n">frob</span><span class="p">)</span>  <span class="c1"># 5.477...</span>
-</span></code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># L1 vs L2 正则化的稀疏性差异</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1"># L1 惩罚产生稀疏解，L2 惩罚产生均匀收缩</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">Lasso</span><span class="p">,</span> <span class="n">Ridge</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">y</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.1</span>  <span class="c1"># 只有两个特征有效</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="n">lasso</span> <span class="o">=</span> <span class="n">Lasso</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="n">ridge</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Lasso 系数（稀疏）："</span><span class="p">,</span> <span class="n">lasso</span><span class="o">.</span><span class="n">coef_</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="c1"># [ 0.86  0.42  0.    0.    0.    0.    0.    0.    0.    0.  ]  &lt;- 大多数为0</span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Ridge 系数（均匀）："</span><span class="p">,</span> <span class="n">ridge</span><span class="o">.</span><span class="n">coef_</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="c1"># [ 0.82  0.39  0.01 -0.01  0.02 ...]  &lt;- 所有分量都非零但小</span>
-</span></code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">在深度学习中的应用</p>
 <ul>
@@ -1844,7 +1848,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年4月27日 11:16:40 CST">2026年4月27日 11:16:40</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年4月28日 16:43:57 CST">2026年4月28日 16:43:57</span>
   </span>
 
     
@@ -1865,6 +1869,31 @@
 
 
 
+
+<h2 id="__comments">Comments</h2>
+
+<script src="https://giscus.app/client.js" data-repo="Yaoyaolingbro/hello-dl" data-repo-id="R_kgDOSOpkKg" data-category="Announcements" data-category-id="DIC_kwDOSOpkKs4C73GA" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async="">
+</script>
+
+<!-- 跟随 Material 主题的亮/暗切换 -->
+<script>
+  var ref = document.querySelector("[data-md-component=palette]");
+  if (ref) {
+    ref.addEventListener("change", function() {
+      var palette = __md_get("__palette");
+      if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate" ? "dark" : "light";
+        var frame = document.querySelector(".giscus-frame");
+        if (frame) {
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme: theme } } },
+            "https://giscus.app"
+          );
+        }
+      }
+    });
+  }
+</script>
 
                 
               </article>

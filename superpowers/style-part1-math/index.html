@@ -771,7 +771,7 @@
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        代码规范（数学章节）
+        示意图规范（数学章节）
       
     </span>
   </a>
@@ -780,6 +780,17 @@
       
         <li class="md-nav__item">
   <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数值例子规范
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         符号规范
@@ -801,7 +812,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
       
         交稿前额外检查
@@ -855,16 +866,16 @@
 <hr>
 <h2 id="_2">章节结构<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <p>每个数学小节的固定结构：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>## 直觉 (Intuition)          ← 最多 5 句，必须放第一位
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>## 直觉 (Intuition)          ← 最多 5 句，必须放第一位；可在此处插入示意图
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>## 定义与性质                ← 先说结论，再给出形式化定义
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>## 推导 / 证明思路           ← 分步写，每步说目的（可选，视难度决定深度）
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>## 代码验证                  ← NumPy / PyTorch 验证关键性质
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>## 在深度学习中的应用        ← 明确说"这个数学工具出现在哪里"
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                               ← 每个关键性质后跟一个 2D/3D 数值例子
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>## 推导 / 证明思路           ← 分步写，每步说目的（可选，视难度决定深度）
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>## 在深度学习中的应用        ← 明确说"这个数学工具出现在哪里"
 </span></code></pre></div>
+<p><strong>不写代码</strong>：Part 1 数学基础章节用手算数值例子替代代码验证，用示意图替代可视化输出。</p>
 <hr>
 <h2 id="_3">定义的写法<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <p>先给出直觉描述，再给出形式化定义，不要反过来。</p>
@@ -913,20 +924,61 @@ $<span class="arithmatex">\(\mathbf{x}^\top \mathbf{A} \mathbf{x} &gt; 0\)</span
 </table>
 <p>不要"为了严谨"把所有定理都完整证明——这是教科书干的事，不是入门教程干的事。</p>
 <hr>
-<h2 id="_6">代码规范（数学章节）<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
-<p>优先用 <strong>NumPy</strong> 验证数学性质，PyTorch 只在需要演示自动求导时使用。</p>
-<p>代码的目的是<strong>验证直觉</strong>，不是实现算法：</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<h2 id="_6">示意图规范（数学章节）<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
+<p><strong>每小节至少插入一张示意图</strong>，没有示意图的章节是不完整的。图的来源和嵌入规范见 <code>writing-style.md</code> 的"图的使用规范"一节。</p>
+<p>数学章节常用图的类型及搜索词：</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>推荐搜索词</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>向量、内积、投影</td>
+<td><code>dot product projection visualization</code></td>
+</tr>
+<tr>
+<td>L1/L2 范数单位球</td>
+<td><code>L1 L2 norm unit ball comparison</code></td>
+</tr>
+<tr>
+<td>特征向量变换</td>
+<td><code>eigenvector matrix transformation</code></td>
+</tr>
+<tr>
+<td>SVD 几何含义</td>
+<td><code>SVD singular value decomposition geometry</code></td>
+</tr>
+<tr>
+<td>梯度下降</td>
+<td><code>gradient descent loss landscape</code></td>
+</tr>
+<tr>
+<td>正定矩阵二次型</td>
+<td><code>positive definite quadratic form bowl</code></td>
+</tr>
+<tr>
+<td>正交投影</td>
+<td><code>orthogonal projection vector subspace</code></td>
+</tr>
+</tbody>
+</table>
+<p>嵌入格式（Caption 必须说明图展示了什么）：</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>![<span class="nt">向量内积的几何含义</span>](<span class="na">图片URL</span>)
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># 验证正定矩阵的特征值全为正</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">eigenvalues</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvalsh</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">eigenvalues</span><span class="p">)</span>  <span class="c1"># [1.697..., 5.302...]，确实全正</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="ge">*两向量夹角越小，内积越大；正交时内积为零。来源：[Wikipedia](链接)*</span>
 </span></code></pre></div>
-<p>每段代码前说一句"这段代码在验证什么"，输出结果写在注释里。</p>
-<p>偏工程的代码可以给出对应好用的一些python包的推荐。</p>
+<h2 id="_7">数值例子规范<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
+<p>不写代码，改用手算数值例子：</p>
+<ul>
+<li>使用 2D 或 3D 具体数字（避免 <span class="arithmatex">\(n\)</span> 维泛化）</li>
+<li>给出完整计算过程，最后写验证等式（如 <span class="arithmatex">\(=\mathbf{A}\checkmark\)</span>）</li>
+<li>几何类概念给出几何解释（"方向不变"、"面积缩放 <span class="arithmatex">\(k\)</span> 倍"等）</li>
+</ul>
 <hr>
-<h2 id="_7">符号规范<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
+<h2 id="_8">符号规范<a class="headerlink" href="#_8" title="Permanent link">¶</a></h2>
 <p>每节开头用表格列出本节主要符号：</p>
 <table>
 <thead>
@@ -956,12 +1008,13 @@ $<span class="arithmatex">\(\mathbf{x}^\top \mathbf{A} \mathbf{x} &gt; 0\)</span
 <li><strong>不用</strong> <code>!!! tip "面试重点"</code> — 数学章节不面向面试</li>
 </ul>
 <hr>
-<h2 id="_8">交稿前额外检查<a class="headerlink" href="#_8" title="Permanent link">¶</a></h2>
+<h2 id="_9">交稿前额外检查<a class="headerlink" href="#_9" title="Permanent link">¶</a></h2>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> 每个新符号是否有文字定义（不只是"令 <span class="arithmatex">\(X\)</span> 为..."）？</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> 有没有写"显然"、"不难证明"、"容易验证"？</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> 推导中每步目的是否说清楚了？</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> 代码输出结果是否写在注释里？</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> 每个重要概念后是否有 2D/3D 数值例子？</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> 是否插入了至少一张示意图，并附有 Caption 和来源？</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> 节末有没有一句话说"这个结论在后面哪一章会用到"？</li>
 </ul>
 
@@ -986,7 +1039,7 @@ $<span class="arithmatex">\(\mathbf{x}^\top \mathbf{A} \mathbf{x} &gt; 0\)</span
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年4月26日 15:35:14 CST">2026年4月26日 15:35:14</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年4月28日 16:43:57 CST">2026年4月28日 16:43:57</span>
   </span>
 
     
@@ -1007,6 +1060,31 @@ $<span class="arithmatex">\(\mathbf{x}^\top \mathbf{A} \mathbf{x} &gt; 0\)</span
 
 
 
+
+<h2 id="__comments">Comments</h2>
+
+<script src="https://giscus.app/client.js" data-repo="Yaoyaolingbro/hello-dl" data-repo-id="R_kgDOSOpkKg" data-category="Announcements" data-category-id="DIC_kwDOSOpkKs4C73GA" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async="">
+</script>
+
+<!-- 跟随 Material 主题的亮/暗切换 -->
+<script>
+  var ref = document.querySelector("[data-md-component=palette]");
+  if (ref) {
+    ref.addEventListener("change", function() {
+      var palette = __md_get("__palette");
+      if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate" ? "dark" : "light";
+        var frame = document.querySelector(".giscus-frame");
+        if (frame) {
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme: theme } } },
+            "https://giscus.app"
+          );
+        }
+      }
+    });
+  }
+</script>
 
                 
               </article>

@@ -823,6 +823,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数值例子：逐步计算三个梯度
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -851,21 +862,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        布局约定（容易踩坑）
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
-        代码验证
+        布局约定（容易踩坑）
       
     </span>
   </a>
@@ -1579,6 +1579,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数值例子：逐步计算三个梯度
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1607,21 +1618,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        布局约定（容易踩坑）
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
-        代码验证
+        布局约定（容易踩坑）
       
     </span>
   </a>
@@ -1678,6 +1678,8 @@
 <h2 id="intuition">直觉 (Intuition)<a class="headerlink" href="#intuition" title="Permanent link">¶</a></h2>
 <p>标量对标量求导是大学微积分。矩阵求导是同一件事，只是输入和输出变成了向量或矩阵。梯度是"函数在哪个方向上增长最快"，Jacobian 是"一个向量函数的每个输出分量对每个输入分量的敏感度"，Hessian 是"函数的局部曲率"。</p>
 <p>搞清楚布局约定（分子布局还是分母布局）是避免反向传播写错的关键，因为 PyTorch 和数学教材用的不一样。</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Gradient2.svg/600px-Gradient2.svg.png" data-desc-position="bottom"><img alt="梯度方向场示意" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Gradient2.svg/600px-Gradient2.svg.png"></a></p>
+<p><em>标量函数 <span class="arithmatex">\(f(x,y)\)</span> 的等高线（橙色）和梯度向量场（蓝色箭头）：梯度始终垂直于等高线，指向函数值增大最快的方向。来源：<a href="https://en.wikipedia.org/wiki/Gradient">Wikipedia</a></em></p>
 <hr>
 <h2 id="_2">符号约定<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <table>
@@ -1752,6 +1754,20 @@
 <p><strong>线性变换：</strong> <span class="arithmatex">\(f(\mathbf{x}) = \|\mathbf{W}\mathbf{x} - \mathbf{b}\|^2\)</span>（最小二乘目标）</p>
 <div class="arithmatex">\[\nabla_\mathbf{x} f = 2\mathbf{W}^\top (\mathbf{W}\mathbf{x} - \mathbf{b})\]</div>
 <p>推导：令 <span class="arithmatex">\(\mathbf{r} = \mathbf{W}\mathbf{x} - \mathbf{b}\)</span>，则 <span class="arithmatex">\(f = \mathbf{r}^\top \mathbf{r}\)</span>，<span class="arithmatex">\(\nabla_\mathbf{r} f = 2\mathbf{r}\)</span>，再对 <span class="arithmatex">\(\mathbf{x}\)</span> 用链式法则（下一节）。</p>
+<h3 id="_6">数值例子：逐步计算三个梯度<a class="headerlink" href="#_6" title="Permanent link">¶</a></h3>
+<p><strong>例 1：线性函数梯度</strong></p>
+<p>取 <span class="arithmatex">\(\mathbf{a} = \begin{pmatrix}1\\3\end{pmatrix}\)</span>，<span class="arithmatex">\(\mathbf{x} = \begin{pmatrix}2\\-1\end{pmatrix}\)</span>，<span class="arithmatex">\(f(\mathbf{x}) = \mathbf{a}^\top\mathbf{x} = 1\cdot2 + 3\cdot(-1) = -1\)</span>。</p>
+<p>梯度：<span class="arithmatex">\(\nabla_\mathbf{x} f = \mathbf{a} = \begin{pmatrix}1\\3\end{pmatrix}\)</span>——与 <span class="arithmatex">\(\mathbf{x}\)</span> 的具体取值无关，函数在任何点的上升方向都是 <span class="arithmatex">\(\mathbf{a}\)</span>。</p>
+<p><strong>例 2：二次型梯度</strong></p>
+<p>取对称矩阵 <span class="arithmatex">\(\mathbf{A} = \begin{pmatrix}2&amp;1\\1&amp;2\end{pmatrix}\)</span>，<span class="arithmatex">\(\mathbf{x} = \begin{pmatrix}1\\1\end{pmatrix}\)</span>，<span class="arithmatex">\(f(\mathbf{x}) = \mathbf{x}^\top\mathbf{A}\mathbf{x}\)</span>。</p>
+<p>先算函数值：<span class="arithmatex">\(\mathbf{A}\mathbf{x} = \begin{pmatrix}3\\3\end{pmatrix}\)</span>，<span class="arithmatex">\(f = \mathbf{x}^\top\begin{pmatrix}3\\3\end{pmatrix} = 6\)</span>。</p>
+<p>梯度公式 <span class="arithmatex">\(\nabla f = 2\mathbf{A}\mathbf{x} = 2\begin{pmatrix}3\\3\end{pmatrix} = \begin{pmatrix}6\\6\end{pmatrix}\)</span>。</p>
+<p>验证（数值差分）：将 <span class="arithmatex">\(x_1\)</span> 加 <span class="arithmatex">\(\varepsilon = 0.001\)</span>，<span class="arithmatex">\(f\approx 6 + 6\times0.001 = 6.006\)</span>，<span class="arithmatex">\(\partial f/\partial x_1 \approx (6.006-6)/0.001 = 6\)</span> ✓</p>
+<p><strong>例 3：最小二乘梯度</strong></p>
+<p>取 <span class="arithmatex">\(\mathbf{W} = \begin{pmatrix}1&amp;0\\0&amp;2\end{pmatrix}\)</span>，<span class="arithmatex">\(\mathbf{b} = \begin{pmatrix}1\\1\end{pmatrix}\)</span>，<span class="arithmatex">\(\mathbf{x} = \begin{pmatrix}2\\1\end{pmatrix}\)</span>。</p>
+<p>残差：<span class="arithmatex">\(\mathbf{r} = \mathbf{W}\mathbf{x} - \mathbf{b} = \begin{pmatrix}2\\2\end{pmatrix} - \begin{pmatrix}1\\1\end{pmatrix} = \begin{pmatrix}1\\1\end{pmatrix}\)</span>，<span class="arithmatex">\(f = \|\mathbf{r}\|^2 = 2\)</span>。</p>
+<p>梯度：<span class="arithmatex">\(\nabla_\mathbf{x} f = 2\mathbf{W}^\top\mathbf{r} = 2\begin{pmatrix}1&amp;0\\0&amp;2\end{pmatrix}\begin{pmatrix}1\\1\end{pmatrix} = 2\begin{pmatrix}1\\2\end{pmatrix} = \begin{pmatrix}2\\4\end{pmatrix}\)</span>。</p>
+<p>含义：把 <span class="arithmatex">\(\mathbf{x}\)</span> 沿 <span class="arithmatex">\((-2,-4)\)</span> 方向移动一小步，<span class="arithmatex">\(f\)</span> 会下降——梯度下降找最小二乘解就是反复做这件事。</p>
 <hr>
 <h2 id="jacobian">Jacobian 矩阵<a class="headerlink" href="#jacobian" title="Permanent link">¶</a></h2>
 <p>向量值函数 <span class="arithmatex">\(\mathbf{f}: \mathbb{R}^n \to \mathbb{R}^m\)</span> 的 <strong>Jacobian</strong> 是一个 <span class="arithmatex">\(m \times n\)</span> 矩阵，第 <span class="arithmatex">\((i,j)\)</span> 个元素是 <span class="arithmatex">\(\partial f_i / \partial x_j\)</span>：</p>
@@ -1770,7 +1786,7 @@
 <p>当 <span class="arithmatex">\(f\)</span> 足够光滑时，Hessian 是对称矩阵（混合偏导数顺序无关）。</p>
 <p>Hessian 描述函数的<strong>局部曲率</strong>：正定 Hessian 对应局部极小值，不定 Hessian 对应鞍点。这在分析优化算法（SGD vs 牛顿法）时很重要，但 Hessian 的计算量是 <span class="arithmatex">\(O(n^2)\)</span>，神经网络里通常无法直接使用。</p>
 <hr>
-<h2 id="_6">布局约定（容易踩坑）<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
+<h2 id="_7">布局约定（容易踩坑）<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
 <p>矩阵求导有两种布局约定，两者的结果互为转置：</p>
 <ul>
 <li><strong>分子布局（Numerator Layout）</strong>：输出形状在前，结果的行数等于输出维度。PyTorch 的 <code>torch.autograd.functional.jacobian</code> 用的是这个。</li>
@@ -1780,54 +1796,6 @@
 <p class="admonition-title">布局混淆导致反向传播出错</p>
 <p>看到 <span class="arithmatex">\(\partial \mathbf{y} / \partial \mathbf{x}\)</span> 时，要先确认作者用的是哪种布局。形状不对是反向传播代码里最常见的 bug 之一。本节始终用<strong>分母布局</strong>：梯度 <span class="arithmatex">\(\nabla_\mathbf{x} f\)</span> 的形状与 <span class="arithmatex">\(\mathbf{x}\)</span> 相同。</p>
 </div>
-<hr>
-<h2 id="_7">代码验证<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># 验证线性函数的梯度：d(a^T x)/dx = a</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">])</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">f</span> <span class="o">=</span> <span class="n">a</span> <span class="o">@</span> <span class="n">x</span>  <span class="c1"># 标量值</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># 解析梯度</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">grad_analytical</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1"># 数值梯度（有限差分验证）</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">eps</span> <span class="o">=</span> <span class="mf">1e-5</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="n">grad_numerical</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="n">x_plus</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">();</span> <span class="n">x_plus</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">eps</span>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="n">x_minus</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">();</span> <span class="n">x_minus</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="n">eps</span>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="n">grad_numerical</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">@</span> <span class="n">x_plus</span> <span class="o">-</span> <span class="n">a</span> <span class="o">@</span> <span class="n">x_minus</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">eps</span><span class="p">)</span>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">grad_analytical</span><span class="p">,</span> <span class="n">grad_numerical</span><span class="p">))</span>  <span class="c1"># True</span>
-</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="c1"># 验证二次型的梯度：d(x^T A x)/dx = (A + A^T) x</span>
-</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]])</span>
-</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span>
-</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>
-</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="n">grad_analytical_2</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span> <span class="o">+</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">@</span> <span class="n">x2</span>
-</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="c1"># 数值梯度</span>
-</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="n">grad_numerical_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span>
-</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x2</span><span class="p">)):</span>
-</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>    <span class="n">x_p</span> <span class="o">=</span> <span class="n">x2</span><span class="o">.</span><span class="n">copy</span><span class="p">();</span> <span class="n">x_p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">eps</span>
-</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>    <span class="n">x_m</span> <span class="o">=</span> <span class="n">x2</span><span class="o">.</span><span class="n">copy</span><span class="p">();</span> <span class="n">x_m</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="n">eps</span>
-</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>    <span class="n">grad_numerical_2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_p</span> <span class="o">@</span> <span class="n">A</span> <span class="o">@</span> <span class="n">x_p</span> <span class="o">-</span> <span class="n">x_m</span> <span class="o">@</span> <span class="n">A</span> <span class="o">@</span> <span class="n">x_m</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">eps</span><span class="p">)</span>
-</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>
-</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">grad_analytical_2</span><span class="p">,</span> <span class="n">grad_numerical_2</span><span class="p">))</span>  <span class="c1"># True</span>
-</span></code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># PyTorch autograd 验证 Jacobian</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 1×3</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">W</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]])</span>   <span class="c1"># 2×3</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">y</span> <span class="o">=</span> <span class="n">W</span> <span class="o">@</span> <span class="n">x</span><span class="o">.</span><span class="n">T</span>   <span class="c1"># 2×1</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="c1"># Jacobian: dy/dx 应该等于 W（2×3 矩阵）</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">J</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">jacobian</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">W</span> <span class="o">@</span> <span class="n">x</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span> <span class="n">x</span><span class="p">)</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">J</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>   <span class="c1"># torch.Size([2, 3])</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="nb">print</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">W</span><span class="p">))</span>  <span class="c1"># True</span>
-</span></code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">在深度学习中的应用</p>
 <ul>
@@ -1862,7 +1830,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年4月26日 17:16:40 CST">2026年4月26日 17:16:40</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年4月28日 16:43:57 CST">2026年4月28日 16:43:57</span>
   </span>
 
     
@@ -1883,6 +1851,31 @@
 
 
 
+
+<h2 id="__comments">Comments</h2>
+
+<script src="https://giscus.app/client.js" data-repo="Yaoyaolingbro/hello-dl" data-repo-id="R_kgDOSOpkKg" data-category="Announcements" data-category-id="DIC_kwDOSOpkKs4C73GA" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async="">
+</script>
+
+<!-- 跟随 Material 主题的亮/暗切换 -->
+<script>
+  var ref = document.querySelector("[data-md-component=palette]");
+  if (ref) {
+    ref.addEventListener("change", function() {
+      var palette = __md_get("__palette");
+      if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate" ? "dark" : "light";
+        var frame = document.querySelector(".giscus-frame");
+        if (frame) {
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme: theme } } },
+            "https://giscus.app"
+          );
+        }
+      }
+    });
+  }
+</script>
 
                 
               </article>
