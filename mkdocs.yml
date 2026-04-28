@@ -3,8 +3,8 @@ site_url: https://yaoyaolingbro.github.io/deep-learning
 site_author: yaoyaoling
 site_description: 面向 AI 入门者的系统性教程，涵盖数学基础、深度学习、前沿模型与现代应用。
 
-repo_url: https://github.com/Yaoyaolingbro/deep-learing
-repo_name: Yaoyaolingbro/deep-learing
+repo_url: https://github.com/Yaoyaolingbro/hello-dl
+repo_name: Yaoyaolingbro/hello-dl
 edit_uri: edit/main/docs/
 
 copyright: Copyright &copy; 2024 yaoyaoling · <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
@@ -114,7 +114,7 @@ extra:
   generator: false           # 隐藏 "Made with Material for MkDocs" 脚注
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/Yaoyaolingbro/deep-learing
+      link: https://github.com/Yaoyaolingbro/hello-dl
       name: GitHub 仓库
 
 nav:
