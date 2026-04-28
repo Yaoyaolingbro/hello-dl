@@ -98,6 +98,22 @@
 }
 
 /* ──────────────────────────────────────────────
+   Mermaid 图表美化
+   ────────────────────────────────────────────── */
+.mermaid {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+/* 让 Mermaid SVG 最大宽度撑满容器，不溢出 */
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* ──────────────────────────────────────────────
    版权行
    ────────────────────────────────────────────── */
 .md-footer-copyright {
