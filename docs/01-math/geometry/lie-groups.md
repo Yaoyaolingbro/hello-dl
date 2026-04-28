@@ -2,11 +2,13 @@
 
 !!! info "参考资料"
     **主要资料**
+
     - Murray, Li & Sastry, *A Mathematical Introduction to Robotic Manipulation* — 免费 PDF，第 2–3 章（SE(3) 的经典处理）
     - Sola et al., "A micro Lie theory for state estimation in robotics", 2018 — 实用且清晰，免费 PDF
     - Chirikjian, *Stochastic Models, Information Theory, and Lie Groups* — 深度参考
 
     **工具文档**
+    
     - [Sophus](https://github.com/strasdat/Sophus) — C++ Lie 群库
     - [liegroups (Python)](https://github.com/utiasSTARS/liegroups) — Python 实现
 

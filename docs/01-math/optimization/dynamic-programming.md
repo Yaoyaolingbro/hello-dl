@@ -2,6 +2,7 @@
 
 !!! info "参考资料"
     **主要资料**
+    
     - Bellman, *Dynamic Programming*, 1957 — 原始教材
     - Sutton & Barto, *Reinforcement Learning: An Introduction*, 2nd ed. — Chapter 3–4（DP 与 Bellman 方程）
     - [David Silver RL Lectures](https://www.davidsilver.uk/teaching/) — Lecture 2–3，清晰的 DP 推导

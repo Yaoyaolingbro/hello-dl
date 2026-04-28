@@ -3,23 +3,37 @@ site_url: https://yaoyaolingbro.github.io/deep-learning
 site_author: yaoyaoling
 site_description: 面向 AI 入门者的系统性教程，涵盖数学基础、深度学习、前沿模型与现代应用。
 
-repo_url: https://github.com/Yaoyaolingbro/deep-learning
-repo_name: Yaoyaolingbro/deep-learning
+repo_url: https://github.com/Yaoyaolingbro/hello-dl
+repo_name: Yaoyaolingbro/hello-dl
+edit_uri: edit/main/docs/
+
+copyright: Copyright &copy; 2024 yaoyaoling · <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
 
 theme:
   name: material
+  custom_dir: overrides
   features:
+    # 导航
     - navigation.tabs
     - navigation.indexes
     - navigation.tracking
     - navigation.top
+    - navigation.footer       # 上一页 / 下一页翻页按钮
     - navigation.prune
+    # 目录
+    - toc.follow              # 侧边栏自动滚动到当前锚点
+    # 顶栏
     - header.autohide
+    # 搜索
     - search.highlight
     - search.suggest
     - search.share
+    # 代码块
     - content.code.copy
     - content.code.annotate
+    # GitHub 编辑按钮
+    - content.action.edit
+    - content.action.view
   palette:
     - scheme: default
       primary: indigo
@@ -38,6 +52,8 @@ theme:
     code: Roboto Mono
   icon:
     repo: fontawesome/brands/github
+    edit: material/pencil
+    view: material/eye
 
 markdown_extensions:
   - toc:
@@ -70,14 +86,13 @@ markdown_extensions:
       custom_fences:
         - name: mermaid
           class: mermaid
-          format: !!python/name:mermaid2.fence_mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.arithmatex:
       generic: true
 
 plugins:
   - search:
       lang: zh
-  - mermaid2
   - glightbox
   - git-revision-date-localized:
       type: datetime
@@ -93,11 +108,14 @@ extra_javascript:
   - assets/js/katex.js
   - https://unpkg.com/katex@0/dist/katex.min.js
   - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
+  - https://unpkg.com/mermaid@11/dist/mermaid.esm.min.mjs
 
 extra:
+  generator: false           # 隐藏 "Made with Material for MkDocs" 脚注
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/Yaoyaolingbro/deep-learning
+      link: https://github.com/Yaoyaolingbro/hello-dl
+      name: GitHub 仓库
 
 nav:
   - 首页: index.md
@@ -149,7 +167,7 @@ nav:
       - ODE 与向量场基础: 01-math/optimization/odes-vector-fields.md
       - PDE 基础: 01-math/optimization/pdes.md
 
-  - Part 2 · 基础深度学习:
+  - Part 2 · 深度学习基础:
     - 02-deep-learning/index.md
     - 神经网络基础: 02-deep-learning/neural-networks.md
     - 梯度下降与反向传播: 02-deep-learning/gradient-backprop.md
@@ -179,11 +197,6 @@ nav:
       - DDPM & DDIM: 03-advanced/generative-models/ddpm-ddim.md
       - Flow Matching: 03-advanced/generative-models/flow-matching.md
       - 条件生成: 03-advanced/generative-models/conditional-generation.md
-    - 模仿学习:
-      - 03-advanced/imitation-learning/index.md
-      - 行为克隆: 03-advanced/imitation-learning/bc.md
-      - DAgger: 03-advanced/imitation-learning/dagger.md
-      - Diffusion Policy: 03-advanced/imitation-learning/diffusion-policy.md
     - 强化学习:
       - 03-advanced/rl/index.md
       - 强化学习基础: 03-advanced/rl/rl-basics.md
@@ -194,7 +207,7 @@ nav:
       - 基于模型的 RL: 03-advanced/rl/model-based.md
       - DPO: 03-advanced/rl/dpo.md
 
-  - Part 4 · 现代 AI 应用:
+  - Part 4 · 现代人工智能应用:
     - 04-applications/index.md
     - 4.1 感知:
       - 04-applications/perception/index.md

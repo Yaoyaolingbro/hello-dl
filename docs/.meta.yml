@@ -1,0 +1,3 @@
+# 全局元数据，对 docs/ 下所有页面生效
+# 激活 Giscus 评论区（需先在 overrides/partials/comments.html 填入真实 repo-id）
+comments: true

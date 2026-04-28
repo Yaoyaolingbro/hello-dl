@@ -1,27 +1,128 @@
-/* 正文字体略微加大，提高可读性 */
+/* ──────────────────────────────────────────────
+   正文排版
+   ────────────────────────────────────────────── */
 .md-typeset {
-  font-size: 0.8rem;
-  line-height: 1.8;
+  font-size: 0.82rem;
+  line-height: 1.85;
 }
 
-/* 数学公式块居中 */
+/* 数学公式块横向可滚动 */
 .arithmatex {
   overflow-x: auto;
 }
 
-/* 代码块行号 */
+/* 代码块行号颜色 */
 .md-typeset .highlight .linenums {
   color: #aaa;
 }
 
-/* 图片自动居中 */
+/* 图片自动居中、圆角、加阴影 */
 .md-typeset img {
   display: block;
-  margin: 1rem auto;
-  border-radius: 4px;
+  margin: 1.2rem auto;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
-/* admonition 标题字体 */
+/* admonition 标题字重 */
 .md-typeset .admonition-title {
   font-weight: 600;
+}
+
+/* ──────────────────────────────────────────────
+   上一页 / 下一页翻页按钮（navigation.footer）
+   ────────────────────────────────────────────── */
+.md-footer__inner {
+  padding: 0.8rem 1rem;
+}
+
+.md-footer__link {
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  transition: background 0.2s ease;
+}
+
+.md-footer__link:hover {
+  background: rgba(var(--md-primary-fg-color--light), 0.08);
+}
+
+/* 翻页标签字体稍小 */
+.md-footer__title {
+  font-size: 0.72rem;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* 翻页页面名稍大 */
+.md-footer__name {
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+/* ──────────────────────────────────────────────
+   Giscus 评论区间距
+   ────────────────────────────────────────────── */
+.giscus {
+  margin-top: 2rem;
+}
+
+/* ──────────────────────────────────────────────
+   代码块优化
+   ────────────────────────────────────────────── */
+.md-typeset pre > code {
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+/* 行内代码背景色稍浅，和正文区分 */
+.md-typeset code {
+  border-radius: 3px;
+  padding: 0.05em 0.25em;
+}
+
+/* ──────────────────────────────────────────────
+   表格优化
+   ────────────────────────────────────────────── */
+.md-typeset table:not([class]) {
+  font-size: 0.8rem;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.md-typeset table:not([class]) th {
+  font-weight: 600;
+  background-color: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+}
+
+/* ──────────────────────────────────────────────
+   Mermaid 图表美化
+   ────────────────────────────────────────────── */
+.mermaid {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+/* 让 Mermaid SVG 最大宽度撑满容器，不溢出 */
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* ──────────────────────────────────────────────
+   版权行
+   ────────────────────────────────────────────── */
+.md-footer-copyright {
+  font-size: 0.7rem;
+  opacity: 0.75;
+}
+
+.md-footer-copyright a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }

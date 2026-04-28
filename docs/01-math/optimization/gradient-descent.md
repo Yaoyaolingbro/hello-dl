@@ -2,6 +2,7 @@
 
 !!! info "参考资料"
     **主要资料**
+    
     - Bottou et al., "Optimization Methods for Large-Scale Machine Learning", *SIAM Review* 2018 — 深度学习优化的权威综述
     - [Deep Learning Book: Chapter 8](https://www.deeplearningbook.org/contents/optimization.html) — Ian Goodfellow et al.
     - Bubeck, *Convex Optimization: Algorithms and Complexity*, 2015 — 收敛性分析的参考

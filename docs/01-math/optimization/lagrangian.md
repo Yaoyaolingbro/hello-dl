@@ -2,6 +2,7 @@
 
 !!! info "参考资料"
     **主要资料**
+    
     - Boyd & Vandenberghe, *Convex Optimization* — 第 4–5 章（约束优化、KKT 条件的标准参考）
     - Nocedal & Wright, *Numerical Optimization*, 2nd ed. — 第 12 章
 

@@ -2,6 +2,7 @@
 
 !!! info "参考资料"
     **主要资料**
+    
     - [Deep Learning Book: Chapter 5.6](https://www.deeplearningbook.org/contents/ml.html) — Ian Goodfellow et al.
     - [Pattern Recognition and Machine Learning](https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf) — Bishop, Chapter 1–2（经典教材）
     - [Bayesian Methods for Hackers](https://github.com/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers) — 代码驱动的入门

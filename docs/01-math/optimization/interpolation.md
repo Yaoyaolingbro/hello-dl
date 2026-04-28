@@ -2,11 +2,13 @@
 
 !!! info "参考资料"
     **主要资料**
+
     - de Boor, *A Practical Guide to Splines* — 样条的经典教材
     - [Numerical Recipes](http://numerical.recipes/) — 第 3 章，插值的实用实现
     - Farin, *Curves and Surfaces for CAGD* — 贝塞尔与 B 样条的图形学视角
 
     **工具文档**
+    
     - [SciPy: `scipy.interpolate`](https://docs.scipy.org/doc/scipy/reference/interpolate.html)
 
 ## 直觉 (Intuition)

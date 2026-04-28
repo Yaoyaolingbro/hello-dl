@@ -2,10 +2,12 @@
 
 !!! info "参考资料"
     **主要资料**
+
     - [Deep Learning Book: Chapter 3.9](https://www.deeplearningbook.org/contents/prob.html) — Ian Goodfellow et al.
     - [Probability Distributions](https://en.wikipedia.org/wiki/List_of_probability_distributions) — Wikipedia 有各分布的完整公式表
 
     **工具文档**
+    
     - [SciPy: `scipy.stats`](https://docs.scipy.org/doc/scipy/reference/stats.html)
     - [PyTorch: `torch.distributions`](https://pytorch.org/docs/stable/distributions.html)
 

@@ -2,10 +2,12 @@
 
 !!! info "参考资料"
     **主要资料**
+
     - Thrun et al., *Probabilistic Robotics* — Chapter 2–3（贝叶斯滤波和卡尔曼滤波的经典讲解）
     - Kalman, "A New Approach to Linear Filtering and Prediction Problems", 1960 — 原始论文
 
     **工程资料**
+    
     - [FilterPy](https://github.com/rlabbe/filterpy) — Python 卡尔曼滤波库
     - [Roger Labbe, Kalman and Bayesian Filters in Python](https://github.com/rlabbe/Kalman-and-Bayesian-Filters-in-Python) — 免费 Jupyter 书
 

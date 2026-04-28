@@ -2,11 +2,13 @@
 
 !!! info "参考资料"
     **主要论文**
+
     - Kingma & Ba, "Adam: A Method for Stochastic Optimization", ICLR 2015 — Adam 原始论文
     - Reddi et al., "On the Convergence of Adam and Beyond", ICLR 2018 — Adam 的收敛性分析与 AMSGrad
     - Loshchilov & Hutter, "Decoupled Weight Decay Regularization", ICLR 2019 — AdamW
 
     **工具文档**
+    
     - [PyTorch Optimizers](https://pytorch.org/docs/stable/optim.html)
 
 ## 直觉 (Intuition)

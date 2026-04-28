@@ -2,6 +2,7 @@
 
 !!! info "参考资料"
     **主要资料**
+    
     - [Deep Learning Book: Chapter 3.4–3.5](https://www.deeplearningbook.org/contents/prob.html) — Ian Goodfellow et al.
     - [Mathematics for Machine Learning](https://mml-book.github.io/) — Deisenroth et al., Chapter 6
 

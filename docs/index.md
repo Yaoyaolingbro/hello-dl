@@ -14,9 +14,9 @@
 
 ```mermaid
 graph LR
-    A[Part 1\n数学基础] --> B[Part 2\n基础深度学习]
+    A[Part 1\n数学基础] --> B[Part 2\n深度学习基础]
     B --> C[Part 3\n深入深度学习]
-    B --> D[Part 4\n现代应用]
+    B --> D[Part 4\n现代人工智能应用]
     C --> D
 ```
 
@@ -25,9 +25,9 @@ graph LR
 | 部分 | 内容 | 适合 |
 |------|------|------|
 | [Part 1 · 数学基础](01-math/index.md) | 线性代数、概率论、优化理论 | 所有人 |
-| [Part 2 · 基础深度学习](02-deep-learning/index.md) | 梯度下降、反向传播、CNN、RNN、Transformer | 有 Part 1 基础 |
+| [Part 2 · 深度学习基础](02-deep-learning/index.md) | 梯度下降、反向传播、CNN、RNN、Transformer | 有 Part 1 基础 |
 | [Part 3 · 深入深度学习](03-advanced/index.md) | VAE、扩散模型、强化学习 | 有 Part 2 基础 |
-| [Part 4 · 现代应用](04-applications/index.md) | 3D 视觉、多模态、Agent、具身智能 | 有 Part 2 & 3 基础 |
+| [Part 4 · 现代人工智能应用](04-applications/index.md) | 3D 视觉、多模态、Agent、具身智能 | 有 Part 2 & 3 基础 |
 
 # 参考资源
 - 课程：李宏毅《机器学习》《生成模型》课程

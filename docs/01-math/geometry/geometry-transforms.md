@@ -2,6 +2,7 @@
 
 !!! info "参考资料"
     **主要资料**
+    
     - Hartley & Zisserman, *Multiple View Geometry in Computer Vision*, 2nd ed. — 第 1–2 章（齐次坐标与投影变换的标准参考）
     - Lynch & Park, *Modern Robotics* — 第 3 章
     - Szeliski, *Computer Vision: Algorithms and Applications* — 第 2 章，相机模型
