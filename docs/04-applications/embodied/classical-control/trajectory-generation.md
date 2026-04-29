@@ -7,7 +7,7 @@
     - [Introduction to Robotics](https://www.pearson.com/en-us/subject-catalog/p/introduction-to-robotics-mechanics-and-control/P200000003302) — Craig, 第 7 章
 
 !!! note "前置依赖"
-    本节用到 [插值与样条基础](../../../../01-math/optimization/interpolation.md)（三次样条、B 样条）以及 [贝塞尔曲线与 B 样条](../../../../01-math/geometry/bezier-curves.md)（曲线参数化），建议先阅读。
+    本节用到 [插值与样条基础](../../../01-math/optimization/interpolation.md)（三次样条、B 样条）以及 [贝塞尔曲线与 B 样条](../../../01-math/geometry/bezier-curves.md)（曲线参数化），建议先阅读。
 
 ## 直觉 (Intuition)
 
@@ -45,7 +45,7 @@
 
 **五次多项式（Quintic Polynomial）**：6 个约束（起止位置、速度、加速度），保证加速度连续，减少振动。
 
-**三次样条（Cubic Spline）**：多段三次多项式拼接，满足 $C^0, C^1, C^2$ 连续（位置、速度、加速度全连续）。适合多路径点插值，是 CNC 数控机床和机械臂的标准轨迹格式之一。样条的数学背景已在 [插值章节](../../../../01-math/optimization/interpolation.md) 详细推导。
+**三次样条（Cubic Spline）**：多段三次多项式拼接，满足 $C^0, C^1, C^2$ 连续（位置、速度、加速度全连续）。适合多路径点插值，是 CNC 数控机床和机械臂的标准轨迹格式之一。样条的数学背景已在 [插值章节](../../../01-math/optimization/interpolation.md) 详细推导。
 
 !!! note "直觉小结"
     梯形曲线简单但有加速度突变（对电机有冲击）；三次多项式加速度连续但可能超出限制；五次多项式更平滑。实际工程里五次多项式和三次样条是最常见的选择。
