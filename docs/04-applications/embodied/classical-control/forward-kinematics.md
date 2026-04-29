@@ -11,7 +11,7 @@
     - [Stanford CS223A: Forward Kinematics](https://cs.stanford.edu/groups/manips/teaching/cs223a/)
 
 !!! note "前置依赖"
-    本节依赖 [空间描述](spatial-descriptions.md) 里的齐次变换矩阵，以及 [Lie 群与 Lie 代数](../../../../01-math/geometry/lie-groups.md) 里的 $SE(3)$ 和 Exp 映射（指数积公式用到）。
+    本节依赖 [空间描述](spatial-descriptions.md) 里的齐次变换矩阵，以及 [Lie 群与 Lie 代数](../../../01-math/geometry/lie-groups.md) 里的 $SE(3)$ 和 Exp 映射（指数积公式用到）。
 
 ## 直觉 (Intuition)
 
@@ -53,7 +53,7 @@ $$\mathbf{T}_{i-1,i}(\theta_i) = \mathbf{R}_z(\theta_i) \cdot \mathbf{T}_z(d_i) 
 
 $$e^{[\mathcal{S}_i] \theta_i} \in SE(3)$$
 
-其中 $[\mathcal{S}_i]$ 是螺旋轴的 $4 \times 4$ 矩阵表示（在 [Lie 群章节](../../../../01-math/geometry/lie-groups.md) 里定义的 $\mathfrak{se}(3)$ 元素）。
+其中 $[\mathcal{S}_i]$ 是螺旋轴的 $4 \times 4$ 矩阵表示（在 [Lie 群章节](../../../01-math/geometry/lie-groups.md) 里定义的 $\mathfrak{se}(3)$ 元素）。
 
 末端位姿的空间型 PoE 公式：
 

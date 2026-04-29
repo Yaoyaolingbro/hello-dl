@@ -7,7 +7,7 @@
     - [Introduction to Robotics](https://www.pearson.com/en-us/subject-catalog/p/introduction-to-robotics-mechanics-and-control/P200000003302) — Craig, 第 6 章
 
 !!! note "前置依赖"
-    拉格朗日方程的推导背景见 [ODE 与向量场](../../../../01-math/optimization/odes-vector-fields.md)（变分原理相关）。本节重在动力学方程的结构和工程意义，不展开完整推导。
+    拉格朗日方程的推导背景见 [ODE 与向量场](../../../01-math/optimization/odes-vector-fields.md)（变分原理相关）。本节重在动力学方程的结构和工程意义，不展开完整推导。
 
 ## 直觉 (Intuition)
 

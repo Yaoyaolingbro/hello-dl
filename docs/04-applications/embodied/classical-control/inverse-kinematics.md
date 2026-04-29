@@ -11,7 +11,7 @@
     - [IKFast (OpenRAVE)](http://openrave.org/docs/latest_stable/openravepy/ikfast/) — 解析 IK 自动生成器
 
 !!! note "前置依赖"
-    本节的数值法用到 [一阶最优化](../../../../01-math/optimization/first-order.md) 里的 Newton-Raphson 迭代（即梯度法在方程求解上的应用），以及上一节的雅可比矩阵。
+    本节的数值法用到 [一阶最优化](../../../01-math/optimization/first-order.md) 里的 Newton-Raphson 迭代（即梯度法在方程求解上的应用），以及上一节的雅可比矩阵。
 
 ## 直觉 (Intuition)
 
@@ -31,7 +31,7 @@
 
 $$f(\mathbf{q}) = \text{Log}\!\left(\mathbf{T}_\text{target}^{-1} \cdot \mathbf{T}_{0n}(\mathbf{q})\right) \in \mathbb{R}^6$$
 
-$\text{Log}$ 是 $SE(3)$ 的对数映射（见 [Lie 群章节](../../../../01-math/geometry/lie-groups.md)），把位姿误差转化为 6 维向量（位置误差 + 角度误差）。
+$\text{Log}$ 是 $SE(3)$ 的对数映射（见 [Lie 群章节](../../../01-math/geometry/lie-groups.md)），把位姿误差转化为 6 维向量（位置误差 + 角度误差）。
 
 Newton-Raphson 迭代：
 
