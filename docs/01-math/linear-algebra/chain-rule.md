@@ -90,11 +90,34 @@ $$\nabla_\mathbf{W} L = \nabla_\mathbf{y} L \cdot \mathbf{x}^\top$$
 $d\mathbf{y} = d\mathbf{b}$，所以 $\nabla_\mathbf{b} L = \nabla_\mathbf{y} L$（形状相同，直接传递）。
 
 !!! note "三个梯度公式小结"
+
     $$\nabla_\mathbf{x} L = \mathbf{W}^\top \nabla_\mathbf{y} L$$
     $$\nabla_\mathbf{W} L = \nabla_\mathbf{y} L \cdot \mathbf{x}^\top$$
     $$\nabla_\mathbf{b} L = \nabla_\mathbf{y} L$$
 
     这三个公式值得记住。全连接层的反向传播就是这三行。
+
+### 数值例子：手算一次完整的前向+反向
+
+取一个最小的 2→2→1 网络，全部用具体数字。
+
+**参数：** $\mathbf{W} = \begin{pmatrix}1&2\\0&1\end{pmatrix}$，$\mathbf{b} = \mathbf{0}$，输出权重 $\mathbf{w}_2 = \begin{pmatrix}1\\1\end{pmatrix}$
+
+**输入和标签：** $\mathbf{x} = \begin{pmatrix}1\\1\end{pmatrix}$，真值 $y^* = 5$，损失 $L = (\hat{y} - y^*)^2$
+
+**前向传播：**
+
+$$\mathbf{h} = \mathbf{W}\mathbf{x} = \begin{pmatrix}3\\1\end{pmatrix}, \quad \hat{y} = \mathbf{w}_2^\top\mathbf{h} = 4, \quad L = (4-5)^2 = 1$$
+
+**反向传播（从 $L$ 往回推）：**
+
+$$\frac{\partial L}{\partial \hat{y}} = 2(4-5) = -2 \quad \Rightarrow \quad \nabla_\mathbf{h} L = \mathbf{w}_2 \cdot (-2) = \begin{pmatrix}-2\\-2\end{pmatrix}$$
+
+$$\nabla_\mathbf{W} L = \nabla_\mathbf{h} L \cdot \mathbf{x}^\top = \begin{pmatrix}-2\\-2\end{pmatrix}\begin{pmatrix}1&1\end{pmatrix} = \begin{pmatrix}-2&-2\\-2&-2\end{pmatrix}$$
+
+$$\nabla_\mathbf{x} L = \mathbf{W}^\top \nabla_\mathbf{h} L = \begin{pmatrix}1&0\\2&1\end{pmatrix}\begin{pmatrix}-2\\-2\end{pmatrix} = \begin{pmatrix}-2\\-6\end{pmatrix}$$
+
+**验证（数值差分）：** 把 $W_{11}$ 从 $1$ 改到 $1.001$，重算 $\hat{y} = 1.001+2 = 3.001 + 1 = 4.001$，$L = (4.001-5)^2 = 0.998001$，$\Delta L/\Delta W_{11} \approx -2.0 \approx (\nabla_\mathbf{W}L)_{11}$ ✓
 
 ---
 
@@ -102,69 +125,14 @@ $d\mathbf{y} = d\mathbf{b}$，所以 $\nabla_\mathbf{b} L = \nabla_\mathbf{y} L$
 
 设三层网络 $\mathbf{x} \xrightarrow{\mathbf{W}_1} \mathbf{h}_1 \xrightarrow{\mathbf{W}_2} \mathbf{h}_2 \xrightarrow{\mathbf{W}_3} L$，则：
 
-$$\nabla_\mathbf{x} L = \mathbf{J}_1^\top \mathbf{J}_2^\top \mathbf{J}_3^\top \nabla_\mathbf{h}_3 L$$
+$$
+\nabla_\mathbf{x} L = \mathbf{J}_1^\top \mathbf{J}_2^\top \mathbf{J}_3^\top \nabla_\mathbf{h}_3 L
+$$
 
 这是三个 Jacobian 矩阵的乘积。如果每个 $\|\mathbf{J}_i\| < 1$，乘积会指数级收缩→梯度消失；如果 $\|\mathbf{J}_i\| > 1$，乘积会指数级增长→梯度爆炸。
 
 残差连接（ResNet）通过让 $\mathbf{J}_i = \mathbf{I} + \text{小量}$ 来保证梯度在传播时不消失，这是其成功的数学原因。
 
----
-
-## 代码验证
-
-```python
-import torch
-import torch.nn as nn
-
-# 手动实现全连接层反向传播，与 PyTorch autograd 对比
-torch.manual_seed(0)
-
-batch = 3
-n_in, n_out = 4, 5
-W = torch.randn(n_out, n_in, requires_grad=True)
-b = torch.randn(n_out, requires_grad=True)
-x = torch.randn(n_in)
-
-# 前向传播
-y = W @ x + b
-L = y.sum()  # 简单 loss
-
-# PyTorch 自动求导
-L.backward()
-grad_W_auto = W.grad.clone()
-grad_x_auto = torch.autograd.grad(L, x, retain_graph=True)[0]  # 需要 x.requires_grad=True
-
-# 手动公式
-# dL/dy = 全 1 向量（L = sum(y)）
-grad_y = torch.ones(n_out)
-grad_W_manual = grad_y.unsqueeze(1) @ x.unsqueeze(0)  # (n_out, 1) @ (1, n_in)
-grad_x_manual = W.T @ grad_y
-
-print(torch.allclose(grad_W_auto, grad_W_manual))  # True
-```
-
-```python
-# 演示梯度消失：深层无残差网络 vs 有残差网络
-import torch
-
-def grad_norm_deep(depth, use_residual=False):
-    x = torch.randn(64, requires_grad=True)
-    h = x
-    for _ in range(depth):
-        W = torch.randn(64, 64) * 0.1  # 小权重模拟深层
-        h_new = torch.tanh(W @ h)
-        h = h + h_new if use_residual else h_new
-    L = h.sum()
-    L.backward()
-    return x.grad.norm().item()
-
-for d in [5, 10, 20, 50]:
-    g_plain = grad_norm_deep(d, use_residual=False)
-    g_res   = grad_norm_deep(d, use_residual=True)
-    print(f"depth={d}: plain={g_plain:.2e}, residual={g_res:.2e}")
-# depth=5:  plain=5.34e-03, residual=3.21e-01
-# depth=50: plain=2.71e-26, residual=1.87e-01  <- 残差网络梯度几乎不消失
-```
 
 !!! tip "在深度学习中的应用"
 
