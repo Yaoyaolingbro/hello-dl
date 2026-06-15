@@ -11,7 +11,7 @@
     - [Stanford CS223A Lecture Notes](https://cs.stanford.edu/groups/manips/teaching/cs223a/)
 
 !!! note "前置依赖"
-    本节内容和 [几何变换与旋转表示](../../../../01-math/geometry/geometry-transforms.md) 高度重叠，数学推导部分见那里。本节从工程和应用视角出发，聚焦于：在机器人程序里该选哪种表示，以及各种表示的坑在哪里。
+    本节内容和 [几何变换与旋转表示](../../../01-math/geometry/geometry-transforms.md) 高度重叠，数学推导部分见那里。本节从工程和应用视角出发，聚焦于：在机器人程序里该选哪种表示，以及各种表示的坑在哪里。
 
 ## 直觉 (Intuition)
 
@@ -84,7 +84,7 @@ $$\mathbf{T}^{-1} = \begin{pmatrix} \mathbf{R}^\top & -\mathbf{R}^\top\mathbf{p}
 
 $$\mathbf{T}_{0E} = \mathbf{T}_{01} \cdot \mathbf{T}_{12} \cdots \mathbf{T}_{(n-1)E}$$
 
-数学推导已在 [几何变换章节](../../../../01-math/geometry/geometry-transforms.md) 展开，以及 Lie 群视角见 [Lie 群与 Lie 代数](../../../../01-math/geometry/lie-groups.md)。
+数学推导已在 [几何变换章节](../../../01-math/geometry/geometry-transforms.md) 展开，以及 Lie 群视角见 [Lie 群与 Lie 代数](../../../01-math/geometry/lie-groups.md)。
 
 ## 坐标系约定
 

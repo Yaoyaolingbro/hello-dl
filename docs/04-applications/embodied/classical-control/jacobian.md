@@ -7,7 +7,7 @@
     - [Introduction to Robotics](https://www.pearson.com/en-us/subject-catalog/p/introduction-to-robotics-mechanics-and-control/P200000003302) — Craig, 第 5 章
 
 !!! note "前置依赖"
-    雅可比矩阵是多变量函数的导数矩阵，见 [矩阵微积分](../../../../01-math/linear-algebra/matrix-calculus.md)。奇异值分析见 [SVD](../../../../01-math/linear-algebra/svd.md)。
+    雅可比矩阵是多变量函数的导数矩阵，见 [矩阵微积分](../../../01-math/linear-algebra/matrix-calculus.md)。奇异值分析见 [SVD](../../../01-math/linear-algebra/svd.md)。
 
 ## 直觉 (Intuition)
 
@@ -33,7 +33,7 @@ $$\mathbf{J}_i(\mathbf{q}) = \text{Ad}_{e^{[\mathcal{S}_1]\theta_1}\cdots e^{[\m
 
 典型奇异姿态：机械臂完全伸直（所有关节共线）或两个旋转轴对齐。此时维持末端速度需要无穷大的关节速度——实际电机做不到，控制器会产生异常大的力矩指令。
 
-奇异性分析方法：对 $\mathbf{J}$ 做 SVD（见 [SVD 章节](../../../../01-math/linear-algebra/svd.md)），最小奇异值 $\sigma_\min \to 0$ 意味着接近奇异点。
+奇异性分析方法：对 $\mathbf{J}$ 做 SVD（见 [SVD 章节](../../../01-math/linear-algebra/svd.md)），最小奇异值 $\sigma_\min \to 0$ 意味着接近奇异点。
 
 **可操作性（Manipulability）**指标（Yoshikawa 1985）：
 

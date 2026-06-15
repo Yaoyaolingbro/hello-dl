@@ -7,7 +7,7 @@
     - [Robot Modeling and Control](https://www.wiley.com/en-us/Robot+Modeling+and+Control-p-9780471649908) — Spong, Hutchinson & Vidyasagar, 第 8 章
 
 !!! note "前置依赖"
-    本节的 PD 控制器稳定性分析用到 [凸函数与梯度下降](../../../../01-math/optimization/convex-basics.md) 里的 Lyapunov 稳定性直觉。计算力矩控制（CTC）依赖上一节的动力学方程。
+    本节的 PD 控制器稳定性分析用到 [凸函数与梯度下降](../../../01-math/optimization/convex-basics.md) 里的 Lyapunov 稳定性直觉。计算力矩控制（CTC）依赖上一节的动力学方程。
 
 ## 直觉 (Intuition)
 
