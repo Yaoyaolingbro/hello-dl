@@ -2215,7 +2215,7 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">前置依赖</p>
-<p>本节依赖 <a href="../spatial-descriptions/">空间描述</a> 里的齐次变换矩阵，以及 <a href="../../../../01-math/geometry/lie-groups.md">Lie 群与 Lie 代数</a> 里的 <span class="arithmatex">\(SE(3)\)</span> 和 Exp 映射（指数积公式用到）。</p>
+<p>本节依赖 <a href="../spatial-descriptions/">空间描述</a> 里的齐次变换矩阵，以及 <a href="../../../../01-math/geometry/lie-groups/">Lie 群与 Lie 代数</a> 里的 <span class="arithmatex">\(SE(3)\)</span> 和 Exp 映射（指数积公式用到）。</p>
 </div>
 <h2 id="intuition">直觉 (Intuition)<a class="headerlink" href="#intuition" title="Permanent link">¶</a></h2>
 <p>正运动学（Forward Kinematics，FK）问题是：给定机械臂每个关节的角度，求末端执行器（End-Effector）在空间中的位姿。想象一条手臂：肩膀转多少度、肘关节弯多少度、手腕转多少度——三者合起来，手在哪？输入是关节角度向量 <span class="arithmatex">\(\mathbf{q} \in \mathbb{R}^n\)</span>，输出是末端位姿 <span class="arithmatex">\(\mathbf{T} \in SE(3)\)</span>。正运动学总有唯一解，这是它和"逆运动学"的根本区别。</p>
@@ -2262,7 +2262,7 @@
 <p>现代机器人学更倾向于使用<strong>指数积（PoE）公式</strong>，因为它的几何意义更清晰，也更适合与 Lie 群框架配合使用。</p>
 <p>每个旋转关节对应一个<strong>关节螺旋轴（Screw Axis）</strong> <span class="arithmatex">\(\mathcal{S}_i \in \mathbb{R}^6\)</span>，描述该关节的旋转轴方向和位置。关节角变化 <span class="arithmatex">\(\theta_i\)</span> 对应 <span class="arithmatex">\(SE(3)\)</span> 上的指数映射：</p>
 <div class="arithmatex">\[e^{[\mathcal{S}_i] \theta_i} \in SE(3)\]</div>
-<p>其中 <span class="arithmatex">\([\mathcal{S}_i]\)</span> 是螺旋轴的 <span class="arithmatex">\(4 \times 4\)</span> 矩阵表示（在 <a href="../../../../01-math/geometry/lie-groups.md">Lie 群章节</a> 里定义的 <span class="arithmatex">\(\mathfrak{se}(3)\)</span> 元素）。</p>
+<p>其中 <span class="arithmatex">\([\mathcal{S}_i]\)</span> 是螺旋轴的 <span class="arithmatex">\(4 \times 4\)</span> 矩阵表示（在 <a href="../../../../01-math/geometry/lie-groups/">Lie 群章节</a> 里定义的 <span class="arithmatex">\(\mathfrak{se}(3)\)</span> 元素）。</p>
 <p>末端位姿的空间型 PoE 公式：</p>
 <div class="arithmatex">\[\mathbf{T}_{0n}(\mathbf{q}) = e^{[\mathcal{S}_1]\theta_1} e^{[\mathcal{S}_2]\theta_2} \cdots e^{[\mathcal{S}_n]\theta_n} \cdot \mathbf{M}\]</div>
 <p>其中 <span class="arithmatex">\(\mathbf{M}\)</span> 是所有关节角为零时末端的位姿（Home Configuration）。</p>
@@ -2335,7 +2335,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年4月28日 15:21:24 CST">2026年4月28日 15:21:24</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年6月16日 01:18:54 CST">2026年6月16日 01:18:54</span>
   </span>
 
     

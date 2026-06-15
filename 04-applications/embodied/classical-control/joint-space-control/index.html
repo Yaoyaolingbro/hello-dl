@@ -2211,7 +2211,7 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">前置依赖</p>
-<p>本节的 PD 控制器稳定性分析用到 <a href="../../../../01-math/optimization/convex-basics.md">凸函数与梯度下降</a> 里的 Lyapunov 稳定性直觉。计算力矩控制（CTC）依赖上一节的动力学方程。</p>
+<p>本节的 PD 控制器稳定性分析用到 <a href="../../../../01-math/optimization/convex-basics/">凸函数与梯度下降</a> 里的 Lyapunov 稳定性直觉。计算力矩控制（CTC）依赖上一节的动力学方程。</p>
 </div>
 <h2 id="intuition">直觉 (Intuition)<a class="headerlink" href="#intuition" title="Permanent link">¶</a></h2>
 <p>轨迹规划给出了期望的关节角序列 <span class="arithmatex">\(\mathbf{q}_d(t)\)</span>，关节空间控制的任务是：设计力矩控制器，让实际关节角 <span class="arithmatex">\(\mathbf{q}(t)\)</span> 精确跟踪 <span class="arithmatex">\(\mathbf{q}_d(t)\)</span>，即使存在扰动和模型误差。最朴素的思路是：偏差大就加大力矩；偏差在增大就更紧张。这就是 PD 控制的核心思路，也是工业机器人 90% 场景下的实际解决方案。</p>
@@ -2334,7 +2334,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年4月28日 15:21:24 CST">2026年4月28日 15:21:24</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年6月16日 01:18:54 CST">2026年6月16日 01:18:54</span>
   </span>
 
     

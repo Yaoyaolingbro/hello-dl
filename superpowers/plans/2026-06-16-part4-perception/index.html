@@ -9,7 +9,7 @@
         <meta name="author" content="yaoyaoling">
       
       
-        <link rel="canonical" href="https://yaoyaolingbro.github.io/deep-learning/superpowers/style-part4-applications/">
+        <link rel="canonical" href="https://yaoyaolingbro.github.io/deep-learning/superpowers/plans/2026-06-16-part4-perception/">
       
       
       
@@ -17,19 +17,19 @@
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Part 4 现代 AI 应用 · 写作规范 - 深度学习入门指南</title>
+        <title>Part 4 Perception Implementation Plan - 深度学习入门指南</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -50,15 +50,15 @@
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
     
-      <link rel="stylesheet" href="../../assets/css/custom.css">
+      <link rel="stylesheet" href="../../../assets/css/custom.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
     
-  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -87,7 +87,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#part-4-ai" class="md-skip">
+        <a href="#part-4-perception-implementation-plan" class="md-skip">
           Skip to content
         </a>
       
@@ -101,7 +101,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="深度学习入门指南" class="md-header__button md-logo" aria-label="深度学习入门指南" data-md-component="logo">
+    <a href="../../.." title="深度学习入门指南" class="md-header__button md-logo" aria-label="深度学习入门指南" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
@@ -121,7 +121,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Part 4 现代 AI 应用 · 写作规范
+              Part 4 Perception Implementation Plan
             
           </span>
         </div>
@@ -239,7 +239,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+      <a href="../../.." class="md-tabs__link">
         
   
   
@@ -260,7 +260,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../01-math/" class="md-tabs__link">
+        <a href="../../../01-math/" class="md-tabs__link">
           
   
   
@@ -282,7 +282,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../02-deep-learning/" class="md-tabs__link">
+        <a href="../../../02-deep-learning/" class="md-tabs__link">
           
   
   
@@ -304,7 +304,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../03-advanced/" class="md-tabs__link">
+        <a href="../../../03-advanced/" class="md-tabs__link">
           
   
   
@@ -326,7 +326,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../04-applications/" class="md-tabs__link">
+        <a href="../../../04-applications/" class="md-tabs__link">
           
   
   
@@ -362,7 +362,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="深度学习入门指南" class="md-nav__button md-logo" aria-label="深度学习入门指南" data-md-component="logo">
+    <a href="../../.." title="深度学习入门指南" class="md-nav__button md-logo" aria-label="深度学习入门指南" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
@@ -392,7 +392,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -451,7 +451,7 @@
   
   
   
-    <a href="../../01-math/" class="md-nav__link">
+    <a href="../../../01-math/" class="md-nav__link">
       
   
   
@@ -522,7 +522,7 @@
   
   
   
-    <a href="../../02-deep-learning/" class="md-nav__link">
+    <a href="../../../02-deep-learning/" class="md-nav__link">
       
   
   
@@ -585,7 +585,7 @@
   
   
   
-    <a href="../../03-advanced/" class="md-nav__link">
+    <a href="../../../03-advanced/" class="md-nav__link">
       
   
   
@@ -660,7 +660,7 @@
   
   
   
-    <a href="../../04-applications/" class="md-nav__link">
+    <a href="../../../04-applications/" class="md-nav__link">
       
   
   
@@ -713,10 +713,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#task-1-synchronize-the-working-branch" class="md-nav__link">
     <span class="md-ellipsis">
       
-        核心定位
+        Task 1: Synchronize the Working Branch
       
     </span>
   </a>
@@ -724,10 +724,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#task-2-strengthen-the-part-4-writing-rules" class="md-nav__link">
     <span class="md-ellipsis">
       
-        论文选择：只保留必读主线
+        Task 2: Strengthen the Part 4 Writing Rules
       
     </span>
   </a>
@@ -735,10 +735,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#task-3-write-image-classification" class="md-nav__link">
     <span class="md-ellipsis">
       
-        写作前的论文调研
+        Task 3: Write Image Classification
       
     </span>
   </a>
@@ -746,10 +746,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#paper-project" class="md-nav__link">
+  <a href="#task-4-write-object-detection" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Paper 与 Project 链接
+        Task 4: Write Object Detection
       
     </span>
   </a>
@@ -757,10 +757,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#task-5-write-image-segmentation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        章节结构
+        Task 5: Write Image Segmentation
       
     </span>
   </a>
@@ -768,10 +768,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#task-6-write-optical-flow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        时间脉络叙事（最重要）
+        Task 6: Write Optical Flow
       
     </span>
   </a>
@@ -779,10 +779,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#task-7-write-depth-estimation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        价值陈述优先于原理陈述
+        Task 7: Write Depth Estimation
       
     </span>
   </a>
@@ -790,10 +790,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#task-8-write-ocr-and-document-intelligence" class="md-nav__link">
     <span class="md-ellipsis">
       
-        工程实践的权重
+        Task 8: Write OCR and Document Intelligence
       
     </span>
   </a>
@@ -801,10 +801,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
+  <a href="#task-9-refresh-the-perception-guide-page" class="md-nav__link">
     <span class="md-ellipsis">
       
-        数学的使用原则
+        Task 9: Refresh the Perception Guide Page
       
     </span>
   </a>
@@ -812,10 +812,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#benchmark" class="md-nav__link">
+  <a href="#task-10-cross-page-review-and-verification" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Benchmark 数字的使用
+        Task 10: Cross-Page Review and Verification
       
     </span>
   </a>
@@ -823,21 +823,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
+  <a href="#task-11-merge-and-publish" class="md-nav__link">
     <span class="md-ellipsis">
       
-        开放问题必写
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        交稿前额外检查
+        Task 11: Merge and Publish
       
     </span>
   </a>
@@ -861,7 +850,7 @@
 
 
   
-    <a href="https://github.com/Yaoyaolingbro/hello-dl/edit/main/docs/superpowers/style-part4-applications.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/Yaoyaolingbro/hello-dl/edit/main/docs/superpowers/plans/2026-06-16-part4-perception.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"></path></svg>
     </a>
@@ -870,186 +859,144 @@
     
       
     
-    <a href="https://github.com/Yaoyaolingbro/hello-dl/raw/main/docs/superpowers/style-part4-applications.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/Yaoyaolingbro/hello-dl/raw/main/docs/superpowers/plans/2026-06-16-part4-perception.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"></path></svg>
     </a>
   
 
 
-<h1 id="part-4-ai">Part 4 现代 AI 应用写作规范<a class="headerlink" href="#part-4-ai" title="Permanent link">¶</a></h1>
+<h1 id="part-4-perception-implementation-plan">Part 4 Perception Implementation Plan<a class="headerlink" href="#part-4-perception-implementation-plan" title="Permanent link">¶</a></h1>
 <blockquote>
-<p>本文件与 <code>writing-style.md</code> 配合使用，<strong>不重复通用规则，只写 Part 4 特有的要求</strong>。</p>
+<p><strong>For agentic workers:</strong> REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (<code>- [ ]</code>) syntax for tracking.</p>
 </blockquote>
+<p><strong>Goal:</strong> Complete the six existing Part 4 perception tutorials as research-oriented popular science articles with a curated paper lineage and official Paper/Project links.</p>
+<p><strong>Architecture:</strong> Keep the existing MkDocs navigation and page boundaries. Establish shared sourcing and writing rules in the Part 4 style guide, then research and write each task page independently before a cross-page consistency pass.</p>
+<p><strong>Tech Stack:</strong> Markdown, MkDocs Material, KaTeX, Mermaid, GitHub Actions.</p>
 <hr>
-<h2 id="_1">核心定位<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
-<p>读者是<strong>想进入科研或工业界</strong>的人。他们不需要从头推导每个公式，但需要：</p>
-<ol>
-<li>知道这个方向的来龙去脉（时间脉络）</li>
-<li>理解每篇代表性工作的贡献是什么</li>
-<li>知道工程落地时的实际问题</li>
-</ol>
-<p>数学是背景知识，不是主角。工程细节和历史脉络才是。</p>
-<p>Part 4 采用<strong>科研科普</strong>写法：先把研究问题讲成读者能观察到的矛盾，再介绍论文如何改变问题的解法。正文不能写成论文摘要的中文拼接，也不能用排行榜代替发展史。</p>
-<hr>
-<h2 id="_2">论文选择：只保留必读主线<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
-<p>每个小节采用“精选主线”，通常选择 5 至 8 篇必读论文。论文数量服从叙事需要，不为凑数量加入边缘工作。</p>
-<p>一篇工作满足以下至少一项时，才进入正文主线：</p>
-<ul>
-<li>定义或重塑了任务范式</li>
-<li>解决了上一代方法的关键瓶颈</li>
-<li>成为后续研究反复复用的技术基础</li>
-<li>代表当前仍有研究或工程影响力的路线</li>
-</ul>
-<p>同一类方法有很多增量版本时，正文只讲最能说明技术转折的一篇。其余工作可以在一句话中交代，不展开模型清单。</p>
-<p>每篇代表工作必须回答四个问题：</p>
-<ol>
-<li>当时大家卡在哪里？</li>
-<li>这篇论文改变了哪个假设或模块？</li>
-<li>实验说明它真正改善了什么？</li>
-<li>它留下了什么问题？</li>
-</ol>
-<hr>
-<h2 id="_3">写作前的论文调研<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
-<p>动笔前先确认本节的任务边界和必读论文，再逐篇阅读原始材料。至少检查：</p>
-<ul>
-<li>摘要和引言：作者认为之前的方法卡在哪里</li>
-<li>方法部分：真正新增的机制是什么</li>
-<li>实验和消融：哪些结论有数据支持</li>
-<li>局限部分：哪些问题由作者明确承认</li>
-<li>官方项目页或代码仓库：模型、数据和复现信息是否有更新</li>
-</ul>
-<p>以下信息必须回到原论文或官方页面核验，不能依赖搜索摘要、二手博客或模型记忆：</p>
-<ul>
-<li>论文名称、作者、年份和会议</li>
-<li>数据集、指标、速度、参数量和训练成本</li>
-<li>“首次提出”“第一个做到”等优先权表述</li>
-<li>作者明确陈述的局限</li>
-<li>截至写作日期仍成立的趋势和开放问题</li>
-</ul>
-<p>遇到互相矛盾的数字时，先检查输入分辨率、训练数据、预训练方式、评测协议和硬件。比较条件不一致，就不要把数字并排写成优劣结论。</p>
-<hr>
-<h2 id="paper-project">Paper 与 Project 链接<a class="headerlink" href="#paper-project" title="Permanent link">¶</a></h2>
-<p>章节开头的 <code>!!! info "参考资料"</code> 集中列出本节的必读论文。正文第一次提到论文时，仍然提供链接：</p>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>NeRF（[Paper](https://arxiv.org/abs/2003.08934) | [<span class="nt">Project</span>](<span class="na">https://www.matthewtancik.com/nerf</span>)）
-</span></code></pre></div>
-<p>链接来源按以下顺序选择：</p>
-<ol>
-<li>会议或期刊正式页面、OpenReview、作者提供的 arXiv 页面</li>
-<li>作者或研究机构维护的官方项目页</li>
-<li>作者维护的官方代码仓库</li>
-</ol>
-<p>有官方项目页时，<code>Project</code> 指向项目页；没有项目页时可以指向官方代码仓库；两者都没有时只写 <code>Paper</code>。不要用 Papers With Code、论文聚合转载页或非官方复现仓库代替官方链接。</p>
-<p>正文只在第一次出现时附链接。后文再次提到同一工作，直接使用论文简称。</p>
-<hr>
-<h2 id="_4">章节结构<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>!!! info "参考资料"
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>## 直觉 (Intuition)          ← 任务是什么，为什么难，核心方法是什么
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>## 任务定义                  ← 输入输出、任务边界、常用指标
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>## 发展脉络                  ← 时间线，关键节点的工作和贡献
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>## 核心方法                  ← 每类方法的原理（数学点到为止，指向 Part 3 深入）
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>## 工程实践                  ← 落地时遇到的真实问题
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>## 开放问题                  ← 这个方向现在还有什么没有解决好
-</span></code></pre></div>
-<hr>
-<h2 id="_5">时间脉络叙事（最重要）<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
-<p>Part 4 的叙事主线是<strong>时间</strong>，不是逻辑推导。读者需要理解：当某篇论文出现时，它在解决什么当时的痛点。</p>
-<p><strong>框架模板：</strong></p>
-<blockquote>
-<p><strong>背景</strong>：2014 年，目标检测还在用 R-CNN，每张图要跑 2000 次 CNN，推理需要 49 秒。</p>
-<p><strong>问题</strong>：这在任何实时应用里都不可用。</p>
-<p><strong>突破</strong>：YOLO（2016）把检测变成一次 forward pass，速度从 49 秒降到 45fps。代价是小目标漏检率偏高。</p>
-<p><strong>后续</strong>：SSD 和 YOLOv2 各自在不同方向做了改进……</p>
-</blockquote>
-<p>每个代表性工作要说清楚：<strong>它出现时解决了什么问题，引入了什么新问题，后来怎么被解决的。</strong></p>
-<p>时间只是排序工具，研究问题才是段落之间的因果关系。不要写成“某年有 A，下一年有 B”的论文年表。</p>
-<hr>
-<h2 id="_6">价值陈述优先于原理陈述<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
-<p>不要用大量篇幅推导一个方法的数学细节，把那部分留给 Part 3 的链接。要花精力说清楚：</p>
-<ul>
-<li>这个方法做到了什么（性能、速度、可用性）</li>
-<li>相比之前的方法好在哪里（具体的提升）</li>
-<li>它的局限是什么（为什么后面的工作还要继续）</li>
-</ul>
-<blockquote>
-<p>NeRF（2020）第一次用神经网络实现了照片级的新视角合成，在 LLFF 数据集上 PSNR 提升约 5dB。代价是单场景训练需要 1-2 天，无法泛化到新场景。这两个局限直接催生了后来的 instant-ngp 和 zero-shot 重建方向。</p>
-</blockquote>
-<p>如果数字不是理解技术转折所必需的，就优先解释实验现象。例如，“在遮挡区域仍能保持边界”通常比单独抄一个平均分更能帮助读者理解方法。</p>
-<hr>
-<h2 id="_7">工程实践的权重<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
-<p>Part 4 的 <code>!!! tip "面试 / 工程重点"</code> 密度可以比其他 Part 更高（每节 2-5 个），但每个必须是真实工程中会遇到的问题：</p>
-<p><strong>好的工程 tip（真实遇到的）：</strong>
-</p><div class="language-markdown highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>!!! tip "工程重点"
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    NeRF 在实际部署时最常见的问题是场景边界处理：训练集里没有覆盖到的视角，
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    渲染结果会有明显的浮影。解决方法是在训练时加入背景建模（如 NeRF++），
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    或者用 mip-NeRF 的 cone casting 缓解。
-</span></code></pre></div><p></p>
-<p><strong>差的工程 tip（过于显然）：</strong>
-</p><div class="language-markdown highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>!!! tip "工程重点"
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    使用 GPU 可以加速训练。  ← 这不是工程 tip，这是废话
-</span></code></pre></div><p></p>
-<p>面试类 tip 侧重于<strong>"面试官真的会问、答不上来会扣分"的问题</strong>：</p>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>!!! tip "面试高频"
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    DETR 为什么收敛慢？
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    原因是 bipartite matching 的优化目标不稳定——同一个 GT box 在不同训练步里
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    可能被分配给不同的 query，梯度信号相互干扰。后来的 DN-DETR 通过加入
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    去噪训练解决了这个问题，收敛从 500 epoch 降到 50 epoch。
-</span></code></pre></div>
-<hr>
-<h2 id="_8">数学的使用原则<a class="headerlink" href="#_8" title="Permanent link">¶</a></h2>
-<p>Part 4 的数学以<strong>公式直觉</strong>为主，不推导：</p>
-<ul>
-<li>给出核心公式，解释每项含义，不展开推导</li>
-<li>如果某个方法的数学在 Part 3 已经讲过，直接链接，不重复</li>
-<li>复杂的数学证明用"可以证明……"带过，给出参考文献</li>
-</ul>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>体渲染方程描述光线沿方向 $\mathbf{d}$ 穿过场景时的颜色积分：
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>$$C(\mathbf{r}) = \int_{t_n}^{t_f} T(t) \, \sigma(\mathbf{r}(t)) \, \mathbf{c}(\mathbf{r}(t), \mathbf{d}) \, dt$$
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>其中 $T(t)$ 是透射率（光线没被遮挡的概率），$\sigma$ 是体密度，$\mathbf{c}$ 是颜色。
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>推导见 Max 1995 年的原始体渲染论文。
-</span></code></pre></div>
-<hr>
-<h2 id="benchmark">Benchmark 数字的使用<a class="headerlink" href="#benchmark" title="Permanent link">¶</a></h2>
-<p>引用性能数字时：</p>
-<ul>
-<li>说清楚在什么数据集上，什么指标</li>
-<li>给出绝对值（不只是"提升了 X%"）</li>
-<li>说明是否是当时的 SOTA，以及现在还是不是</li>
-<li>写清楚会影响公平比较的训练数据、输入尺寸或预训练条件</li>
-</ul>
-<blockquote>
-<p>在 ImageNet 上，ViT-L/16 达到 87.1% Top-1（2021 年时 SOTA），但需要 300M 参数和大量预训练数据。同期的 EfficientNet-B7 用 66M 参数达到 84.3%，在数据受限场景下更实用。</p>
-</blockquote>
-<p>不要随意引用没有说明来源的数字。</p>
-<hr>
-<h2 id="_9">开放问题必写<a class="headerlink" href="#_9" title="Permanent link">¶</a></h2>
-<p>每节结尾说清楚<strong>这个方向现在还在哪里卡着</strong>，这对科研读者最有价值。标题下必须注明资料核验时间，例如：</p>
-<blockquote>
-<p>以下判断基于截至 2026 年 6 月公开的论文与项目资料。</p>
-<p>3DGS 的主要开放问题：（1）内存占用随场景复杂度线性增长，大场景（城市级别）还没有好的解决方案；（2）动态场景下的高斯追踪还不够稳定；（3）和语义理解的结合还处于早期阶段。</p>
-</blockquote>
-<p>开放问题必须能落到可研究的矛盾上，例如数据、泛化、效率、可靠性或评测，而不是笼统地说“效果还可以继续提升”。如果问题已经被后续工作大幅缓解，要写清楚剩余边界，不能沿用旧论文的结论冒充现状。</p>
-<hr>
-<h2 id="_10">交稿前额外检查<a class="headerlink" href="#_10" title="Permanent link">¶</a></h2>
+<h3 id="task-1-synchronize-the-working-branch">Task 1: Synchronize the Working Branch<a class="headerlink" href="#task-1-synchronize-the-working-branch" title="Permanent link">¶</a></h3>
+<p><strong>Files:</strong>
+- Merge: <code>main</code> into <code>codex</code></p>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> 叙事是按时间脉络展开的吗？每个代表性工作都说了"它出现时解决了什么问题"吗？</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> 正文主线是否只保留了真正必要的论文？</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> 每篇主线论文首次出现时是否提供了官方 Paper 链接，以及存在时的 Project 链接？</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> 论文名称、年份、会议和关键数字是否回到原始来源核验？</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> 有没有说清楚每个方法的局限（以及后来怎么被改进的）？</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> 工程 tip 是真实工程问题吗（不是显然的废话）？</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> 引用性能数字时说明了数据集和指标吗？</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> 节末有注明核验时间的"开放问题"或"这个方向现在的挑战"吗？</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> 数学有没有超出必要范围，可以用链接替代的推导是否已经替换了？</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Fetch <code>origin</code> and inspect divergence.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Merge the latest local <code>main</code> into <code>codex</code> without rewriting history.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Resolve conflicts by preserving current <code>main</code> content and the committed perception design.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Run <code>git status --short --branch</code> and confirm a clean merge result.</li>
+</ul>
+<h3 id="task-2-strengthen-the-part-4-writing-rules">Task 2: Strengthen the Part 4 Writing Rules<a class="headerlink" href="#task-2-strengthen-the-part-4-writing-rules" title="Permanent link">¶</a></h3>
+<p><strong>Files:</strong>
+- Modify: <code>docs/superpowers/style-part4-applications.md</code></p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Add the curated-mainline selection criteria from the approved design.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Add the required first-mention format: <code>Method（[Paper](...) | [Project](...)）</code>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Define source priority and the fallback from official project page to official repository.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Add a pre-writing research workflow covering paper sections, benchmark verification, and current-status checks.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Add research-popularization guidance that asks what bottleneck, change, evidence, and limitation each paper contributes.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Add freshness rules for trends and open problems.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Run <code>git diff --check</code>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Commit with <code>docs(part4): strengthen research writing guidelines</code>.</li>
+</ul>
+<h3 id="task-3-write-image-classification">Task 3: Write Image Classification<a class="headerlink" href="#task-3-write-image-classification" title="Permanent link">¶</a></h3>
+<p><strong>Files:</strong>
+- Modify: <code>docs/04-applications/perception/image-classification.md</code></p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Research the primary papers and official projects for AlexNet, ResNet, EfficientNet, ViT, ConvNeXt, and a modern pretraining route where needed.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Write task definition and metrics, distinguishing closed-set classification from representation learning.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Explain the progression from convolutional inductive bias to scaling and Transformer-based vision.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Add engineering guidance on data quality, transfer learning, class imbalance, calibration, and distribution shift.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Add open problems with a June 2026 verification date.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Check every selected paper's first mention for official links.</li>
+</ul>
+<h3 id="task-4-write-object-detection">Task 4: Write Object Detection<a class="headerlink" href="#task-4-write-object-detection" title="Permanent link">¶</a></h3>
+<p><strong>Files:</strong>
+- Modify: <code>docs/04-applications/perception/object-detection.md</code></p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Research the primary papers and official projects for R-CNN/Faster R-CNN, YOLO, RetinaNet, FCOS, DETR, and a representative modern DETR improvement.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Define boxes, confidence, IoU, NMS, AP, and the distinction between one-stage, two-stage, anchor-free, and set prediction.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Build the paper lineage around latency, dense-label imbalance, hand-designed anchors, and matching-based prediction.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Add engineering guidance on annotation policy, small objects, resolution, thresholds, and deployment latency.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Add open problems with a June 2026 verification date.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Check every selected paper's first mention for official links.</li>
+</ul>
+<h3 id="task-5-write-image-segmentation">Task 5: Write Image Segmentation<a class="headerlink" href="#task-5-write-image-segmentation" title="Permanent link">¶</a></h3>
+<p><strong>Files:</strong>
+- Modify: <code>docs/04-applications/perception/segmentation.md</code></p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Research the primary papers and official projects for FCN, U-Net, DeepLab, Mask R-CNN, Mask2Former, and SAM.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Distinguish semantic, instance, panoptic, and promptable segmentation.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Explain the progression from dense prediction to instance masks, mask classification, and foundation segmentation.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Add engineering guidance on label boundaries, crop strategy, class imbalance, mask post-processing, and prompt quality.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Add open problems with a June 2026 verification date.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Check every selected paper's first mention for official links.</li>
+</ul>
+<h3 id="task-6-write-optical-flow">Task 6: Write Optical Flow<a class="headerlink" href="#task-6-write-optical-flow" title="Permanent link">¶</a></h3>
+<p><strong>Files:</strong>
+- Modify: <code>docs/04-applications/perception/optical-flow.md</code></p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Research the primary papers and official projects for Horn-Schunck, FlowNet, PWC-Net, RAFT, and FlowFormer or a better-supported representative successor.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Define the flow field, brightness constancy, endpoint error, occlusion, and domain gap.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Explain the transition from variational optimization to learned matching and recurrent refinement.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Add engineering guidance on frame timing, augmentation, occlusion masks, resolution, and downstream use.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Add open problems with a June 2026 verification date.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Check every selected paper's first mention for official links.</li>
+</ul>
+<h3 id="task-7-write-depth-estimation">Task 7: Write Depth Estimation<a class="headerlink" href="#task-7-write-depth-estimation" title="Permanent link">¶</a></h3>
+<p><strong>Files:</strong>
+- Modify: <code>docs/04-applications/perception/depth-estimation.md</code></p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Research the primary papers and official projects for stereo matching, Monodepth, DPT/MiDaS, ZoeDepth, Depth Anything, and a current metric-depth route where needed.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Separate stereo depth, monocular relative depth, metric depth, and zero-shot generalization.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Explain scale ambiguity, geometric cues, data mixing, and foundation-model supervision.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Add engineering guidance on camera calibration, depth representation, invalid pixels, scale alignment, and edge quality.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Add open problems with a June 2026 verification date.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Check every selected paper's first mention for official links.</li>
+</ul>
+<h3 id="task-8-write-ocr-and-document-intelligence">Task 8: Write OCR and Document Intelligence<a class="headerlink" href="#task-8-write-ocr-and-document-intelligence" title="Permanent link">¶</a></h3>
+<p><strong>Files:</strong>
+- Modify: <code>docs/04-applications/perception/ocr.md</code></p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Research the primary papers and official projects for CRAFT or DBNet, CRNN, TrOCR, LayoutLM, Donut, and a current document-understanding route where needed.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Separate text detection, recognition, layout analysis, key-information extraction, and end-to-end document understanding.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Explain the transition from modular OCR pipelines to pretrained multimodal document models.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Add engineering guidance on multilingual text, reading order, image quality, long documents, structured outputs, and evaluation.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Add open problems with a June 2026 verification date.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Check every selected paper's first mention for official links.</li>
+</ul>
+<h3 id="task-9-refresh-the-perception-guide-page">Task 9: Refresh the Perception Guide Page<a class="headerlink" href="#task-9-refresh-the-perception-guide-page" title="Permanent link">¶</a></h3>
+<p><strong>Files:</strong>
+- Modify: <code>docs/04-applications/perception/index.md</code></p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Update the introduction to explain the relationship among the six tasks.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Correct each page description to match the completed content.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Add or refine the reading order and prerequisite links without changing the six-page structure.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Keep the page as navigation rather than duplicating tutorial content.</li>
+</ul>
+<h3 id="task-10-cross-page-review-and-verification">Task 10: Cross-Page Review and Verification<a class="headerlink" href="#task-10-cross-page-review-and-verification" title="Permanent link">¶</a></h3>
+<p><strong>Files:</strong>
+- Review: <code>docs/04-applications/perception/*.md</code>
+- Review: <code>docs/superpowers/style-part4-applications.md</code></p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Search for and remove all placeholder text.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Verify paper titles, years, venues, benchmark claims, and official links against primary sources.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Check that each page uses the agreed structure and explains all first-use terminology.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Check that all current-trend and open-problem sections state the June 2026 verification date.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Run <code>git diff --check</code>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Run <code>python -m unittest discover -s tests -v</code>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Run <code>mkdocs build --strict</code>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Review the complete diff for accidental edits.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Commit the completed perception chapter.</li>
+</ul>
+<h3 id="task-11-merge-and-publish">Task 11: Merge and Publish<a class="headerlink" href="#task-11-merge-and-publish" title="Permanent link">¶</a></h3>
+<p><strong>Files:</strong>
+- Merge: <code>codex</code> into <code>main</code></p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Fetch <code>origin</code> and verify <code>origin/main</code> has not advanced unexpectedly.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Push <code>codex</code> so the completed branch is backed up remotely.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Switch to <code>main</code>, fast-forward from <code>origin/main</code>, and merge <code>codex</code>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Run <code>python -m unittest discover -s tests -v</code> on the merged result.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Run <code>mkdocs build --strict</code> on the merged result.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Push <code>main</code> to <code>origin/main</code>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled=""><span class="task-list-indicator"></span></label> Report the pushed commit and verification results.</li>
 </ul>
 
 
@@ -1073,7 +1020,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年6月16日 01:07:56 CST">2026年6月16日 01:07:56</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年6月16日 01:05:16 CST">2026年6月16日 01:05:16</span>
   </span>
 
     
@@ -1083,7 +1030,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年4月26日 15:35:14 CST">2026年4月26日 15:35:14</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年6月16日 01:05:16 CST">2026年6月16日 01:05:16</span>
   </span>
 
     
@@ -1177,12 +1124,12 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.tracking", "navigation.top", "navigation.footer", "navigation.prune", "toc.follow", "header.autohide", "search.highlight", "search.suggest", "search.share", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.tracking", "navigation.top", "navigation.footer", "navigation.prune", "toc.follow", "header.autohide", "search.highlight", "search.suggest", "search.share", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../assets/js/katex.js"></script>
+        <script src="../../../assets/js/katex.js"></script>
       
         <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
       

@@ -1598,6 +1598,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        建议阅读顺序
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        本章知识地图
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1632,7 +1654,7 @@
 
 
 <h1 id="41">4.1 感知<a class="headerlink" href="#41" title="Permanent link">¶</a></h1>
-<p>图像理解的经典任务。在大模型统一一切之前，每个任务都有自己一套专门的架构——现在它们仍然是视觉工程的基础。</p>
+<p>感知模型把像素变成机器可以继续使用的语义与几何信息。本章从整图标签出发，逐步增加输出的空间精度：边界框回答物体在哪里，掩码回答每个像素属于什么，光流和深度则描述运动与三维结构。OCR 最后展示如何把检测、识别、版面和语义组合成完整系统。</p>
 <h2 id="_1">你将学到<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <table>
 <thead>
@@ -1645,36 +1667,47 @@
 <tbody>
 <tr>
 <td><a href="image-classification/">图像分类</a></td>
-<td>AlexNet 到 ViT 的演进</td>
-<td>CNN、ViT</td>
+<td>从 AlexNet、ResNet 到 ViT，理解视觉表征怎样形成</td>
+<td><a href="../../02-deep-learning/cnn/">CNN</a>、<a href="../../03-advanced/modern-architectures/vit/">ViT</a></td>
 </tr>
 <tr>
 <td><a href="object-detection/">目标检测</a></td>
-<td>YOLO、DETR、Anchor-free</td>
-<td>CNN</td>
+<td>两阶段、单阶段、anchor-free 与 DETR 集合预测</td>
+<td>图像分类、<a href="../../02-deep-learning/transformer/">Transformer</a></td>
 </tr>
 <tr>
 <td><a href="segmentation/">图像分割</a></td>
-<td>FCN、Mask R-CNN、SAM，语义/实例/全景</td>
-<td>CNN、U-Net</td>
+<td>语义、实例、全景与提示分割，FCN 到 SAM 3</td>
+<td>目标检测、<a href="../../03-advanced/modern-architectures/unet/">U-Net</a></td>
 </tr>
 <tr>
 <td><a href="optical-flow/">光流估计</a></td>
-<td>RAFT、FlowFormer</td>
-<td>CNN、Transformer</td>
+<td>从经典能量优化到 RAFT 的相关体和迭代更新</td>
+<td><a href="../../02-deep-learning/cnn/">CNN</a>、优化基础</td>
 </tr>
 <tr>
 <td><a href="depth-estimation/">深度估计</a></td>
-<td>单目/双目深度、DPT、深度基础模型</td>
-<td>DPT</td>
+<td>双目几何、单目相对/米制深度与空间基础模型</td>
+<td><a href="../3dv/camera-embedding/">相机模型</a>、<a href="../../03-advanced/modern-architectures/dpt/">DPT</a></td>
 </tr>
 <tr>
 <td><a href="ocr/">OCR 与文档智能</a></td>
-<td>文字检测与识别、文档版面分析</td>
-<td>CNN、Transformer</td>
+<td>文字检测识别、版面预训练与 OCR-free 文档理解</td>
+<td>目标检测、<a href="../../02-deep-learning/transformer/">Transformer</a></td>
 </tr>
 </tbody>
 </table>
+<h2 id="_2">建议阅读顺序<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<p>第一次系统学习时，先读图像分类，再读目标检测与图像分割。这三节建立“整图、物体、像素”三个输出层级。</p>
+<p>光流和深度更依赖几何，可以独立阅读。OCR 与文档智能会同时用到检测、序列建模和多模态表示，放在最后更容易看清完整工程管线。</p>
+<h2 id="_3">本章知识地图<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<pre class="mermaid"><code>graph LR
+    A[图像分类&lt;br/&gt;整图语义] --&gt; B[目标检测&lt;br/&gt;类别与边界框]
+    B --&gt; C[图像分割&lt;br/&gt;像素与实例]
+    A --&gt; D[光流&lt;br/&gt;二维运动]
+    A --&gt; E[深度&lt;br/&gt;三维距离]
+    B --&gt; F[OCR&lt;br/&gt;文字定位与识别]
+    A --&gt; F</code></pre>
 
 
 
@@ -1697,7 +1730,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年4月26日 15:08:02 CST">2026年4月26日 15:08:02</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年6月16日 01:18:54 CST">2026年6月16日 01:18:54</span>
   </span>
 
     

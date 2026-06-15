@@ -2189,7 +2189,7 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">前置依赖</p>
-<p>雅可比矩阵是多变量函数的导数矩阵，见 <a href="../../../../01-math/linear-algebra/matrix-calculus.md">矩阵微积分</a>。奇异值分析见 <a href="../../../../01-math/linear-algebra/svd.md">SVD</a>。</p>
+<p>雅可比矩阵是多变量函数的导数矩阵，见 <a href="../../../../01-math/linear-algebra/matrix-calculus/">矩阵微积分</a>。奇异值分析见 <a href="../../../../01-math/linear-algebra/svd/">SVD</a>。</p>
 </div>
 <h2 id="intuition">直觉 (Intuition)<a class="headerlink" href="#intuition" title="Permanent link">¶</a></h2>
 <p>正运动学给出"关节角度 → 末端位姿"的映射。速度雅可比回答速度版本的问题：如果各关节以速度 <span class="arithmatex">\(\dot{\mathbf{q}}\)</span> 运动，末端的线速度和角速度是多少？想象用手臂写字：每一笔的速度方向，是肩膀、肘、腕各关节速度的合成，雅可比就是这个合成关系的精确数学描述。输入是关节速度 <span class="arithmatex">\(\dot{\mathbf{q}} \in \mathbb{R}^n\)</span>，输出是末端的六维速度（角速度 + 线速度）。它是逆运动学、轨迹控制和力控制的共同基础。</p>
@@ -2203,7 +2203,7 @@
 <h2 id="_3">奇异性<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <p>当 <span class="arithmatex">\(\mathbf{J}(\mathbf{q})\)</span> 不满秩时，某些末端运动方向用关节速度无法实现，这叫<strong>运动学奇异点（Kinematic Singularity）</strong>。</p>
 <p>典型奇异姿态：机械臂完全伸直（所有关节共线）或两个旋转轴对齐。此时维持末端速度需要无穷大的关节速度——实际电机做不到，控制器会产生异常大的力矩指令。</p>
-<p>奇异性分析方法：对 <span class="arithmatex">\(\mathbf{J}\)</span> 做 SVD（见 <a href="../../../../01-math/linear-algebra/svd.md">SVD 章节</a>），最小奇异值 <span class="arithmatex">\(\sigma_\min \to 0\)</span> 意味着接近奇异点。</p>
+<p>奇异性分析方法：对 <span class="arithmatex">\(\mathbf{J}\)</span> 做 SVD（见 <a href="../../../../01-math/linear-algebra/svd/">SVD 章节</a>），最小奇异值 <span class="arithmatex">\(\sigma_\min \to 0\)</span> 意味着接近奇异点。</p>
 <p><strong>可操作性（Manipulability）</strong>指标（Yoshikawa 1985）：</p>
 <div class="arithmatex">\[w = \sqrt{\det(\mathbf{J}\mathbf{J}^\top)}\]</div>
 <p><span class="arithmatex">\(w = 0\)</span> 表示奇异，<span class="arithmatex">\(w\)</span> 越大末端在各方向运动越"自由"。轨迹规划时可以把最大化 <span class="arithmatex">\(w\)</span> 作为约束，主动绕开奇异区域。</p>
@@ -2264,7 +2264,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年4月28日 15:21:24 CST">2026年4月28日 15:21:24</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年6月16日 01:18:54 CST">2026年6月16日 01:18:54</span>
   </span>
 
     
