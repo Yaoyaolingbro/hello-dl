@@ -36,6 +36,17 @@ $$
 
 ## 发展脉络
 
+```mermaid
+graph LR
+    A[CRNN<br/>文字行识别] --> B[CRAFT<br/>字符区域检测]
+    B --> C[LayoutLM<br/>文本+版面预训练]
+    C --> D[TrOCR<br/>视觉到文本生成]
+    C --> E[Donut<br/>OCR-free 文档理解]
+    C --> F[LayoutLMv3<br/>统一文本与图像掩码]
+```
+
+*OCR 与文档智能主线：先解决文字在哪里、读成什么，再把文字、坐标和页面图像合成文档理解模型。来源：本文示意图。*
+
 ### CRNN：不再逐字符切割
 
 传统 OCR 常先切出单个字符，再逐个分类。连写、字符宽度变化和切割错误会让后续识别失败。
@@ -49,6 +60,10 @@ CRNN（[Paper](https://arxiv.org/abs/1507.05717) | [Project](https://github.com/
 场景文字可能弯曲、倾斜或字符间距变化。用水平矩形框表示整行文本会包含大量背景，也难以覆盖任意形状。
 
 CRAFT（[Paper](https://openaccess.thecvf.com/content_CVPR_2019/html/Baek_Character_Region_Awareness_for_Text_Detection_CVPR_2019_paper.html) | [Project](https://github.com/clovaai/CRAFT-pytorch)）预测字符区域热图和相邻字符的 affinity，再把字符连接成词或文本行。它用弱监督生成字符级标签，避免完全依赖昂贵的字符框标注。
+
+![CRAFT 文字检测示例](https://raw.githubusercontent.com/clovaai/CRAFT-pytorch/master/figures/craft_example.gif)
+
+*CRAFT 用字符区域和字符间连接关系检测任意形状文字。来源：[CRAFT 官方仓库](https://github.com/clovaai/CRAFT-pytorch)*
 
 CRAFT 改善了任意形状文字检测，但连接阈值和后处理会影响结果。密集排版、艺术字体和极小文字仍可能被错误合并或拆分。
 
@@ -69,6 +84,10 @@ CRNN 使用 CNN、RNN 和 CTC，各模块带有明确的序列假设。TrOCR（[
 OCR-based 文档理解需要检测、识别、阅读顺序和抽取多个模块。每一层都可能传播错误，调用外部 OCR 也增加延迟。
 
 Donut（[Paper](https://arxiv.org/abs/2111.15664) | [Project](https://github.com/clovaai/donut)）用视觉编码器读取整页图像，文本解码器直接生成任务相关的结构化序列。它开辟了 OCR-free 文档理解路线。
+
+![Donut 直接从文档图像生成结构化输出](https://raw.githubusercontent.com/clovaai/donut/master/misc/overview.png)
+
+*Donut 不显式调用 OCR 中间结果，而是从整页图像直接生成任务序列。来源：[Donut 官方仓库](https://github.com/clovaai/donut)*
 
 “OCR-free”不等于模型不识字，而是没有显式的 OCR 中间接口。端到端模型减少了流水线错误，却更难定位错误来源，也不天然提供每个字段的文字坐标和置信度。
 

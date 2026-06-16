@@ -34,6 +34,18 @@ $$
 
 ## 发展脉络
 
+```mermaid
+graph LR
+    A[Monodepth<br/>双目自监督] --> B[MiDaS<br/>混合数据相对深度]
+    B --> C[DPT<br/>Transformer 密集预测]
+    C --> D[ZoeDepth<br/>相对+米制]
+    D --> E[Depth Anything V2<br/>大规模伪标签]
+    E --> F[Depth Pro<br/>零样本米制深度]
+    E --> G[Depth Anything 3<br/>多图空间一致]
+```
+
+*深度估计主线：先解决没有稠密真值时如何训练，再解决跨数据集泛化、米制尺度和多视图一致性。来源：本文示意图。*
+
 ### 从双目几何到单目学习
 
 双目深度有明确几何尺度，但依赖相机标定、同步和可靠匹配。纯单目图像没有唯一尺度：把一个小物体放近和一个大物体放远，可能产生相似投影。
@@ -64,15 +76,27 @@ Dense Prediction Transformer，简称 DPT（[Paper](https://openaccess.thecvf.co
 
 高质量深度真值昂贵，尤其难覆盖互联网图像的多样性。Depth Anything V2（[Paper](https://arxiv.org/abs/2406.09414) | [Project](https://depth-anything-v2.github.io/)）使用强教师生成大规模真实图像伪标签，并用高质量合成数据改善细节。它把模型能力更多地归因于数据覆盖、教师质量和训练配方，而不是复杂的专用模块。
 
+![Depth Anything V2 深度估计示例](https://depth-anything-v2.github.io/static/images/teaser.png)
+
+*Depth Anything V2 展示了通用单目深度模型在多场景中的相对深度效果。来源：[Depth Anything V2 官方项目页](https://depth-anything-v2.github.io/)*
+
 模型输出的相对深度适合通用感知和下游条件输入，但不能因为视觉上平滑就视为准确米制测量。
 
 ### Depth Pro：强调零样本米制尺度与边界
 
 Depth Pro（[Paper](https://arxiv.org/abs/2410.02073) | [Project](https://machinelearning.apple.com/research/depth-pro)）直接面向零样本米制单目深度，并强调高分辨率边界与焦距估计。它把评测注意力从平均深度误差拉回物体轮廓，因为三维重建、抠图和增强现实常在边界处最容易失败。
 
+![Depth Pro 强调高分辨率边界与米制深度](https://mlr.cdn-apple.com/media/depth_pro_teaser_5556ec04fe.jpg)
+
+*Depth Pro 的示例强调边界锐度和单图米制深度预测。来源：[Apple Machine Learning Research](https://machinelearning.apple.com/research/depth-pro)*
+
 ### Depth Anything 3：从单图深度走向统一空间几何
 
 Depth Anything 3（[Paper](https://arxiv.org/abs/2511.10647) | [Project](https://depth-anything-3.github.io/)）接收任意数量图像，可在相机位姿已知或未知时预测空间一致的几何。它用统一的 depth-ray 表示连接单图、双目和多视图输入。
+
+![Depth Anything 3 从多图预测空间一致几何](https://depth-anything-3.github.io/assets/teaser.png)
+
+*Depth Anything 3 把单图、双目和多图深度统一到空间一致的几何预测中。来源：[Depth Anything 3 官方项目页](https://depth-anything-3.github.io/)*
 
 这代表一个新的方向：深度模型不再只输出每张图各自合理的二维深度图，还要保证不同视角能落到同一个三维空间中。跨视图漂移、动态物体和大场景内存因此成为更重要的问题。
 

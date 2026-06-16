@@ -30,6 +30,16 @@ $$
 
 ## 发展脉络
 
+```mermaid
+graph LR
+    A[AlexNet<br/>端到端 CNN] --> B[ResNet<br/>残差连接]
+    B --> C[EfficientNet<br/>复合缩放]
+    B --> D[ViT<br/>Patch Token]
+    D --> E[ConvNeXt<br/>现代化 ConvNet]
+```
+
+*图像分类主线：先解决“CNN 能不能在大数据上学出特征”，再解决深层优化、模型缩放和卷积/Transformer 归纳偏置的取舍。来源：本文示意图。*
+
 ### AlexNet：让大规模 CNN 真正可训练
 
 2012 年以前，图像识别常依赖人工设计的 SIFT、HOG 等特征。研究者先决定“边缘和纹理应该怎样表示”，分类器只负责最后的决策。问题是人工特征很难覆盖真实图像中的复杂变化。
@@ -41,6 +51,17 @@ AlexNet（[Paper](https://papers.nips.cc/paper/4824-imagenet-classification-with
 ### ResNet：深度不再等于优化负担
 
 直接堆叠卷积层会出现“退化问题”：更深的网络在训练集上反而更差，这不能只用过拟合解释。ResNet（[Paper](https://openaccess.thecvf.com/content_cvpr_2016/html/He_Deep_Residual_Learning_CVPR_2016_paper.html) | [Project](https://github.com/kaiminghe/deep-residual-networks)）让一个模块学习残差：
+
+```mermaid
+graph LR
+    X[输入 x] --> F[卷积块 F x]
+    X --> S[跳连 identity]
+    F --> Add[相加]
+    S --> Add
+    Add --> Y[输出 F x + x]
+```
+
+*ResNet 的基本块不是直接学习完整映射，而是学习对输入的修正量。来源：本文示意图。*
 
 $$
 \mathbf{y}=\mathcal{F}(\mathbf{x})+\mathbf{x}.
@@ -62,6 +83,16 @@ EfficientNet（[Paper](https://proceedings.mlr.press/v97/tan19a.html) | [Project
 CNN 天然偏好局部连接和平移等变，这种归纳偏置在数据有限时很有价值。它也限制了架构：远距离区域要经过很多层才能交互。
 
 Vision Transformer，简称 ViT（[Paper](https://openreview.net/forum?id=YicbFdNTTy) | [Project](https://github.com/google-research/vision_transformer)），把图像切成固定大小的 patch，并把 patch 当作 token 送入 Transformer。实验说明，当预训练数据和模型规模足够大时，较少依赖卷积先验的模型也能学到强视觉表征。
+
+```mermaid
+graph LR
+    I[图像] --> P[切成 patch]
+    P --> T[Patch Embedding]
+    T --> Enc[Transformer Encoder]
+    Enc --> C[分类头]
+```
+
+*ViT 把二维图像转成 token 序列，再复用 Transformer 的全局注意力。来源：本文示意图。*
 
 ViT 没有证明 CNN 失效。它证明了数据规模、预训练和全局交互可以替代一部分手工写进网络的视觉先验。小数据训练、细粒度边界和高分辨率计算仍会让卷积或分层结构占据优势。
 
