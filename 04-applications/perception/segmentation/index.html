@@ -2172,6 +2172,14 @@
 </table>
 <p>语义分割常用交并比 (IoU) 和各类别平均后的 mIoU。实例分割常使用基于掩码 IoU 的 AP。全景分割使用 Panoptic Quality (PQ)，同时考虑识别是否正确和掩码是否准确。不同任务的指标不能直接横向比较。</p>
 <h2 id="_3">发展脉络<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<pre class="mermaid"><code>graph LR
+    A[FCN&lt;br/&gt;像素分类] --&gt; B[U-Net&lt;br/&gt;编码器-解码器]
+    B --&gt; C[DeepLabv3&lt;br/&gt;空洞卷积]
+    C --&gt; D[Mask R-CNN&lt;br/&gt;实例掩码]
+    D --&gt; E[Mask2Former&lt;br/&gt;掩码分类]
+    E --&gt; F[SAM&lt;br/&gt;提示分割]
+    F --&gt; G[SAM 3&lt;br/&gt;概念提示]</code></pre>
+<p><em>图像分割主线：从固定类别像素分类，走向实例级掩码，再走向由点、框、文本和样例驱动的提示分割。来源：本文示意图。</em></p>
 <h3 id="fcn">FCN：分类网络可以输出像素标签<a class="headerlink" href="#fcn" title="Permanent link">¶</a></h3>
 <p>早期语义分割常在像素或图像块上重复运行分类器，计算冗余，也难以端到端学习全图结构。</p>
 <p>Fully Convolutional Network，简称 FCN（<a href="https://openaccess.thecvf.com/content_cvpr_2015/html/Long_Fully_Convolutional_Networks_2015_CVPR_paper.html">Paper</a> | <a href="https://github.com/shelhamer/fcn.berkeleyvision.org">Project</a>），把全连接层改成卷积层，使网络能接收任意尺寸图像并一次输出密集预测。深层特征提供语义，浅层特征通过跳跃连接补回空间细节。</p>
@@ -2179,6 +2187,8 @@
 <h3 id="u-net">U-Net：对称解码器把定位信息带回来<a class="headerlink" href="#u-net" title="Permanent link">¶</a></h3>
 <p>生物医学图像标注少、边界要求高，单纯上采样深层特征不够。</p>
 <p>U-Net（<a href="https://arxiv.org/abs/1505.04597">Paper</a> | <a href="https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/">Project</a>）使用对称的编码器和解码器，并把编码阶段的高分辨率特征直接拼接到对应解码层。模型因此同时看到局部纹理和大范围语义。</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/u-net-architecture.png" data-desc-position="bottom"><img alt="U-Net 编码器-解码器结构" src="https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/u-net-architecture.png"></a></p>
+<p><em>U-Net 通过左右对称的下采样和上采样路径，把语义上下文与高分辨率定位信息结合起来。来源：<a href="https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/">U-Net 官方项目页</a></em></p>
 <p>这种 U 形结构后来进入医学、遥感、生成模型和图像复原。它的局限是高分辨率特征占用显存大，简单拼接也不能保证模型真正利用了长距离上下文。</p>
 <h3 id="deeplabv3">DeepLabv3：不降分辨率也能扩大感受野<a class="headerlink" href="#deeplabv3" title="Permanent link">¶</a></h3>
 <p>连续池化会损失空间细节，完全取消下采样又会使计算量过高。</p>
@@ -2193,9 +2203,24 @@
 <h3 id="sam">SAM：从固定类别转向提示驱动<a class="headerlink" href="#sam" title="Permanent link">¶</a></h3>
 <p>传统分割器的输出类别在训练时已经确定。面对新物体，通常要重新标注和微调。</p>
 <p>Segment Anything Model，简称 SAM（<a href="https://ai.meta.com/research/publications/segment-anything/">Paper</a> | <a href="https://github.com/facebookresearch/segment-anything">Project</a>），用点、框或已有掩码提示目标区域，并通过大规模数据引擎训练可迁移的掩码生成能力。它更像一个分割基础组件，而不是直接回答固定语义类别的模型。</p>
+<pre class="mermaid"><code>graph LR
+    I[图像] --&gt; IE[Image Encoder]
+    P[点/框/掩码提示] --&gt; PE[Prompt Encoder]
+    IE --&gt; D[Mask Decoder]
+    PE --&gt; D
+    D --&gt; M[候选掩码]</code></pre>
+<p><em>SAM 把图像特征和提示特征分开编码，再由掩码解码器生成与提示对应的区域。来源：本文示意图。</em></p>
 <p>SAM 擅长“沿着提示切出一个区域”，但提示本身不一定包含语义。它可能给出视觉上合理、业务上错误的边界，在医学和遥感等分布外场景中仍需验证或适配。</p>
 <h3 id="sam-3">SAM 3：提示从位置扩展到概念<a class="headerlink" href="#sam-3" title="Permanent link">¶</a></h3>
 <p>截至 2025 年，SAM 3（<a href="https://openreview.net/forum?id=r35clVtGzw">Paper</a> | <a href="https://ai.meta.com/research/sam3/">Project</a>）把点、框等视觉提示扩展到短文本和图像样例，并统一图像、视频中的检测、分割和跟踪。用户可以请求“所有黄色校车”，模型需要找到全部匹配实例并维持身份。</p>
+<pre class="mermaid"><code>graph LR
+    T[文本概念] --&gt; E[Concept Encoder]
+    V[图像/视频] --&gt; I[Visual Encoder]
+    S[样例提示] --&gt; E
+    E --&gt; M[概念匹配]
+    I --&gt; M
+    M --&gt; O[检测+分割+跟踪]</code></pre>
+<p><em>SAM 3 的目标是把“位置提示”扩展到“概念提示”，并统一图像和视频中的检测、分割与跟踪。来源：本文示意图，参考 <a href="https://ai.meta.com/research/sam3/">SAM 3 官方项目页</a></em></p>
 <p>这一步把提示分割从“这里是什么区域”推进到“哪些区域符合这个概念”。概念边界、开放词汇误匹配和跨帧身份稳定性也成为新的问题。</p>
 <h2 id="_4">核心方法<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
 <h3 id="_5">编码器、解码器与跳跃连接<a class="headerlink" href="#_5" title="Permanent link">¶</a></h3>
@@ -2246,7 +2271,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年6月16日 01:18:54 CST">2026年6月16日 01:18:54</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年6月16日 17:38:10 CST">2026年6月16日 17:38:10</span>
   </span>
 
     

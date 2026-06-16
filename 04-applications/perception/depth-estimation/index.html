@@ -2151,6 +2151,14 @@ Z=\frac{fB}{d}.
 \]</div>
 <p>其中 <span class="arithmatex">\(Z\)</span> 是深度，<span class="arithmatex">\(f\)</span> 是焦距，<span class="arithmatex">\(B\)</span> 是双目基线，<span class="arithmatex">\(d\)</span> 是左右图像中的视差。视差越小，物体越远；远处很小的视差误差会被放大成明显深度误差。</p>
 <h2 id="_2">发展脉络<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<pre class="mermaid"><code>graph LR
+    A[Monodepth&lt;br/&gt;双目自监督] --&gt; B[MiDaS&lt;br/&gt;混合数据相对深度]
+    B --&gt; C[DPT&lt;br/&gt;Transformer 密集预测]
+    C --&gt; D[ZoeDepth&lt;br/&gt;相对+米制]
+    D --&gt; E[Depth Anything V2&lt;br/&gt;大规模伪标签]
+    E --&gt; F[Depth Pro&lt;br/&gt;零样本米制深度]
+    E --&gt; G[Depth Anything 3&lt;br/&gt;多图空间一致]</code></pre>
+<p><em>深度估计主线：先解决没有稠密真值时如何训练，再解决跨数据集泛化、米制尺度和多视图一致性。来源：本文示意图。</em></p>
 <h3 id="_3">从双目几何到单目学习<a class="headerlink" href="#_3" title="Permanent link">¶</a></h3>
 <p>双目深度有明确几何尺度，但依赖相机标定、同步和可靠匹配。纯单目图像没有唯一尺度：把一个小物体放近和一个大物体放远，可能产生相似投影。</p>
 <p>Monodepth（<a href="https://openaccess.thecvf.com/content_cvpr_2017/html/Godard_Unsupervised_Monocular_Depth_CVPR_2017_paper.html">Paper</a> | <a href="https://github.com/mrharicot/monodepth">Project</a>）在训练时使用校准双目对，把预测深度转成视差并重建另一视图。模型无需每个像素的传感器深度真值，就能学习单图深度。</p>
@@ -2166,11 +2174,17 @@ Z=\frac{fB}{d}.
 <p>这条路线试图同时保留跨数据集结构和物理尺度。官方仓库现已停止维护，也提醒我们：论文效果、代码可维护性和长期工程可用性是三个不同问题。</p>
 <h3 id="depth-anything-v2">Depth Anything V2：数据规模和伪标签成为主角<a class="headerlink" href="#depth-anything-v2" title="Permanent link">¶</a></h3>
 <p>高质量深度真值昂贵，尤其难覆盖互联网图像的多样性。Depth Anything V2（<a href="https://arxiv.org/abs/2406.09414">Paper</a> | <a href="https://depth-anything-v2.github.io/">Project</a>）使用强教师生成大规模真实图像伪标签，并用高质量合成数据改善细节。它把模型能力更多地归因于数据覆盖、教师质量和训练配方，而不是复杂的专用模块。</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://depth-anything-v2.github.io/static/images/teaser.png" data-desc-position="bottom"><img alt="Depth Anything V2 深度估计示例" src="https://depth-anything-v2.github.io/static/images/teaser.png"></a></p>
+<p><em>Depth Anything V2 展示了通用单目深度模型在多场景中的相对深度效果。来源：<a href="https://depth-anything-v2.github.io/">Depth Anything V2 官方项目页</a></em></p>
 <p>模型输出的相对深度适合通用感知和下游条件输入，但不能因为视觉上平滑就视为准确米制测量。</p>
 <h3 id="depth-pro">Depth Pro：强调零样本米制尺度与边界<a class="headerlink" href="#depth-pro" title="Permanent link">¶</a></h3>
 <p>Depth Pro（<a href="https://arxiv.org/abs/2410.02073">Paper</a> | <a href="https://machinelearning.apple.com/research/depth-pro">Project</a>）直接面向零样本米制单目深度，并强调高分辨率边界与焦距估计。它把评测注意力从平均深度误差拉回物体轮廓，因为三维重建、抠图和增强现实常在边界处最容易失败。</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://mlr.cdn-apple.com/media/depth_pro_teaser_5556ec04fe.jpg" data-desc-position="bottom"><img alt="Depth Pro 强调高分辨率边界与米制深度" src="https://mlr.cdn-apple.com/media/depth_pro_teaser_5556ec04fe.jpg"></a></p>
+<p><em>Depth Pro 的示例强调边界锐度和单图米制深度预测。来源：<a href="https://machinelearning.apple.com/research/depth-pro">Apple Machine Learning Research</a></em></p>
 <h3 id="depth-anything-3">Depth Anything 3：从单图深度走向统一空间几何<a class="headerlink" href="#depth-anything-3" title="Permanent link">¶</a></h3>
 <p>Depth Anything 3（<a href="https://arxiv.org/abs/2511.10647">Paper</a> | <a href="https://depth-anything-3.github.io/">Project</a>）接收任意数量图像，可在相机位姿已知或未知时预测空间一致的几何。它用统一的 depth-ray 表示连接单图、双目和多视图输入。</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://depth-anything-3.github.io/assets/teaser.png" data-desc-position="bottom"><img alt="Depth Anything 3 从多图预测空间一致几何" src="https://depth-anything-3.github.io/assets/teaser.png"></a></p>
+<p><em>Depth Anything 3 把单图、双目和多图深度统一到空间一致的几何预测中。来源：<a href="https://depth-anything-3.github.io/">Depth Anything 3 官方项目页</a></em></p>
 <p>这代表一个新的方向：深度模型不再只输出每张图各自合理的二维深度图，还要保证不同视角能落到同一个三维空间中。跨视图漂移、动态物体和大场景内存因此成为更重要的问题。</p>
 <h2 id="_4">核心方法<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
 <h3 id="_5">相对深度与尺度对齐<a class="headerlink" href="#_5" title="Permanent link">¶</a></h3>
@@ -2221,7 +2235,7 @@ Z=\frac{fB}{d}.
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年6月16日 01:18:54 CST">2026年6月16日 01:18:54</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年6月16日 17:38:10 CST">2026年6月16日 17:38:10</span>
   </span>
 
     

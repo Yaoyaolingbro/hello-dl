@@ -2101,12 +2101,21 @@
 <p>其中 <span class="arithmatex">\(A\)</span> 和 <span class="arithmatex">\(B\)</span> 是两个框覆盖的区域。IoU 阈值越高，对定位精度要求越严格。</p>
 <p>COCO 常用平均精度 (Average Precision, AP)，在不同 IoU 阈值和类别上汇总精确率与召回率。只看一个 AP 会隐藏问题，工程评测还应分别看小、中、大目标和不同置信度阈值下的表现。</p>
 <h2 id="_3">发展脉络<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<pre class="mermaid"><code>graph LR
+    A[Faster R-CNN&lt;br/&gt;候选区域] --&gt; B[YOLO&lt;br/&gt;单阶段实时检测]
+    B --&gt; C[RetinaNet&lt;br/&gt;Focal Loss]
+    C --&gt; D[FCOS&lt;br/&gt;Anchor-free]
+    D --&gt; E[DETR&lt;br/&gt;集合预测]
+    E --&gt; F[Deformable DETR&lt;br/&gt;稀疏多尺度注意力]</code></pre>
+<p><em>目标检测主线：从“先找候选再分类”走向密集预测，再走向不依赖 NMS 的集合预测。来源：本文示意图。</em></p>
 <h3 id="faster-r-cnn">Faster R-CNN：让候选区域也由网络学习<a class="headerlink" href="#faster-r-cnn" title="Permanent link">¶</a></h3>
 <p>早期 R-CNN 系列先用外部算法产生候选区域，再逐个分类。候选生成与识别分离，速度和训练流程都受限制。</p>
 <p>Faster R-CNN（<a href="https://proceedings.neurips.cc/paper/2015/hash/14bfa6bb14875e45bba028a21ed38046-Abstract.html">Paper</a> | <a href="https://github.com/ShaoqingRen/faster_rcnn">Project</a>）引入区域提议网络 (Region Proposal Network, RPN)，在共享特征图上同时预测候选框和前景概率。两阶段检测器由此形成稳定范式：第一阶段找可能有物体的位置，第二阶段精细分类和回归。</p>
 <p>它的优势是候选较少、定位精细，代价是多阶段处理增加延迟和系统复杂度。</p>
 <h3 id="yolo">YOLO：把检测变成一次密集预测<a class="headerlink" href="#yolo" title="Permanent link">¶</a></h3>
 <p>实时应用无法接受逐候选处理。YOLO（<a href="https://openaccess.thecvf.com/content_cvpr_2016/html/Redmon_You_Only_Look_CVPR_2016_paper.html">Paper</a> | <a href="https://pjreddie.com/darknet/yolo/">Project</a>）把整张图一次送入网络，在规则网格上直接回归框和类别。</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://pjreddie.com/darknet/yolo/all.png" data-desc-position="bottom"><img alt="YOLO 在一张图中同时预测多个检测框" src="https://pjreddie.com/darknet/yolo/all.png"></a></p>
+<p><em>YOLO 的核心直觉是一次 forward pass 直接输出整张图的检测结果。来源：<a href="https://pjreddie.com/darknet/yolo/">YOLO 官方项目页</a></em></p>
 <p>这条单阶段路线显著简化了推理，也把检测推进到实时场景。早期 YOLO 的定位和小目标能力弱于两阶段方法，因为粗网格需要同时承担“哪里有物体”和“物体边界在哪里”。</p>
 <h3 id="retinanet">RetinaNet：单阶段方法真正的难点是样本失衡<a class="headerlink" href="#retinanet" title="Permanent link">¶</a></h3>
 <p>密集检测会产生海量背景位置。普通交叉熵被容易分类的背景样本主导，少量前景和困难样本的梯度被淹没。</p>
@@ -2122,6 +2131,13 @@
 <h3 id="detr">DETR：把去重写进训练目标<a class="headerlink" href="#detr" title="Permanent link">¶</a></h3>
 <p>传统检测器通常先产生很多重叠框，再用非极大值抑制 (Non-Maximum Suppression, NMS) 去重。NMS 是推理阶段的规则，阈值会影响拥挤场景中的保留结果。</p>
 <p>DETR（<a href="https://arxiv.org/abs/2005.12872">Paper</a> | <a href="https://github.com/facebookresearch/detr">Project</a>）把检测视为集合预测。固定数量的 object query 产生一组结果，训练时用匈牙利匹配为每个真实物体分配唯一预测。重复预测会受到惩罚，因此推理时不再依赖 NMS。</p>
+<pre class="mermaid"><code>graph LR
+    I[图像特征] --&gt; Q[Object Queries]
+    Q --&gt; P[一组预测框]
+    G[真实框集合] --&gt; M[匈牙利匹配]
+    P --&gt; M
+    M --&gt; L[集合损失]</code></pre>
+<p><em>DETR 用一对一匹配训练固定数量的 query，让“去重”成为训练目标的一部分。来源：本文示意图。</em></p>
 <p>DETR 的代价是训练收敛慢，对小目标不够友好。全局注意力要处理整张特征图，计算和匹配学习都更困难。</p>
 <h3 id="deformable-detr">Deformable DETR：只看少量有用位置<a class="headerlink" href="#deformable-detr" title="Permanent link">¶</a></h3>
 <p>Deformable DETR（<a href="https://openreview.net/forum?id=gZ9hCDWe6ke">Paper</a> | <a href="https://github.com/fundamentalvision/Deformable-DETR">Project</a>）让 query 围绕参考点采样少量多尺度特征，不再对所有空间位置做完整注意力。它缓解了 DETR 的计算、收敛和小目标问题，也奠定了后续 DETR 系检测器常用的多尺度稀疏注意力路线。</p>
@@ -2173,7 +2189,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年6月16日 01:18:54 CST">2026年6月16日 01:18:54</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年6月16日 17:38:10 CST">2026年6月16日 17:38:10</span>
   </span>
 
     

@@ -2081,12 +2081,25 @@ p(y=k\mid \mathbf{x})=\frac{\exp(z_k)}{\sum_{j=1}^{K}\exp(z_j)}.
 <p>模型答对“这是一辆校车”，不代表它理解车辆结构、道路规则或图中物体之间的关系。分类标签只监督最终答案，模型可能同时学到背景和拍摄习惯等捷径。</p>
 </div>
 <h2 id="_3">发展脉络<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<pre class="mermaid"><code>graph LR
+    A[AlexNet&lt;br/&gt;端到端 CNN] --&gt; B[ResNet&lt;br/&gt;残差连接]
+    B --&gt; C[EfficientNet&lt;br/&gt;复合缩放]
+    B --&gt; D[ViT&lt;br/&gt;Patch Token]
+    D --&gt; E[ConvNeXt&lt;br/&gt;现代化 ConvNet]</code></pre>
+<p><em>图像分类主线：先解决“CNN 能不能在大数据上学出特征”，再解决深层优化、模型缩放和卷积/Transformer 归纳偏置的取舍。来源：本文示意图。</em></p>
 <h3 id="alexnet-cnn">AlexNet：让大规模 CNN 真正可训练<a class="headerlink" href="#alexnet-cnn" title="Permanent link">¶</a></h3>
 <p>2012 年以前，图像识别常依赖人工设计的 SIFT、HOG 等特征。研究者先决定“边缘和纹理应该怎样表示”，分类器只负责最后的决策。问题是人工特征很难覆盖真实图像中的复杂变化。</p>
 <p>AlexNet（<a href="https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks">Paper</a>）把特征提取和分类放进同一个深层卷积网络，在大规模 ImageNet 数据上端到端训练。它的历史意义不在某个单独模块，而在于 GPU 训练、ReLU、数据增强、dropout 和大数据共同证明了一件事：视觉特征可以从任务数据中学出来。</p>
 <p>代价也很明显。网络越深，优化越困难；模型规模和计算量增长后，架构设计开始受训练稳定性限制。</p>
 <h3 id="resnet">ResNet：深度不再等于优化负担<a class="headerlink" href="#resnet" title="Permanent link">¶</a></h3>
 <p>直接堆叠卷积层会出现“退化问题”：更深的网络在训练集上反而更差，这不能只用过拟合解释。ResNet（<a href="https://openaccess.thecvf.com/content_cvpr_2016/html/He_Deep_Residual_Learning_CVPR_2016_paper.html">Paper</a> | <a href="https://github.com/kaiminghe/deep-residual-networks">Project</a>）让一个模块学习残差：</p>
+<pre class="mermaid"><code>graph LR
+    X[输入 x] --&gt; F[卷积块 F x]
+    X --&gt; S[跳连 identity]
+    F --&gt; Add[相加]
+    S --&gt; Add
+    Add --&gt; Y[输出 F x + x]</code></pre>
+<p><em>ResNet 的基本块不是直接学习完整映射，而是学习对输入的修正量。来源：本文示意图。</em></p>
 <div class="arithmatex">\[
 \mathbf{y}=\mathcal{F}(\mathbf{x})+\mathbf{x}.
 \]</div>
@@ -2101,6 +2114,12 @@ p(y=k\mid \mathbf{x})=\frac{\exp(z_k)}{\sum_{j=1}^{K}\exp(z_j)}.
 <h3 id="vit">ViT：卷积不是唯一的视觉骨架<a class="headerlink" href="#vit" title="Permanent link">¶</a></h3>
 <p>CNN 天然偏好局部连接和平移等变，这种归纳偏置在数据有限时很有价值。它也限制了架构：远距离区域要经过很多层才能交互。</p>
 <p>Vision Transformer，简称 ViT（<a href="https://openreview.net/forum?id=YicbFdNTTy">Paper</a> | <a href="https://github.com/google-research/vision_transformer">Project</a>），把图像切成固定大小的 patch，并把 patch 当作 token 送入 Transformer。实验说明，当预训练数据和模型规模足够大时，较少依赖卷积先验的模型也能学到强视觉表征。</p>
+<pre class="mermaid"><code>graph LR
+    I[图像] --&gt; P[切成 patch]
+    P --&gt; T[Patch Embedding]
+    T --&gt; Enc[Transformer Encoder]
+    Enc --&gt; C[分类头]</code></pre>
+<p><em>ViT 把二维图像转成 token 序列，再复用 Transformer 的全局注意力。来源：本文示意图。</em></p>
 <p>ViT 没有证明 CNN 失效。它证明了数据规模、预训练和全局交互可以替代一部分手工写进网络的视觉先验。小数据训练、细粒度边界和高分辨率计算仍会让卷积或分层结构占据优势。</p>
 <h3 id="convnext">ConvNeXt：真正改变结果的也可能是训练范式<a class="headerlink" href="#convnext" title="Permanent link">¶</a></h3>
 <p>ViT 成功后，一个自然问题是：优势来自 Transformer 本身，还是现代训练策略和尺度设计？</p>
@@ -2160,7 +2179,7 @@ p(y=k\mid \mathbf{x})=\frac{\exp(z_k)}{\sum_{j=1}^{K}\exp(z_j)}.
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年6月16日 01:18:54 CST">2026年6月16日 01:18:54</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年6月16日 17:38:10 CST">2026年6月16日 17:38:10</span>
   </span>
 
     

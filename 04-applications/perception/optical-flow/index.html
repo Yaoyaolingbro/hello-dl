@@ -2104,6 +2104,12 @@
 \]</div>
 <p>其中 <span class="arithmatex">\(\hat{\mathbf{f}}\)</span> 是预测光流，<span class="arithmatex">\(\mathbf{f}^{*}\)</span> 是真值。KITTI 还常报告异常像素比例，因为自动驾驶更关心少量巨大错误。</p>
 <h2 id="_3">发展脉络<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<pre class="mermaid"><code>graph LR
+    A[Horn-Schunck&lt;br/&gt;全局能量优化] --&gt; B[FlowNet&lt;br/&gt;端到端学习]
+    B --&gt; C[PWC-Net&lt;br/&gt;金字塔+Warp+Cost Volume]
+    C --&gt; D[RAFT&lt;br/&gt;All-pairs 相关体]
+    D --&gt; E[SEA-RAFT&lt;br/&gt;更好的初值与训练目标]</code></pre>
+<p><em>光流主线：经典方法把匹配写成优化问题，深度方法先学习匹配，再把迭代优化写进网络。来源：本文示意图。</em></p>
 <h3 id="horn-schunck">Horn-Schunck：把匹配写成全局优化<a class="headerlink" href="#horn-schunck" title="Permanent link">¶</a></h3>
 <p>如果一个像素在短时间内亮度不变，就有亮度恒常假设：</p>
 <div class="arithmatex">\[
@@ -2126,6 +2132,8 @@ I_xu+I_yv+I_t=0.
 <p>粗到细方法的弱点是，小物体和细结构可能在金字塔底部消失。第一次粗估错误后，后续 warping 也可能把特征拉到错误位置。</p>
 <h3 id="raft">RAFT：在固定高分辨率上反复查匹配<a class="headerlink" href="#raft" title="Permanent link">¶</a></h3>
 <p>RAFT（<a href="https://www.ecva.net/papers/eccv_2020/papers_ECCV/html/3526_ECCV_2020_paper.php">Paper</a> | <a href="https://github.com/princeton-vl/RAFT">Project</a>）先计算第一帧与第二帧所有特征位置之间的相关性，形成 all-pairs correlation volume。网络从零流场开始，用循环更新模块多次查询相关体并修正预测。</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://github.com/princeton-vl/RAFT/raw/master/RAFT.png" data-desc-position="bottom"><img alt="RAFT 通过相关体和循环更新估计光流" src="https://github.com/princeton-vl/RAFT/raw/master/RAFT.png"></a></p>
+<p><em>RAFT 先构建全局相关体，再用循环单元逐步更新光流场。来源：<a href="https://github.com/princeton-vl/RAFT">RAFT 官方仓库</a></em></p>
 <p>它不再依赖传统的逐层粗到细解码器。高分辨率流场在迭代中持续存在，因此边界和小结构更容易保留。它的代价是相关体占用显存，推理时间也随更新次数增加。</p>
 <h3 id="sea-raft">SEA-RAFT：改进初值、损失与预训练<a class="headerlink" href="#sea-raft" title="Permanent link">¶</a></h3>
 <p>SEA-RAFT（<a href="https://arxiv.org/abs/2405.14793">Paper</a> | <a href="https://github.com/princeton-vl/SEA-RAFT">Project</a>）保留 RAFT 的迭代框架，但直接回归更好的初始光流，使用混合 Laplace 分布描述误差，并加入刚体运动预训练。它说明 RAFT 之后的提升不一定来自更复杂的 Transformer，训练目标、初值和数据先验仍能显著改变效率与泛化。</p>
@@ -2183,7 +2191,7 @@ C(\mathbf{x},\mathbf{y})=
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年6月16日 01:18:54 CST">2026年6月16日 01:18:54</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年6月16日 17:38:10 CST">2026年6月16日 17:38:10</span>
   </span>
 
     
