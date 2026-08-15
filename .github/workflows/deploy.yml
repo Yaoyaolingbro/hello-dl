@@ -21,11 +21,10 @@ jobs:
           python-version: 3.x
 
       - name: Install dependencies
-        run: pip install \
-          mkdocs-material \
-          mkdocs-mermaid2-plugin \
-          mkdocs-glightbox \
-          mkdocs-git-revision-date-localized-plugin
+        run: pip install -r requirements.txt
+
+      - name: Validate Part 2 content
+        run: python scripts/check_part2_content.py --root docs/02-deep-learning --require-complete
 
       - name: Deploy
         run: mkdocs gh-deploy --force

@@ -10,7 +10,8 @@
 项目路径：`/Users/yaoyaoling/Desktop/博士生资料/deep learning/`
 远程仓库：`git@github.com:Yaoyaolingbro/hello-dl.git`
 
-写作风格规范在 `writing-style.md`，项目整体结构在 `docs/superpowers/specs/2026-04-25-ai-tutorial-design.md`。
+写作风格规范在 `writing-style.md`，当前重写结构在
+`docs/superpowers/specs/2026-08-16-mainline-rewrite-design.md`。
 
 ---
 
@@ -45,12 +46,13 @@
    find docs -path "docs/superpowers" -prune -o -path "docs/assets" -prune -o -name "*.md" -print | sort
    ```
 
-   看完后，先用一句话总结：**当前章节在整本书里的位置、前置依赖、后续会被哪些章节引用。**
+   看完后，先写三行工作笔记：当前章节解决什么问题、依赖哪些章节、后续哪些章节会使用它。
+   再搜索相邻章节是否已经解释过同一概念。已有完整解释时，只做简短提醒并链接原文。
 2. **读 `writing-style.md`** — 重点看"直觉段模板"、"数学的写法四条规则"、"去除 AI 痕迹规则"
 3. **读上表对应的 Part 风格文件** — 了解本 Part 的特殊要求和章节结构
-4. **确认主要参考论文** — 在章节开头 `!!! info "参考资料"` 块里列出
+4. **确认资料层级** — 教材、论文和官方资料用于核对事实；知乎、博客和视频用于寻找解释角度
 5. **确认符号约定** — 所有公式符号与主要论文保持一致；有冲突时在 `!!! note` 里声明
-6. 可以编写前联网搜索相关资料查找，但不要过于依赖。参考重要精华内容，讲出核心直觉和观点。
+6. 把新资料记录到 `reference.md`。二手讲解中的公式、结论和版本信息必须回到权威来源核对。
 
 ---
 
@@ -111,14 +113,15 @@
 
 ## 构建验证
 
-每次完成一个文件后，运行：
+每次完成一个文件后，运行内容检查；完成一个目录后，再做严格构建：
 
 ```bash
 cd "/Users/yaoyaoling/Desktop/博士生资料/deep learning"
-mkdocs build 2>&1 | grep -E "(ERROR|WARNING(?!.*git-revision))"
+.venv/bin/python scripts/check_part2_content.py --root docs/02-deep-learning
+.venv/bin/mkdocs build --strict
 ```
 
-只要没有 ERROR，git-revision-date 的 WARNING（新文件无 git log）可以忽略。
+Part 2 全部完成后还要加 `--require-complete`，确保没有计划页或草稿页混入发布版本。
 
 ---
 
@@ -130,16 +133,16 @@ cd "/Users/yaoyaoling/Desktop/博士生资料/deep learning"
 # 查看改动
 git diff --stat
 
-# 提交（按章节提交，不要攒太多再提交）
-git add docs/路径/文件.md
-git commit -m "feat(章节标识): 添加 XXX 章节内容"
+# 提交（每个目录形成一个可独立检查的提交）
+git add docs/02-deep-learning/目录 reference.md
+git commit -m "docs(part2): 完成 XXX 目录"
 
 # 推送触发 GitHub Actions 自动部署
 git push origin main
 ```
 
 提交信息前缀约定：
-- `feat(section)`: 新增章节内容
+- `docs(section)`: 新增或重写章节内容
 - `fix(section)`: 修正错误
 - `refactor(section)`: 重构结构（不改内容）
 - `chore`: mkdocs.yml、workflow 等配置改动

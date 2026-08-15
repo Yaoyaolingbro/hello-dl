@@ -111,7 +111,7 @@ tests/test_check_part2_content.py
 - Produces: `validate_part2(root: Path, require_complete: bool = False) -> list[str]` and CLI flags `--root PATH`, `--require-complete`.
 - Metadata contract: `level ∈ {basic, intermediate, advanced}`, `roles ⊆ {core, interview, research}`, `prerequisites` is a YAML list, `estimated_time` matches `^[1-9][0-9]*min$`, `status ∈ {planned, draft, complete}`.
 
-- [ ] **Step 1: Write failing validator tests**
+- [x] **Step 1: Write failing validator tests**
 
 Create fixture files in temporary directories and assert exact failures:
 
@@ -129,13 +129,13 @@ def test_rejects_missing_relative_link_target(self):
     self.assertIn("chapter.md: missing link target missing.md", errors)
 ```
 
-- [ ] **Step 2: Run tests and verify failure**
+- [x] **Step 2: Run tests and verify failure**
 
 Run: `python -m unittest tests.test_check_part2_content -v`
 
 Expected: FAIL because `scripts.check_part2_content` does not exist.
 
-- [ ] **Step 3: Implement the validator**
+- [x] **Step 3: Implement the validator**
 
 Use `yaml.safe_load` for front matter, `Path.resolve()` for Markdown link targets, and skip external URLs, anchors and image links. Return sorted, human-readable errors; exit `1` when the CLI finds errors.
 
@@ -146,7 +146,7 @@ python scripts/check_part2_content.py --root docs/02-deep-learning
 python scripts/check_part2_content.py --root docs/02-deep-learning --require-complete
 ```
 
-- [ ] **Step 4: Update editorial rules and dependencies**
+- [x] **Step 4: Update editorial rules and dependencies**
 
 Add the exact metadata contract and pre-writing context checklist to `writing-style.md` and `chapter-writing-workflow.md`. Restructure `reference.md` into Part/topic sections with source type labels: `教材`, `论文`, `官方资料`, `解释参考`.
 
@@ -162,7 +162,7 @@ PyYAML==6.0.1
 
 Change GitHub Actions installation to `pip install -r requirements.txt`, then run the validator before deployment.
 
-- [ ] **Step 5: Verify foundation**
+- [x] **Step 5: Verify foundation**
 
 Run:
 

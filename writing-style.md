@@ -143,6 +143,38 @@ probs = F.softmax(z, dim=0)  # 不会溢出，因为 PyTorch 内部做了减最�
 
 ## 引用与溯源规范
 
+资料分成四类：
+
+- **教材**：定义、基础推导和统一符号的主要依据；
+- **论文**：方法细节、实验结论和历史来源；
+- **官方资料**：框架行为、API、系统限制和版本信息；
+- **解释参考**：知乎、博客、课程和视频，用来寻找例子、常见误区和讲解角度。
+
+解释参考不能单独支撑公式或技术结论。遇到二手资料之间说法不一致，以教材、论文或官方资料为准，并把取舍写清楚。
+
+### 页面元数据
+
+Part 2 每个页面都要在文件开头声明：
+
+```yaml
+---
+level: basic
+roles:
+  - core
+prerequisites: []
+estimated_time: 20min
+status: complete
+---
+```
+
+- `level`：`basic`、`intermediate` 或 `advanced`；
+- `roles`：`core`、`interview`、`research` 中至少一个；
+- `prerequisites`：前置概念名称组成的列表，没有则写 `[]`；
+- `estimated_time`：整数分钟，例如 `35min`；
+- `status`：`planned`、`draft` 或 `complete`。
+
+发布前运行 `scripts/check_part2_content.py --require-complete`，Part 2 不允许残留计划页。
+
 ### 章节开头模板
 
 ```markdown
@@ -194,8 +226,10 @@ probs = F.softmax(z, dim=0)  # 不会溢出，因为 PyTorch 内部做了减最�
 ## 每章编写前的 Checklist
 
 - [ ] 重读本文件（writing-style.md）
-- [ ] 搜索该主题的优质 blog / 讲解视频（搜不到也没关系，继续写）
-- [ ] 确认主要参考论文，记录符号约定
+- [ ] 看全书目录、当前目录导读、前置章节和相邻章节
+- [ ] 确认本章的唯一职责，搜索已有正文以避免重复
+- [ ] 查找解释参考，并用教材、论文或官方资料核对关键事实
+- [ ] 确认主要参考资料，记录符号约定
 - [ ] 写直觉段（≤5 句话）
 - [ ] 逐节穿插写：文字 → 公式 → 代码，不要分离
 - [ ] 检查：每个新符号是否有解释？每个公式前是否有一句话说明含义？
