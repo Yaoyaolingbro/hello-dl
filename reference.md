@@ -30,11 +30,15 @@
 
 ### 论文
 
-具体论文按 `01-machine-learning-basics` 到 `07-interview-review` 的目录顺序补充，并在对应章节正文中引用。
+- Corinna Cortes, Vladimir Vapnik. “Support-vector networks.” *Machine Learning* 20, 273–297 (1995). DOI: [10.1007/BF00994018](https://doi.org/10.1007/BF00994018)。
+- Leo Breiman. “Random Forests.” *Machine Learning* 45, 5–32 (2001). DOI: [10.1023/A:1010933404324](https://doi.org/10.1023/A:1010933404324)。
+- Tianqi Chen, Carlos Guestrin. “XGBoost: A Scalable Tree Boosting System.” KDD 2016. arXiv: [1603.02754](https://arxiv.org/abs/1603.02754)。
 
 ### 官方资料
 
-框架行为和 API 以 PyTorch 官方文档为准。
+- [Google Machine Learning Crash Course](https://developers.google.com/machine-learning/crash-course)：线性模型、分类、数据与泛化。
+- [scikit-learn User Guide](https://scikit-learn.org/stable/user_guide.html)：传统模型、模型选择与评价。
+- 框架行为和 API 以 PyTorch 官方文档为准。
 
 ### 解释参考
 

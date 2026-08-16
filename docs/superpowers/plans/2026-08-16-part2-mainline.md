@@ -252,7 +252,7 @@ mkdocs build --strict
 
 Expected: PASS without `--require-complete`; strict build exits `0` and reports no orphan Part 2 pages.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add docs/02-deep-learning mkdocs.yml tests/test_check_part2_content.py
@@ -278,15 +278,15 @@ git commit -m "refactor(part2): establish mainline chapter structure"
 - Consumes: Part 1 probability, linear algebra and optimization concepts by link, without re-deriving them.
 - Produces: empirical risk, train/validation/test split, generalization, bias/variance, linear prediction and classical baseline vocabulary used by all later directories.
 
-- [ ] **Step 1: Inspect context and collect sources**
+- [x] **Step 1: Inspect context and collect sources**
 
 Read the full Part 2 tree, Part 1 index pages and every page in this directory. Record authoritative sources for statistical learning, linear/logistic regression, trees, SVM and clustering in `reference.md`.
 
-- [ ] **Step 2: Write the directory overview and learning framework**
+- [x] **Step 2: Write the directory overview and learning framework**
 
 Explain the common interface `dataset → hypothesis → objective → optimization → evaluation`. Derive mean squared error as an empirical objective and explain why training loss is not the final goal.
 
-- [ ] **Step 3: Write model-family chapters**
+- [x] **Step 3: Write model-family chapters**
 
 Cover these exact boundaries:
 
@@ -296,11 +296,11 @@ Cover these exact boundaries:
 - `svm-and-kernels.md`: margin, hinge loss, soft margin and kernel intuition;
 - `unsupervised-learning.md`: clustering, dimensionality reduction and representation learning bridge.
 
-- [ ] **Step 4: Write generalization and data chapter**
+- [x] **Step 4: Write generalization and data chapter**
 
 Explain data splits, leakage, distribution mismatch, capacity, underfitting/overfitting and the bias–variance trade-off. Link forward to metrics and distribution shift rather than duplicating them.
 
-- [ ] **Step 5: Set all directory pages to `status: complete` and verify**
+- [x] **Step 5: Set all directory pages to `status: complete` and verify**
 
 Run:
 
@@ -311,7 +311,7 @@ mkdocs build --strict
 
 Expected: PASS; no planned page remains inside `01-machine-learning-basics/`.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add docs/02-deep-learning/01-machine-learning-basics reference.md
