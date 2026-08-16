@@ -38,6 +38,11 @@ class Part2ContentCheckerTest(unittest.TestCase):
             stderr=subprocess.PIPE,
         )
 
+    def write_config(self, body: str) -> Path:
+        target = self.root / "mkdocs.yml"
+        target.write_text(textwrap.dedent(body).lstrip(), encoding="utf-8")
+        return target
+
     def valid_page(self, *, status: str = "complete", body: str = "正文内容。") -> str:
         return f"""
         ---
@@ -95,6 +100,38 @@ class Part2ContentCheckerTest(unittest.TestCase):
 
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn("Validated 2 Part 2 pages", result.stdout)
+
+    def test_reports_page_missing_from_part2_navigation(self):
+        self.write_page("index.md", self.valid_page())
+        self.write_page("chapter.md", self.valid_page())
+        config = self.write_config(
+            """
+            nav:
+              - Part 2 · 深度学习基础:
+                - 首页: index.md
+            """
+        )
+
+        result = self.run_checker("--mkdocs-config", str(config))
+
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("chapter.md: page is missing from Part 2 navigation", result.stdout)
+
+    def test_reports_part2_navigation_target_without_page(self):
+        self.write_page("index.md", self.valid_page())
+        config = self.write_config(
+            """
+            nav:
+              - Part 2 · 深度学习基础:
+                - 首页: index.md
+                - 不存在的页面: missing.md
+            """
+        )
+
+        result = self.run_checker("--mkdocs-config", str(config))
+
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("missing.md: navigation target does not exist", result.stdout)
 
 
 if __name__ == "__main__":

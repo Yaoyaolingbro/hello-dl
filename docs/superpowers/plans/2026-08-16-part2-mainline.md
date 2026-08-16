@@ -173,7 +173,7 @@ mkdocs build --strict
 
 Expected: all validator fixture tests pass and MkDocs exits `0`. Do not run the validator against the legacy Part 2 tree yet: those pages intentionally lack the new metadata and are replaced in Task 2.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add scripts/check_part2_content.py tests/test_check_part2_content.py chapter-writing-workflow.md writing-style.md reference.md requirements.txt .github/workflows/deploy.yml
@@ -200,13 +200,13 @@ git commit -m "build: add Part 2 content contract"
 - Consumes: metadata contract from Task 1.
 - Produces: stable Part 2 URLs and the ordered dependency graph used by all later tasks.
 
-- [ ] **Step 1: Add a failing navigation test**
+- [x] **Step 1: Add a failing navigation test**
 
 Extend `tests/test_check_part2_content.py` to load `mkdocs.yml`, collect every Part 2 Markdown target, and assert it equals the set of Markdown files under `docs/02-deep-learning/`.
 
 Expected failure: legacy flat pages do not match the target map.
 
-- [ ] **Step 2: Replace the legacy skeleton**
+- [x] **Step 2: Replace the legacy skeleton**
 
 Create every target page with valid metadata, `status: planned`, one H1, a concise responsibility statement and links to its immediate prerequisites. Do not copy legacy stub prose.
 
@@ -227,7 +227,7 @@ status: planned
 本章负责说明输入、目标、模型、损失和评估之间的关系。具体内容将在本目录编写阶段完成。
 ```
 
-- [ ] **Step 3: Write the Part 2 overview**
+- [x] **Step 3: Write the Part 2 overview**
 
 `docs/02-deep-learning/index.md` must define the reader profile, seven-stage route, three roles, prerequisite map and two suggested paths:
 
@@ -236,11 +236,11 @@ status: planned
 面试复习：02 → 03 → 05 → 06 → 07
 ```
 
-- [ ] **Step 4: Replace the Part 2 nav block**
+- [x] **Step 4: Replace the Part 2 nav block**
 
 List every directory `index.md` and child page explicitly in dependency order. Titles use concise Chinese names; URLs retain the English filenames from the Target File Map.
 
-- [ ] **Step 5: Verify skeleton**
+- [x] **Step 5: Verify skeleton**
 
 Run:
 
