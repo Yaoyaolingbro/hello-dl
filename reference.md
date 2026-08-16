@@ -33,11 +33,14 @@
 - Corinna Cortes, Vladimir Vapnik. “Support-vector networks.” *Machine Learning* 20, 273–297 (1995). DOI: [10.1007/BF00994018](https://doi.org/10.1007/BF00994018)。
 - Leo Breiman. “Random Forests.” *Machine Learning* 45, 5–32 (2001). DOI: [10.1023/A:1010933404324](https://doi.org/10.1023/A:1010933404324)。
 - Tianqi Chen, Carlos Guestrin. “XGBoost: A Scalable Tree Boosting System.” KDD 2016. arXiv: [1603.02754](https://arxiv.org/abs/1603.02754)。
+- Tom M. Mitchell. “The Need for Biases in Learning Generalizations.” 1980；后收入 *Readings in Machine Learning*。
+- Peter W. Battaglia et al. “Relational inductive biases, deep learning, and graph networks.” arXiv: [1806.01261](https://arxiv.org/abs/1806.01261), 2018。
 
 ### 官方资料
 
 - [Google Machine Learning Crash Course](https://developers.google.com/machine-learning/crash-course)：线性模型、分类、数据与泛化。
 - [scikit-learn User Guide](https://scikit-learn.org/stable/user_guide.html)：传统模型、模型选择与评价。
+- [PyTorch Autograd mechanics](https://docs.pytorch.org/docs/stable/notes/autograd.html)：动态图和自动微分行为。
 - 框架行为和 API 以 PyTorch 官方文档为准。
 
 ### 解释参考

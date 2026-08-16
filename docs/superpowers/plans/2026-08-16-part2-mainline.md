@@ -330,23 +330,23 @@ git commit -m "docs(part2): write machine learning foundations"
 - Consumes: linear prediction, empirical risk and generalization from Task 3.
 - Produces: tensor shape notation, computation graph, loss, activation and inductive-bias concepts used by training and architecture chapters.
 
-- [ ] **Step 1: Inspect neighboring directories and collect sources**
+- [x] **Step 1: Inspect neighboring directories and collect sources**
 
 Review Tasks 3, 5 and 6 chapter responsibilities. Add textbook, original-paper or official sources for backpropagation context, activation functions and inductive bias.
 
-- [ ] **Step 2: Write `perceptron-and-mlp.md` and `computational-graphs.md`**
+- [x] **Step 2: Write `perceptron-and-mlp.md` and `computational-graphs.md`**
 
 Derive the affine layer shape and show how stacked affine maps collapse without nonlinear activation. Use one scalar computation graph to introduce local derivatives; leave full reverse-mode derivation to `03-training/backpropagation.md`.
 
-- [ ] **Step 3: Write `loss-functions.md`, `activations.md` and `inductive-bias.md`**
+- [x] **Step 3: Write `loss-functions.md`, `activations.md` and `inductive-bias.md`**
 
 Cover MSE, binary/multiclass cross-entropy, numerical stability, ReLU-family and smooth activations. Explain how architecture and data assumptions create inductive bias; do not pre-explain CNN, RNN or GNN internals.
 
-- [ ] **Step 4: Write the directory index and cross-links**
+- [x] **Step 4: Write the directory index and cross-links**
 
 The knowledge map must connect classical linear models to MLPs, then connect computation graphs and losses to the training directory.
 
-- [ ] **Step 5: Verify and commit**
+- [x] **Step 5: Verify and commit**
 
 ```bash
 python scripts/check_part2_content.py --root docs/02-deep-learning
