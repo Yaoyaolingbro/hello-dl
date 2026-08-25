@@ -15,6 +15,7 @@ status: complete
 !!! info "参考资料"
     - Xavier Glorot, Yoshua Bengio, [Understanding the difficulty of training deep feedforward neural networks](https://proceedings.mlr.press/v9/glorot10a.html), AISTATS 2010
     - Kaiming He et al., [Delving Deep into Rectifiers](https://arxiv.org/abs/1502.01852), ICCV 2015
+    - [torch.nn.init](https://docs.pytorch.org/docs/stable/nn.init) — PyTorch Documentation；`calculate_gain` 与 Kaiming 初始化参数约定
 
 ## 直觉 (Intuition)
 
@@ -61,15 +62,29 @@ $$
 
 把方差误当标准差会让权重尺度差一个平方根，这是手写初始化里很常见的错误。
 
-## He：补偿 ReLU 丢掉的半边信号
+## He：补偿整流激活改变的二阶矩
 
-ReLU 把负值变成零。若零均值对称输入有一半落在负区，输出的**二阶矩**大约只剩一半；这里说二阶矩而非严格方差，因为 ReLU 输出不再零均值。为了让下一层乘加后的尺度不继续减半，He 初始化取
+先写带负半轴斜率 $a$ 的整流函数：
+
+$$
+\phi_a(x)=\max(x,ax).
+$$
+
+若零均值对称输入有一半落在正区、一半落在负区，正半轴保留原值，负半轴的平方变成 $a^2x^2$，所以输出的**二阶矩**约乘 $(1+a^2)/2$。这里说二阶矩而非严格方差，因为整流后的输出通常不再零均值。为补偿这项变化，He 初始化取
+
+$$
+\operatorname{Var}(w)=\frac{2}{(1+a^2)\,\text{fan\_in}},
+\qquad
+\operatorname{Std}(w)=\sqrt{\frac{2}{(1+a^2)\,\text{fan\_in}}}.
+$$
+
+ReLU 是 $a=0$ 的特例，此时才得到熟悉的
 
 $$
 \operatorname{Var}(w)=\frac{2}{\text{fan\_in}}.
 $$
 
-对应正态分布的标准差是 $\sqrt{2/\text{fan\_in}}$。它针对 ReLU/PReLU 一类整流激活推导。若把 Xavier 用在很深的 ReLU 网络，信号可能逐层变弱；若把 He 机械套给 sigmoid，较大的初值又可能把单元推入饱和区。初始化应与[激活函数](../02-neural-network-foundations/activations.md)配套。
+LeakyReLU 使用固定负斜率；PReLU 的 $a$ 会学习，初始化只能按它的**初始值**计算。PyTorch 对 LeakyReLU 给出的 gain 正是 $\sqrt{2/(1+a^2)}$，Kaiming 正态初始化再除以 $\sqrt{\text{fan\_in}}$。若把 Xavier 用在很深的 ReLU 网络，信号可能逐层变弱；若把 He 机械套给 sigmoid，较大的初值又可能把单元推入饱和区。初始化应与[激活函数](../02-neural-network-foundations/activations.md)配套。
 
 ## 三种尺度的方差流
 

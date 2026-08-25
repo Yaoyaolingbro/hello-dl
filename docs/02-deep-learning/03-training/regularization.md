@@ -15,6 +15,7 @@ status: complete
 !!! info "参考资料"
     - Nitish Srivastava et al., [Dropout: A Simple Way to Prevent Neural Networks from Overfitting](https://jmlr.org/papers/v15/srivastava14a.html), JMLR 2014
     - Ilya Loshchilov, Frank Hutter, [Decoupled Weight Decay Regularization](https://arxiv.org/abs/1711.05101), ICLR 2019
+    - [CrossEntropyLoss](https://docs.pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html) — PyTorch Documentation；标签与均匀分布混合的 `label_smoothing` 约定
 
 ## 直觉 (Intuition)
 
@@ -100,7 +101,7 @@ $$
 
 真实类目标从 1 变为 $1-\epsilon+\epsilon/K$，其余类为 $\epsilon/K$。也有实现把 $\epsilon$ 只分给错误类，阅读论文或 API 时要核对约定。
 
-标签平滑能抑制过度尖锐的训练目标，并可能改善泛化；但它不是概率校准的保证，太强还会削弱模型区分类别的能力。类别本身存在不确定性时，软标签应尽量来自合理的标注分布，而不是把所有错误类一律当作同样相似。
+这个公式把监督目标从 one-hot 拉向均匀分布；$\epsilon$ 越大，真实类与其他类的目标差距越小。它是否改善验证表现要由实验判断，不能从公式直接推出。类别本身存在不确定性时，软标签应尽量来自合理的标注分布，而不是把所有错误类一律当作同样相似。
 
 !!! tip "面试 / 工程重点"
     正则化与归一化不是同义词。正则化主要约束可学习解或训练过程以改善泛化；归一化重标定中间激活，主要改变数值尺度与优化行为。BatchNorm 可能带来正则化副作用，但这不改变两类机制的区别。

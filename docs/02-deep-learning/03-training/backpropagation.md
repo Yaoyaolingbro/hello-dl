@@ -107,7 +107,13 @@ $$
 =\mathbf J_f^\top\nabla_{\mathbf y}L.
 $$
 
-这就是向量—雅可比积 (vector–Jacobian product, VJP) 的转置写法。重点不是名字，而是框架只计算“当前上游梯度乘局部雅可比”的结果，不必构造可能很大的完整雅可比。
+在本页的列梯度约定下，反向计算是“局部雅可比转置乘上游列梯度”，即 $\mathbf J_f^\top\nabla_{\mathbf y}L$。若把上游梯度写成行协向量，同一个运算就是通常所说的向量—雅可比积 (vector–Jacobian product, VJP)：
+
+$$
+(\nabla_{\mathbf y}L)^\top\mathbf J_f.
+$$
+
+两种写法互为转置，得到的分量相同。框架只求这个乘积，不必构造可能很大的完整雅可比。
 
 以线性层 $\mathbf y=\mathbf W\mathbf x+\mathbf b$ 为例，收到 $\bar{\mathbf y}=\nabla_{\mathbf y}L$ 后：
 

@@ -106,22 +106,44 @@ for epoch in range(20):
 
 ## 梯度累积改变了 step 的含义
 
-显存一次只能容纳 $B=32$，但希望用 4 个 micro-batch 近似 $128$ 个样本的平均梯度，可以先反向 4 次再更新：
+显存一次只能容纳 $B=32$，但希望用 4 个 micro-batch 近似 $128$ 个样本的平均梯度，可以先累加**样本损失之和**，在更新前再除以这一组的真实样本数。下面的写法同时处理最后一个不足 32 的 batch，以及不足 4 个 micro-batch 的尾组：
 
 ```python
 accum_steps = 4
+criterion_sum = nn.CrossEntropyLoss(reduction="sum")
+update_scheduler = torch.optim.lr_scheduler.LinearLR(
+    optimizer, start_factor=0.1, total_iters=100
+)
+
 optimizer.zero_grad(set_to_none=True)
+group_samples = 0
+num_batches = len(train_loader)
 
 for batch_idx, (inputs, targets) in enumerate(train_loader):
-    loss = criterion(model(inputs), targets) / accum_steps
-    loss.backward()                       # 有意把 4 份梯度加到同一 .grad
+    loss_sum = criterion_sum(model(inputs), targets)
+    loss_sum.backward()                   # 累加每个样本的梯度之和
+    group_samples += targets.shape[0]
 
-    if (batch_idx + 1) % accum_steps == 0:
+    full_group = (batch_idx + 1) % accum_steps == 0
+    final_batch = (batch_idx + 1) == num_batches
+    if full_group or final_batch:
+        # 转为本组所有样本的平均梯度；尾组使用自己的真实样本数
+        for parameter in model.parameters():
+            if parameter.grad is not None:
+                parameter.grad.div_(group_samples)
         optimizer.step()
+        update_scheduler.step()           # 这个调度器按 optimizer step 推进
         optimizer.zero_grad(set_to_none=True)
+        group_samples = 0
 ```
 
-除以 `accum_steps` 是为了得到均值；漏掉这一步会把梯度整体放大约 4 倍。上面的简版还假设 batch 数能被 4 整除。真实代码要在 epoch 末处理剩余 micro-batch，并按实际剩余数缩放，否则最后几批会被丢掉或权重偏小。
+若先对每个 micro-batch 求平均、再把 $K$ 份均值除以 $K$，相当于让每个 micro-batch 权重相同。最后一批只有 7 个样本时，它会和 32 个样本的完整批权重相同。上面的代码计算的是
+
+$$
+\frac{1}{\sum_j B_j}\sum_j\sum_{i=1}^{B_j}\nabla_\theta\ell_{j,i},
+$$
+
+因此每个样本权重相同；尾组也会在 `final_batch` 分支完成更新，不会被丢掉。若损失还包含按 token、像素或类别权重的特殊归约，分母应改成与该损失定义一致的有效计数，不能一律使用 batch 样本数。
 
 梯度累积不等同于一次真正的大 batch：BatchNorm 仍按每个 micro-batch 统计，随机层也会分别采样；但对不依赖 batch 统计的模型，若样本损失取平均且随机性可控，参数梯度可以非常接近。分布式训练时，有效批大小通常是
 

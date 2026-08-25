@@ -52,6 +52,8 @@
 - [PyTorch Autograd mechanics](https://docs.pytorch.org/docs/stable/notes/autograd.html)：动态图和自动微分行为。
 - [PyTorch Module notes](https://docs.pytorch.org/docs/stable/notes/modules.html)：模块训练/评估模式与基础训练循环。
 - [PyTorch Optimizers](https://docs.pytorch.org/docs/stable/optim.html)：优化器和学习率调度器的官方行为。
+- [PyTorch `torch.nn.init`](https://docs.pytorch.org/docs/stable/nn.init)：ReLU/LeakyReLU gain 与 Kaiming 初始化的 `a`、`fan_in`/`fan_out` 参数约定。
+- [PyTorch `CrossEntropyLoss`](https://docs.pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html)：交叉熵与将 one-hot 目标混合均匀分布的 `label_smoothing` 约定。
 - 框架行为和 API 以 PyTorch 官方文档为准。
 
 ### 解释参考
