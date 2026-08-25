@@ -76,15 +76,15 @@ $$
 L=u^2+3u.
 $$
 
-从反向方向看，$u$ 会收到平方分支和线性分支各自传回的一份贡献；箭头在 $u$ 处汇合。
+从反向方向看，平方分支和线性分支各自传回一份贡献；两份贡献先累加，再交给 $u$。
 
 ```mermaid
 flowchart RL
-    loss["L"] --> add["相加"]
-    add --> square["平方分支"]
-    add --> linear["三倍分支"]
-    square --> u["u"]
-    linear --> u
+    loss["L"] --> square["平方分支"]
+    loss --> linear["三倍分支"]
+    square -->|"2u"| accumulate["梯度累加"]
+    linear -->|"3"| accumulate
+    accumulate --> u["u"]
 ```
 
 两份贡献的具体数值仍由局部导数给出：

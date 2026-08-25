@@ -100,6 +100,26 @@ class Part2ContentCheckerTest(unittest.TestCase):
         self.assertEqual(result.returncode, 1)
         self.assertIn("chapter.md: suspicious bare 'qquad' in math", result.stdout)
 
+    def test_accepts_escaped_qquad_in_display_math(self):
+        self.write_page(
+            "chapter.md",
+            self.valid_page(body="$$\\na=wx,\\qquad z=a+b.\\n$$"),
+        )
+
+        result = self.run_checker()
+
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_accepts_qquad_in_ordinary_prose(self):
+        self.write_page(
+            "chapter.md",
+            self.valid_page(body="这段普通文字提到 qquad，但不是数学公式。"),
+        )
+
+        result = self.run_checker()
+
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
     def test_accepts_valid_pages_and_existing_links(self):
         self.write_page(
             "index.md",
