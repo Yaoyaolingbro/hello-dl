@@ -9,7 +9,7 @@ status: complete
 
 # 03 · 模型训练
 
-这一部分把损失变成可执行的参数更新，并解释训练循环中最容易出问题的环节。
+模型给出预测，损失衡量误差；训练要做的，是把这一个标量沿计算图送回每个参数，再用一批批数据反复更新参数。本目录把这条链路接完整：反向传播负责算梯度，训练循环管理状态，初始化、优化器、正则化与归一化共同决定更新是否稳定、是否能泛化。
 
 ## 你将学到
 
@@ -24,6 +24,6 @@ status: complete
 
 ## 与前后章节的关系
 
-这一目录建立在前一阶段之上。概念已经在前文完整解释时，本目录只做必要提醒并链接原章。
+前一目录已经讲过[计算图](../02-neural-network-foundations/computational-graphs.md)、[损失](../02-neural-network-foundations/loss-functions.md)和[激活函数](../02-neural-network-foundations/activations.md)；这里从它们给出的局部导数出发，不再重复定义。学习率与随机梯度的数学背景可回看 Part 1 的[梯度下降](../../01-math/optimization/gradient-descent.md)和[自适应方法](../../01-math/optimization/adaptive-methods.md)。
 
-学完后，继续回到 [Part 2 导读](../index.md) 查看下一阶段。
+读完后可以进入[可复用组件](../04-components/index.md)。若训练已经失败，应按症状到后面的[训练故障诊断](../06-evaluation-debugging/diagnosing-training.md)排查；这一目录只解释机制，不重复故障清单。
