@@ -25,6 +25,8 @@ REQUIRED_FIELDS = {
 ESTIMATED_TIME = re.compile(r"^[1-9][0-9]*min$")
 MARKDOWN_LINK = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
 PLACEHOLDER_MARKERS = ("TODO", "TBD", "待补充", "正文内容将在")
+DISPLAY_MATH = re.compile(r"\$\$(.*?)\$\$", re.DOTALL)
+BARE_QQUAD = re.compile(r"(?<!\\)\bqquad\b")
 
 
 class _MkDocsConfigLoader(yaml.SafeLoader):
@@ -139,6 +141,8 @@ def _validate_body(body: str, status: Any) -> list[str]:
         for marker in PLACEHOLDER_MARKERS:
             if marker in body:
                 errors.append(f"complete page contains placeholder marker '{marker}'")
+    if any(BARE_QQUAD.search(math.group()) for math in DISPLAY_MATH.finditer(body)):
+        errors.append("suspicious bare 'qquad' in math")
     return errors
 
 
