@@ -18,6 +18,10 @@
   margin: 0 auto;
 }
 
+.lesson-visual__canvas--wide {
+  min-width: 44rem;
+}
+
 .lesson-visual [data-step] {
   transition: opacity 180ms ease;
 }
