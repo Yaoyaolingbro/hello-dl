@@ -59,13 +59,60 @@ $\epsilon$ 防止方差很小时除零。$\gamma,\beta$ 让层能够学习“单
 - 若把每个样本的 `[16, 32, 32]` 整体做 LayerNorm，则每个样本汇总 $16\times32\times32$ 个数，得到 8 组统计量；
 - 两者输出形状都不变，但一个样本是否影响另一个样本完全不同。
 
-```mermaid
-flowchart TB
-    input["序列张量 B × T × D"]
-    input --> bn["BatchNorm：跨 B（实现约定可能也跨位置）<br/>同一特征共享统计量"]
-    input --> ln["LayerNorm：每个 B,T 位置内跨 D<br/>减均值，再除标准差"]
-    input --> rms["RMSNorm：每个 B,T 位置内跨 D<br/>不减均值，只除 RMS"]
-```
+<figure class="lesson-figure">
+  <div data-lesson-stage role="img" aria-label="BatchNorm、LayerNorm 和 RMSNorm 在 B、T、D 三个轴上的统计范围对比">
+    <svg class="lesson-visual__canvas--wide" viewBox="0 0 980 500" role="img" aria-hidden="true" style="color: var(--md-default-fg-color);">
+      <text x="40" y="38" font-size="18" font-weight="700" fill="currentColor">方法</text>
+      <text x="250" y="38" font-size="18" font-weight="700" fill="currentColor">统计范围（序列张量 B × T × D）</text>
+      <text x="730" y="38" font-size="18" font-weight="700" fill="currentColor">训练 / 推理</text>
+
+      <g fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-width="2">
+        <rect x="30" y="70" width="920" height="110" rx="14" />
+        <rect x="30" y="210" width="920" height="110" rx="14" />
+        <rect x="30" y="350" width="920" height="110" rx="14" />
+      </g>
+      <g font-size="20" font-weight="700" fill="currentColor">
+        <text x="55" y="120">BatchNorm</text>
+        <text x="55" y="260">LayerNorm</text>
+        <text x="55" y="400">RMSNorm</text>
+      </g>
+
+      <g fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="245" y="93" width="56" height="56" rx="6" />
+        <rect x="315" y="93" width="56" height="56" rx="6" />
+        <rect x="385" y="93" width="56" height="56" rx="6" />
+        <rect x="455" y="93" width="56" height="56" rx="6" />
+        <path d="M230 82 L230 160 M220 82 L240 82 M220 160 L240 160" />
+
+        <rect x="245" y="233" width="266" height="56" rx="8" />
+        <path d="M245 261 L511 261 M311 233 L311 289 M377 233 L377 289 M443 233 L443 289" />
+        <path d="M230 225 L230 297 M220 225 L240 225 M220 297 L240 297" />
+
+        <rect x="245" y="373" width="266" height="56" rx="8" />
+        <path d="M245 401 L511 401 M311 373 L311 429 M377 373 L377 429 M443 373 L443 429" />
+        <path d="M230 365 L230 437 M220 365 L240 365 M220 437 L240 437" />
+      </g>
+      <g font-size="16" fill="currentColor">
+        <text x="220" y="173">跨 B（卷积时也跨空间）</text>
+        <text x="273" y="87" text-anchor="middle">B₁</text><text x="343" y="87" text-anchor="middle">B₂</text><text x="413" y="87" text-anchor="middle">…</text><text x="483" y="87" text-anchor="middle">Bₙ</text>
+        <text x="273" y="126" text-anchor="middle">同一特征</text><text x="343" y="126" text-anchor="middle">同一特征</text><text x="413" y="126" text-anchor="middle">同一特征</text><text x="483" y="126" text-anchor="middle">同一特征</text>
+
+        <text x="220" y="313">固定一个 B,T 位置，横跨 D</text>
+        <text x="278" y="267" text-anchor="middle">d₁</text><text x="344" y="267" text-anchor="middle">d₂</text><text x="410" y="267" text-anchor="middle">…</text><text x="476" y="267" text-anchor="middle">d_D</text>
+
+        <text x="220" y="453">固定一个 B,T 位置，横跨 D</text>
+        <text x="278" y="407" text-anchor="middle">d₁</text><text x="344" y="407" text-anchor="middle">d₂</text><text x="410" y="407" text-anchor="middle">…</text><text x="476" y="407" text-anchor="middle">d_D</text>
+      </g>
+      <g font-size="17" fill="currentColor">
+        <text x="560" y="112">减均值，再除标准差</text><text x="730" y="140">训练用 batch；推理用运行统计</text>
+        <text x="560" y="252">减均值，再除标准差</text><text x="730" y="280">两种模式相同</text>
+        <text x="560" y="392">不减均值，只除 RMS</text><text x="730" y="420">两种模式相同</text>
+      </g>
+    </svg>
+  </div>
+  <p class="lesson-figure__text">文字等价：BatchNorm 为同一特征跨 batch 汇总统计量，卷积版本还跨空间位置；LayerNorm 与 RMSNorm 都在单个样本、单个 token 的 D 维内统计，前者减均值并除标准差，后者只除以 RMS。</p>
+  <figcaption>图 1：先看统计轴，再看 train / eval。BN 会借用其他样本的统计量，LN 与 RMSNorm 不会。</figcaption>
+</figure>
 
 ## BatchNorm：统计量依赖 mini-batch
 

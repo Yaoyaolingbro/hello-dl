@@ -82,11 +82,7 @@ markdown_extensions:
       anchor_linenums: true
       line_spans: __span
       pygments_lang_class: true
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.superfences
   - pymdownx.arithmatex:
       generic: true
 
@@ -111,7 +107,6 @@ extra_javascript:
   - assets/js/lesson-visuals.js
   - https://unpkg.com/katex@0/dist/katex.min.js
   - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
-  - https://unpkg.com/mermaid@11/dist/mermaid.esm.min.mjs
 
 extra:
   generator: false           # 隐藏 "Made with Material for MkDocs" 脚注

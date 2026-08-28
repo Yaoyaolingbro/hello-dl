@@ -44,19 +44,78 @@ $$
 
 ## 训练和验证是两条状态路径
 
-```mermaid
-stateDiagram-v2
-    [*] --> TrainMode: model.train()
-    TrainMode --> Forward: 读取 mini-batch
-    Forward --> Backward: 计算训练损失
-    Backward --> Update: backward()
-    Update --> TrainMode: optimizer.step() / 清梯度
-    TrainMode --> EvalMode: 到达验证时点 / model.eval()
-    EvalMode --> Validate: no_grad() 下前向
-    Validate --> EvalMode: 汇总所有验证批次
-    EvalMode --> TrainMode: 下一 epoch / model.train()
-    Validate --> [*]: 训练结束
-```
+下面每一帧只显示当前状态。点“下一步”，先走完一个训练 batch，再切到验证；最后回到下一轮训练。
+
+<figure class="lesson-visual" data-lesson-visual data-step-mode="single" data-interval="2100">
+  <div data-lesson-stage role="img" aria-label="训练模式与验证模式在一个 epoch 中依次切换">
+    <svg class="lesson-visual__canvas--wide" viewBox="0 0 960 410" role="img" aria-hidden="true" style="color: var(--md-default-fg-color);">
+      <defs>
+        <marker id="training-loop-state-arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L0,6 L9,3 z" fill="currentColor" />
+        </marker>
+      </defs>
+
+      <g data-step data-step-label="训练一个 mini-batch">
+        <rect x="30" y="28" width="900" height="350" rx="18" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-width="2" />
+        <text x="70" y="76" font-size="24" font-weight="700" fill="currentColor">训练状态：model.train()</text>
+        <text x="70" y="106" font-size="17" fill="currentColor">记录自动微分；Dropout / BatchNorm 使用训练行为</text>
+        <g fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="65" y="165" width="140" height="72" rx="12" />
+          <rect x="245" y="165" width="140" height="72" rx="12" />
+          <rect x="425" y="165" width="140" height="72" rx="12" />
+          <rect x="605" y="165" width="140" height="72" rx="12" />
+          <rect x="785" y="165" width="120" height="72" rx="12" />
+        </g>
+        <g text-anchor="middle" font-size="17" fill="currentColor">
+          <text x="135" y="197">清旧梯度</text><text x="135" y="220">zero_grad</text>
+          <text x="315" y="197">前向</text><text x="315" y="220">forward</text>
+          <text x="495" y="197">算损失</text><text x="495" y="220">loss</text>
+          <text x="675" y="197">反向</text><text x="675" y="220">backward</text>
+          <text x="845" y="197">更新</text><text x="845" y="220">step</text>
+        </g>
+        <path d="M205 201 L245 201 M385 201 L425 201 M565 201 L605 201 M745 201 L785 201" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#training-loop-state-arrow)" />
+        <text x="70" y="315" font-size="18" fill="currentColor">下一个训练 batch 会重新从清旧梯度开始；参数只在 optimizer.step() 时改变。</text>
+      </g>
+
+      <g data-step data-step-label="遍历验证集">
+        <rect x="30" y="28" width="900" height="350" rx="18" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-width="2" />
+        <text x="70" y="76" font-size="24" font-weight="700" fill="currentColor">验证状态：model.eval() + no_grad()</text>
+        <text x="70" y="106" font-size="17" fill="currentColor">固定 Dropout / BatchNorm 的评估行为，并停止记录反向图</text>
+        <g fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="95" y="165" width="190" height="72" rx="12" />
+          <rect x="385" y="165" width="190" height="72" rx="12" />
+          <rect x="675" y="165" width="190" height="72" rx="12" />
+        </g>
+        <g text-anchor="middle" font-size="18" fill="currentColor">
+          <text x="190" y="197">读取验证 batch</text><text x="190" y="220">不打乱参数</text>
+          <text x="480" y="197">只做前向</text><text x="480" y="220">不调用 backward</text>
+          <text x="770" y="197">累计指标</text><text x="770" y="220">覆盖全部样本</text>
+        </g>
+        <path d="M285 201 L385 201 M575 201 L675 201" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#training-loop-state-arrow)" />
+        <text x="70" y="315" font-size="18" fill="currentColor">验证不更新参数。model.eval() 与 no_grad() 管的是两件不同的事，两者都要显式设置。</text>
+      </g>
+
+      <g data-step data-step-label="进入下一 epoch 或结束">
+        <rect x="30" y="28" width="900" height="350" rx="18" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-width="2" />
+        <text x="70" y="76" font-size="24" font-weight="700" fill="currentColor">验证汇总完成</text>
+        <path d="M190 210 C300 95 590 95 700 210" fill="none" stroke="currentColor" stroke-width="3" marker-end="url(#training-loop-state-arrow)" />
+        <rect x="90" y="178" width="200" height="72" rx="12" fill="none" stroke="currentColor" stroke-width="2" />
+        <rect x="700" y="178" width="180" height="72" rx="12" fill="none" stroke="currentColor" stroke-width="2" />
+        <text x="190" y="207" text-anchor="middle" font-size="18" fill="currentColor">valid loss / metric</text>
+        <text x="190" y="232" text-anchor="middle" font-size="17" fill="currentColor">本轮记录完成</text>
+        <text x="790" y="207" text-anchor="middle" font-size="18" fill="currentColor">model.train()</text>
+        <text x="790" y="232" text-anchor="middle" font-size="17" fill="currentColor">下一 epoch</text>
+        <text x="360" y="300" font-size="18" fill="currentColor">若达到停止条件，则保存结果并结束，不再切回训练状态。</text>
+      </g>
+    </svg>
+  </div>
+  <ol data-lesson-steps>
+    <li>训练状态下，一个 mini-batch 依次执行清梯度、前向、损失、反向和参数更新。</li>
+    <li>到验证时点后，同时设置 model.eval() 与 no_grad()；遍历验证 batch 只汇总指标，不更新参数。</li>
+    <li>验证结束后，若还要继续训练，下一 epoch 先调用 model.train()；否则保存结果并结束。</li>
+  </ol>
+  <figcaption>图 1：逐帧核对当前状态。训练帧会产生梯度并更新参数，验证帧只做前向和汇总。</figcaption>
+</figure>
 
 `model.train()` 与 `model.eval()` 控制模块行为。Dropout 在训练模式随机置零，在评估模式关闭；BatchNorm 在训练模式使用当前 batch 统计量并更新运行统计，在评估模式使用已保存的运行统计量。
 

@@ -64,17 +64,73 @@ $M$ 是可选掩码，下一节说明。先逐轴核对单个 head 的形状：
 
 多头批量实现常用 $Q,K,V$ 形状 $[B,h,n_q,d_k]$、$[B,h,n_k,d_k]$、$[B,h,n_k,d_v]$。广播 batch 和 head 后，分数为 $[B,h,n_q,n_k]$，输出为 $[B,h,n_q,d_v]$。各头拼接后是 $[B,n_q,h d_v]$，通常再投影回模型维度；如何与前馈层和残差组合留给 [Transformer](../05-architectures/transformer.md)。
 
-```mermaid
-flowchart LR
-    q["Q  B×h×nq×dk"] --> score["QKᵀ  B×h×nq×nk"]
-    k["K  B×h×nk×dk"] --> score
-    score --> scale["除以 √dk"]
-    mask["mask：允许 0 / 禁止 −∞"] --> masked["加到分数"]
-    scale --> masked --> softmax["沿 nk 做 softmax"]
-    softmax --> weights["权重  B×h×nq×nk"]
-    v["V  B×h×nk×dv"] --> output["加权和  B×h×nq×dv"]
-    weights --> output
-```
+点“下一步”沿矩阵管线走一遍。形状写在节点里，便于核对每次变换有没有改错轴。
+
+<figure class="lesson-visual" data-lesson-visual data-interval="1900">
+  <div data-lesson-stage role="img" aria-label="多头注意力从 Q 和 K 计算分数，经缩放掩码与 softmax 后加权 V">
+    <svg class="lesson-visual__canvas--wide" viewBox="0 0 1080 520" role="img" aria-hidden="true" style="color: var(--md-default-fg-color);">
+      <defs>
+        <marker id="attention-pipeline-arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L0,6 L9,3 z" fill="currentColor" />
+        </marker>
+      </defs>
+
+      <g data-step data-step-label="Q 与 K 生成成对分数">
+        <text x="35" y="35" font-size="18" font-weight="700" fill="currentColor">1. 匹配：每个 query 与每个 key 做点积</text>
+        <g fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="45" y="75" width="220" height="70" rx="11" />
+          <rect x="45" y="175" width="220" height="70" rx="11" />
+          <rect x="385" y="115" width="260" height="90" rx="12" />
+        </g>
+        <g text-anchor="middle" fill="currentColor">
+          <text x="155" y="104" font-size="20">Q</text><text x="155" y="128" font-size="16">B × h × n_q × d_k</text>
+          <text x="155" y="204" font-size="20">K</text><text x="155" y="228" font-size="16">B × h × n_k × d_k</text>
+          <text x="515" y="150" font-size="20">QKᵀ</text><text x="515" y="178" font-size="17">B × h × n_q × n_k</text>
+        </g>
+        <path d="M265 110 C315 110 325 145 385 150 M265 210 C315 210 325 175 385 170" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#attention-pipeline-arrow)" />
+      </g>
+
+      <g data-step data-step-label="缩放并在 logits 上加掩码">
+        <text x="690" y="35" font-size="18" font-weight="700" fill="currentColor">2. 缩放与掩码</text>
+        <rect x="720" y="90" width="260" height="76" rx="11" fill="currentColor" fill-opacity="0.06" stroke="currentColor" stroke-width="2" />
+        <text x="850" y="120" text-anchor="middle" font-size="18" fill="currentColor">QKᵀ / √d_k + M</text>
+        <text x="850" y="145" text-anchor="middle" font-size="16" fill="currentColor">形状仍为 B × h × n_q × n_k</text>
+        <path d="M645 160 L720 135" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#attention-pipeline-arrow)" />
+        <rect x="720" y="205" width="260" height="62" rx="11" fill="none" stroke="currentColor" stroke-width="2" />
+        <text x="850" y="232" text-anchor="middle" font-size="17" fill="currentColor">M：允许位置 0</text>
+        <text x="850" y="254" text-anchor="middle" font-size="17" fill="currentColor">禁止位置 −∞</text>
+        <path d="M850 205 L850 166" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#attention-pipeline-arrow)" />
+      </g>
+
+      <g data-step data-step-label="沿 key 轴做 softmax">
+        <text x="35" y="325" font-size="18" font-weight="700" fill="currentColor">3. 归一化：沿 n_k 轴做 softmax</text>
+        <rect x="310" y="292" width="300" height="78" rx="12" fill="currentColor" fill-opacity="0.06" stroke="currentColor" stroke-width="2" />
+        <text x="460" y="322" text-anchor="middle" font-size="20" fill="currentColor">注意力权重 α</text>
+        <text x="460" y="349" text-anchor="middle" font-size="17" fill="currentColor">B × h × n_q × n_k</text>
+        <path d="M850 267 C850 325 700 330 610 330" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#attention-pipeline-arrow)" />
+        <text x="690" y="310" font-size="16" fill="currentColor">每行合法 key 权重和为 1</text>
+      </g>
+
+      <g data-step data-step-label="权重加权 V 得到输出">
+        <text x="35" y="430" font-size="18" font-weight="700" fill="currentColor">4. 读取内容：αV</text>
+        <rect x="240" y="405" width="230" height="72" rx="11" fill="none" stroke="currentColor" stroke-width="2" />
+        <text x="355" y="434" text-anchor="middle" font-size="20" fill="currentColor">V</text>
+        <text x="355" y="459" text-anchor="middle" font-size="16" fill="currentColor">B × h × n_k × d_v</text>
+        <rect x="695" y="405" width="300" height="72" rx="11" fill="currentColor" fill-opacity="0.06" stroke="currentColor" stroke-width="2" />
+        <text x="845" y="434" text-anchor="middle" font-size="20" fill="currentColor">输出 αV</text>
+        <text x="845" y="459" text-anchor="middle" font-size="16" fill="currentColor">B × h × n_q × d_v</text>
+        <path d="M470 441 L695 441 M520 370 C555 405 610 420 695 430" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#attention-pipeline-arrow)" />
+      </g>
+    </svg>
+  </div>
+  <ol data-lesson-steps>
+    <li>Q 的 n_q 个 query 与 K 的 n_k 个 key 做点积，得到形状 B × h × n_q × n_k 的 QKᵀ。</li>
+    <li>分数除以 √d_k，再加掩码 M；合法位置加 0，禁止位置加 −∞，形状不变。</li>
+    <li>沿 n_k 轴做 softmax，得到同形状权重，每个 query 的合法 key 权重和为 1。</li>
+    <li>权重乘 V，消去 n_k 轴，输出形状变为 B × h × n_q × d_v。</li>
+  </ol>
+  <figcaption>图 1：按 Q/K → score → mask/softmax → V/output 的顺序核对；n_k 在最后一次加权和中被消去。</figcaption>
+</figure>
 
 ## 为什么除以 $\sqrt{d_k}$
 

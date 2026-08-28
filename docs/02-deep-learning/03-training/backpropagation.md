@@ -42,19 +42,78 @@ $$
 
 取 $x=2,w_1=3,b_1=1,w_2=4,b_2=-1,y=30$。前向计算得到 $a=7,h=7,s=27,L=4.5$。因为 $a>0$，本次执行路径上 $\operatorname{ReLU}'(a)=1$。
 
-下面是这次计算**精确对应**的反向图。节点同时标出前向值与收到的梯度；边上的乘数是局部导数，等号右边是传回的结果。
+下面的图与这次计算一一对应。点“下一步”，先看损失把梯度交给 $s$，再沿实际执行路径逐段返回；分叉处会同时产生多份贡献。
 
-```mermaid
-flowchart RL
-    loss["L = 4.5<br/>bar L = 1"] -->|"× (s-y) = -3"| score["s = 27<br/>bar s = -3"]
-    score -->|"× h = -21"| w2["w2 = 4<br/>bar w2 = -21"]
-    score -->|"× 1 = -3"| b2["b2 = -1<br/>bar b2 = -3"]
-    score -->|"× w2 = -12"| hidden["h = 7<br/>bar h = -12"]
-    hidden -->|"× ReLU'(7) = -12"| pre["a = 7<br/>bar a = -12"]
-    pre -->|"× x = -24"| w1["w1 = 3<br/>bar w1 = -24"]
-    pre -->|"× 1 = -12"| b1["b1 = 1<br/>bar b1 = -12"]
-    pre -->|"× w1 = -36"| input["x = 2<br/>bar x = -36"]
-```
+<figure class="lesson-visual" data-lesson-visual data-interval="1900">
+  <div data-lesson-stage role="img" aria-label="两层标量网络的梯度从损失累计返回各参数">
+    <svg class="lesson-visual__canvas--wide" viewBox="0 0 1080 520" role="img" aria-hidden="true" style="color: var(--md-default-fg-color);">
+      <defs>
+        <marker id="backprop-path-arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L0,6 L9,3 z" fill="currentColor" />
+        </marker>
+      </defs>
+
+      <g data-step data-step-label="前向值与反向起点">
+        <text x="40" y="34" font-size="18" font-weight="700" fill="currentColor">前向：x → a → h → s → L</text>
+        <path d="M160 105 L250 105 M390 105 L465 105 M605 105 L700 105 M840 105 L925 105" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#backprop-path-arrow)" />
+        <g fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="40" y="72" width="120" height="66" rx="10" />
+          <rect x="250" y="72" width="140" height="66" rx="10" />
+          <rect x="465" y="72" width="140" height="66" rx="10" />
+          <rect x="700" y="72" width="140" height="66" rx="10" />
+          <rect x="925" y="72" width="115" height="66" rx="10" />
+        </g>
+        <g text-anchor="middle" font-size="18" fill="currentColor">
+          <text x="100" y="100">x = 2</text><text x="100" y="124">w₁ = 3, b₁ = 1</text>
+          <text x="320" y="100">a = 7</text><text x="320" y="124">w₁x + b₁</text>
+          <text x="535" y="100">h = 7</text><text x="535" y="124">ReLU(a)</text>
+          <text x="770" y="100">s = 27</text><text x="770" y="124">w₂h + b₂</text>
+          <text x="982" y="100">L = 4.5</text><text x="982" y="124">L̄ = 1</text>
+        </g>
+      </g>
+
+      <g data-step data-step-label="L 返回到 s，并在 s 处分叉">
+        <text x="40" y="206" font-size="18" font-weight="700" fill="currentColor">反向第 1 段</text>
+        <path d="M925 190 L840 190" fill="none" stroke="currentColor" stroke-width="3" marker-end="url(#backprop-path-arrow)" />
+        <text x="882" y="178" text-anchor="middle" font-size="17" fill="currentColor">× (s-y) = -3</text>
+        <rect x="700" y="158" width="140" height="64" rx="10" fill="currentColor" fill-opacity="0.06" stroke="currentColor" stroke-width="2" />
+        <text x="770" y="184" text-anchor="middle" font-size="18" fill="currentColor">s̄ = -3</text>
+        <text x="770" y="207" text-anchor="middle" font-size="16" fill="currentColor">向 h、w₂、b₂ 分叉</text>
+        <path d="M700 190 C630 190 635 265 565 265 M700 190 C650 190 650 330 565 330 M700 190 C650 190 650 395 565 395" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#backprop-path-arrow)" />
+        <g font-size="17" fill="currentColor">
+          <text x="385" y="270">h̄ = -3 × w₂ = -12</text>
+          <text x="385" y="335">w̄₂ = -3 × h = -21</text>
+          <text x="385" y="400">b̄₂ = -3 × 1 = -3</text>
+        </g>
+      </g>
+
+      <g data-step data-step-label="梯度穿过 ReLU 返回到 a">
+        <text x="40" y="452" font-size="18" font-weight="700" fill="currentColor">反向第 2 段</text>
+        <path d="M380 440 L250 440" fill="none" stroke="currentColor" stroke-width="3" marker-end="url(#backprop-path-arrow)" />
+        <text x="315" y="426" text-anchor="middle" font-size="17" fill="currentColor">× ReLU′(7) = 1</text>
+        <rect x="90" y="408" width="160" height="64" rx="10" fill="currentColor" fill-opacity="0.06" stroke="currentColor" stroke-width="2" />
+        <text x="170" y="436" text-anchor="middle" font-size="18" fill="currentColor">ā = -12</text>
+        <text x="170" y="459" text-anchor="middle" font-size="16" fill="currentColor">继续向 x、w₁、b₁ 分叉</text>
+      </g>
+
+      <g data-step data-step-label="a 的三份参数与输入梯度">
+        <path d="M250 472 C340 505 430 487 515 468 M250 472 C405 530 605 512 715 468 M250 472 C460 545 770 528 915 468" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#backprop-path-arrow)" />
+        <g font-size="17" fill="currentColor">
+          <text x="520" y="472">w̄₁ = -12 × x = -24</text>
+          <text x="720" y="472">b̄₁ = -12 × 1 = -12</text>
+          <text x="920" y="472">x̄ = -12 × w₁ = -36</text>
+        </g>
+      </g>
+    </svg>
+  </div>
+  <ol data-lesson-steps>
+    <li>前向得到 a = 7、h = 7、s = 27、L = 4.5；反向从 L̄ = 1 开始。</li>
+    <li>L 对 s 的局部导数是 s-y = -3，因此 s̄ = -3；s 再向 h、w₂、b₂ 分出三份贡献。</li>
+    <li>h̄ = -12，且 ReLU′(7) = 1，所以 ā = -12。</li>
+    <li>a 向三个输入返回：w̄₁ = -24、b̄₁ = -12、x̄ = -36。</li>
+  </ol>
+  <figcaption>图 1：看梯度从 L 沿反向路径逐段累积；每条边乘局部导数，遇到分叉就把贡献分别交给各输入。</figcaption>
+</figure>
 
 按相同顺序写成链式法则就是：
 

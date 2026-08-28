@@ -5,7 +5,8 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 MKDOCS_CONFIG = REPO_ROOT / "mkdocs.yml"
-PART2_ROOT = REPO_ROOT / "docs" / "02-deep-learning"
+DOCS_ROOT = REPO_ROOT / "docs"
+PART2_ROOT = DOCS_ROOT / "02-deep-learning"
 VISUAL_CSS = REPO_ROOT / "docs" / "assets" / "css" / "lesson-visuals.css"
 VISUAL_JS = REPO_ROOT / "docs" / "assets" / "js" / "lesson-visuals.js"
 WRITING_STYLE = REPO_ROOT / "writing-style.md"
@@ -17,20 +18,13 @@ COMPUTATIONAL_GRAPHS_PAGE = (
     / "computational-graphs.md"
 )
 CONVOLUTION_PAGE = PART2_ROOT / "04-components" / "convolution.md"
-MERMAID_PAGE_ALLOWLIST = {
-    "docs/02-deep-learning/03-training/backpropagation.md",
+INITIALIZATION_PAGE = PART2_ROOT / "03-training" / "initialization.md"
+MERMAID_PAGE_ALLOWLIST = set()
+MERMAID_CONFIG_ALLOWLIST = set()
+STATIC_FIGURE_PAGES = {
     "docs/02-deep-learning/03-training/initialization.md",
-    "docs/02-deep-learning/03-training/minibatch-and-training-loop.md",
     "docs/02-deep-learning/03-training/normalization.md",
-    "docs/02-deep-learning/04-components/attention.md",
-    "docs/02-deep-learning/04-components/graph-message-passing.md",
-    "docs/02-deep-learning/04-components/recurrence.md",
     "docs/02-deep-learning/04-components/residual-connections.md",
-}
-MERMAID_CONFIG_ALLOWLIST = {
-    "- name: mermaid",
-    "class: mermaid",
-    "- https://unpkg.com/mermaid@11/dist/mermaid.esm.min.mjs",
 }
 
 
@@ -311,9 +305,74 @@ class VisualContentTest(unittest.TestCase):
 
         self.assertEqual(problems, [], "\n".join(problems))
 
+    def test_static_figures_include_accessible_content(self):
+        problems = []
+        static_figure_pages = set()
+
+        for page in sorted(PART2_ROOT.rglob("*.md")):
+            content = page.read_text(encoding="utf-8")
+            for number, match in enumerate(
+                re.finditer(r"<figure\b[^>]*>.*?</figure>", content, re.DOTALL),
+                start=1,
+            ):
+                figure = match.group(0)
+                figure_tag = re.match(r"<figure\b[^>]*>", figure, re.DOTALL).group(0)
+                figure_classes = (_attribute_value(figure_tag, "class") or "").split()
+                if "lesson-figure" not in figure_classes:
+                    continue
+
+                relative_page = str(page.relative_to(REPO_ROOT))
+                static_figure_pages.add(relative_page)
+                stage_tags = _opening_tags_with_attribute(figure, "data-lesson-stage")
+                if len(stage_tags) != 1:
+                    problems.append(
+                        f"{relative_page} figure {number}: expected one data-lesson-stage"
+                    )
+                else:
+                    if _attribute_value(stage_tags[0], "role") != "img":
+                        problems.append(
+                            f"{relative_page} figure {number}: stage role must be img"
+                        )
+                    if not _attribute_value(stage_tags[0], "aria-label"):
+                        problems.append(
+                            f"{relative_page} figure {number}: stage needs an aria-label"
+                        )
+                if len(re.findall(r"<svg\b[^>]*>", figure, re.DOTALL)) != 1:
+                    problems.append(
+                        f"{relative_page} figure {number}: expected one inline svg"
+                    )
+                if len(re.findall(r"<figcaption\b[^>]*>.*?</figcaption>", figure, re.DOTALL)) != 1:
+                    problems.append(
+                        f"{relative_page} figure {number}: expected one figcaption"
+                    )
+
+        missing_pages = STATIC_FIGURE_PAGES - static_figure_pages
+        for page in sorted(missing_pages):
+            problems.append(f"{page}: missing lesson-figure")
+
+        self.assertEqual(problems, [], "\n".join(problems))
+
+    def test_initialization_large_variance_distinguishes_saturating_activations(self):
+        content = INITIALIZATION_PAGE.read_text(encoding="utf-8")
+        figure = re.search(
+            r'<figure\b[^>]*class="lesson-figure"[^>]*>.*?</figure>',
+            content,
+            re.DOTALL,
+        ).group(0)
+        svg = re.search(r"<svg\b[^>]*>.*?</svg>", figure, re.DOTALL).group(0)
+        text_equivalent = re.search(
+            r'<p\b[^>]*class="lesson-figure__text"[^>]*>(.*?)</p>',
+            figure,
+            re.DOTALL,
+        ).group(1)
+
+        for section in (svg, text_equivalent):
+            self.assertRegex(section, r"tanh.*sigmoid.*(?:可能|容易).*饱和")
+            self.assertRegex(section, r"ReLU.*激活.*梯度.*放大.*溢出")
+
     def test_mermaid_usage_matches_migration_allowlist(self):
         mermaid_pages = set()
-        for page in sorted(PART2_ROOT.rglob("*.md")):
+        for page in sorted(DOCS_ROOT.rglob("*.md")):
             if "```mermaid" in page.read_text(encoding="utf-8"):
                 mermaid_pages.add(str(page.relative_to(REPO_ROOT)))
 

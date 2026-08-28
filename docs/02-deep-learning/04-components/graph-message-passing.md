@@ -30,22 +30,65 @@ status: complete
 
 ## 一轮消息怎样流动
 
-```mermaid
-flowchart LR
-    u1["邻居 u1：节点特征"] --> m1["消息 ϕm(h_u1, h_v, e_u1v, g)"]
-    e1["边 e_u1v"] --> m1
-    u2["邻居 u2：节点特征"] --> m2["消息 ϕm(h_u2, h_v, e_u2v, g)"]
-    e2["边 e_u2v"] --> m2
-    v["中心节点 h_v"] --> m1
-    v --> m2
-    g["全局特征 g"] --> m1
-    g --> m2
-    m1 --> agg["AGG：sum / mean / max"]
-    m2 --> agg
-    v --> update["更新 ϕu"]
-    g --> update
-    agg --> update --> next["新节点特征 h'_v"]
-```
+点“下一步”跟一轮更新走三段：先在每条入边上生成消息，再聚合，最后更新中心节点。
+
+<figure class="lesson-visual" data-lesson-visual data-interval="1900">
+  <div data-lesson-stage role="img" aria-label="两个邻居的消息先独立生成，再经 AGG 聚合并更新中心节点">
+    <svg class="lesson-visual__canvas--wide" viewBox="0 0 1080 500" role="img" aria-hidden="true" style="color: var(--md-default-fg-color);">
+      <defs>
+        <marker id="graph-message-flow-arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L0,6 L9,3 z" fill="currentColor" />
+        </marker>
+      </defs>
+
+      <g data-step data-step-label="逐边生成消息">
+        <text x="35" y="35" font-size="18" font-weight="700" fill="currentColor">1. 每条入边独立调用共享的消息函数 φm</text>
+        <g fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="40" y="80" width="180" height="64" rx="11" />
+          <rect x="40" y="190" width="180" height="64" rx="11" />
+          <rect x="40" y="320" width="180" height="64" rx="11" />
+          <rect x="310" y="90" width="260" height="82" rx="12" />
+          <rect x="310" y="250" width="260" height="82" rx="12" />
+        </g>
+        <g text-anchor="middle" fill="currentColor">
+          <text x="130" y="107" font-size="18">邻居 u₁：h_u₁</text><text x="130" y="130" font-size="16">边特征 e_u₁v</text>
+          <text x="130" y="217" font-size="18">中心节点 v：h_v</text><text x="130" y="240" font-size="16">两条消息都会读取</text>
+          <text x="130" y="347" font-size="18">邻居 u₂：h_u₂</text><text x="130" y="370" font-size="16">边特征 e_u₂v</text>
+          <text x="440" y="122" font-size="18">m_u₁v = φm(·)</text><text x="440" y="148" font-size="16">读取 h_u₁, h_v, e_u₁v, g</text>
+          <text x="440" y="282" font-size="18">m_u₂v = φm(·)</text><text x="440" y="308" font-size="16">读取 h_u₂, h_v, e_u₂v, g</text>
+        </g>
+        <path d="M220 112 L310 125 M220 222 C260 200 270 165 310 145 M220 352 L310 290 M220 222 C260 240 270 270 310 280" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#graph-message-flow-arrow)" />
+        <text x="440" y="390" text-anchor="middle" font-size="16" fill="currentColor">全局特征 g 可同时进入两条消息</text>
+      </g>
+
+      <g data-step data-step-label="按目标节点聚合">
+        <text x="635" y="35" font-size="18" font-weight="700" fill="currentColor">2. AGG 不依赖邻居存储顺序</text>
+        <rect x="690" y="155" width="250" height="100" rx="14" fill="currentColor" fill-opacity="0.06" stroke="currentColor" stroke-width="2" />
+        <text x="815" y="190" text-anchor="middle" font-size="20" font-weight="700" fill="currentColor">AGG</text>
+        <text x="815" y="217" text-anchor="middle" font-size="17" fill="currentColor">sum / mean / max</text>
+        <text x="815" y="241" text-anchor="middle" font-size="16" fill="currentColor">得到 m̄_v</text>
+        <path d="M570 131 C630 131 640 180 690 190 M570 291 C630 291 640 230 690 220" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#graph-message-flow-arrow)" />
+      </g>
+
+      <g data-step data-step-label="更新中心节点">
+        <text x="635" y="330" font-size="18" font-weight="700" fill="currentColor">3. 旧状态与聚合消息共同更新</text>
+        <rect x="690" y="365" width="180" height="76" rx="12" fill="currentColor" fill-opacity="0.06" stroke="currentColor" stroke-width="2" />
+        <rect x="920" y="365" width="125" height="76" rx="12" fill="none" stroke="currentColor" stroke-width="2" />
+        <text x="780" y="394" text-anchor="middle" font-size="18" fill="currentColor">更新 φu</text>
+        <text x="780" y="420" text-anchor="middle" font-size="16" fill="currentColor">φu(h_v, m̄_v, g)</text>
+        <text x="982" y="398" text-anchor="middle" font-size="18" fill="currentColor">新状态</text>
+        <text x="982" y="422" text-anchor="middle" font-size="18" fill="currentColor">h′_v</text>
+        <path d="M815 255 L790 365 M220 222 C420 470 580 430 690 410 M870 403 L920 403" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#graph-message-flow-arrow)" />
+      </g>
+    </svg>
+  </div>
+  <ol data-lesson-steps>
+    <li>对每条入边 (u,v)，共享函数 φm 读取邻居、中心节点、边特征和可选全局特征，分别生成 m_u₁v 与 m_u₂v。</li>
+    <li>AGG 把数量不定的入边消息汇成固定宽度 m̄_v；sum、mean、max 都不依赖邻居排列顺序。</li>
+    <li>更新函数 φu 读取旧状态 h_v、聚合消息 m̄_v 和可选全局特征 g，得到新节点状态 h′_v。</li>
+  </ol>
+  <figcaption>图 1：看两条消息先在边上各自生成，再于 AGG 汇合；中心节点只在聚合完成后更新一次。</figcaption>
+</figure>
 
 对指向节点 $v$ 的边 $(u,v)$，一条通用写法是
 

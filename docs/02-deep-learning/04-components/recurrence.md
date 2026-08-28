@@ -37,17 +37,66 @@ $$
 
 ## 展开后还是同一组参数
 
-```mermaid
-flowchart LR
-    h0["初始状态 h0"] --> c1["共享更新 fθ"] --> h1["h1"]
-    x1["x1"] --> c1
-    h1 --> c2["共享更新 fθ"] --> h2["h2"]
-    x2["x2"] --> c2
-    h2 --> c3["共享更新 fθ"] --> h3["h3"]
-    x3["x3"] --> c3
-    h3 --> c4["共享更新 fθ"] --> h4["h4"]
-    x4["x4"] --> c4
-```
+点“下一步”逐时刻展开。每一步都会读一个新输入，但更新框上的 $f_\theta$ 始终相同。
+
+<figure class="lesson-visual" data-lesson-visual data-interval="1700">
+  <div data-lesson-stage role="img" aria-label="循环状态按四个时间步累计展开并共享同一组参数">
+    <svg class="lesson-visual__canvas--wide" viewBox="0 0 1080 390" role="img" aria-hidden="true" style="color: var(--md-default-fg-color);">
+      <defs>
+        <marker id="recurrence-unroll-arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L0,6 L9,3 z" fill="currentColor" />
+        </marker>
+      </defs>
+      <text x="35" y="36" font-size="18" font-weight="700" fill="currentColor">时间向右推进；四个 fθ 是同一更新规则的四次调用</text>
+
+      <g data-step data-step-label="t = 1">
+        <rect x="35" y="125" width="120" height="64" rx="11" fill="none" stroke="currentColor" stroke-width="2" />
+        <rect x="205" y="120" width="120" height="74" rx="11" fill="currentColor" fill-opacity="0.06" stroke="currentColor" stroke-width="2" />
+        <rect x="375" y="125" width="90" height="64" rx="11" fill="none" stroke="currentColor" stroke-width="2" />
+        <text x="95" y="164" text-anchor="middle" font-size="18" fill="currentColor">h₀</text>
+        <text x="265" y="150" text-anchor="middle" font-size="18" font-weight="700" fill="currentColor">共享 fθ</text>
+        <text x="265" y="176" text-anchor="middle" font-size="16" fill="currentColor">第 1 次调用</text>
+        <text x="420" y="164" text-anchor="middle" font-size="18" fill="currentColor">h₁</text>
+        <text x="265" y="270" text-anchor="middle" font-size="18" fill="currentColor">x₁</text>
+        <path d="M155 157 L205 157 M325 157 L375 157 M265 250 L265 194" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#recurrence-unroll-arrow)" />
+      </g>
+
+      <g data-step data-step-label="t = 2">
+        <rect x="510" y="120" width="120" height="74" rx="11" fill="currentColor" fill-opacity="0.06" stroke="currentColor" stroke-width="2" />
+        <rect x="680" y="125" width="90" height="64" rx="11" fill="none" stroke="currentColor" stroke-width="2" />
+        <text x="570" y="150" text-anchor="middle" font-size="18" font-weight="700" fill="currentColor">共享 fθ</text>
+        <text x="570" y="176" text-anchor="middle" font-size="16" fill="currentColor">第 2 次调用</text>
+        <text x="725" y="164" text-anchor="middle" font-size="18" fill="currentColor">h₂</text>
+        <text x="570" y="270" text-anchor="middle" font-size="18" fill="currentColor">x₂</text>
+        <path d="M465 157 L510 157 M630 157 L680 157 M570 250 L570 194" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#recurrence-unroll-arrow)" />
+      </g>
+
+      <g data-step data-step-label="t = 3">
+        <rect x="815" y="120" width="120" height="74" rx="11" fill="currentColor" fill-opacity="0.06" stroke="currentColor" stroke-width="2" />
+        <rect x="970" y="125" width="80" height="64" rx="11" fill="none" stroke="currentColor" stroke-width="2" />
+        <text x="875" y="150" text-anchor="middle" font-size="18" font-weight="700" fill="currentColor">共享 fθ</text>
+        <text x="875" y="176" text-anchor="middle" font-size="16" fill="currentColor">第 3 次调用</text>
+        <text x="1010" y="164" text-anchor="middle" font-size="18" fill="currentColor">h₃</text>
+        <text x="875" y="270" text-anchor="middle" font-size="18" fill="currentColor">x₃</text>
+        <path d="M770 157 L815 157 M935 157 L970 157 M875 250 L875 194" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#recurrence-unroll-arrow)" />
+      </g>
+
+      <g data-step data-step-label="t = 4">
+        <path d="M1010 189 C1010 330 760 335 680 330" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#recurrence-unroll-arrow)" />
+        <rect x="510" y="300" width="170" height="64" rx="11" fill="currentColor" fill-opacity="0.06" stroke="currentColor" stroke-width="2" />
+        <text x="595" y="326" text-anchor="middle" font-size="18" font-weight="700" fill="currentColor">共享 fθ → h₄</text>
+        <text x="595" y="350" text-anchor="middle" font-size="16" fill="currentColor">输入 x₄；参数仍是 θ</text>
+      </g>
+    </svg>
+  </div>
+  <ol data-lesson-steps>
+    <li>t = 1：fθ 读取初始状态 h₀ 与输入 x₁，得到 h₁。</li>
+    <li>t = 2：同一个 fθ 读取 h₁ 与 x₂，得到 h₂。</li>
+    <li>t = 3：参数 θ 不变，状态依赖继续扩展到 h₃。</li>
+    <li>t = 4：仍用同一组 θ 处理 x₄，得到 h₄；反向时四次调用对 θ 的梯度会累加。</li>
+  </ol>
+  <figcaption>图 1：看状态依赖怎样随时间累积；更新框重复出现，参数 θ 没有复制成四份。</figcaption>
+</figure>
 
 图上画了四个更新节点，只是为了展示依赖；它们的参数全是同一个 $\theta$。因此反向传播时，各时刻对共享参数的梯度会相加。
 

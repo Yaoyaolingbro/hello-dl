@@ -29,15 +29,58 @@ $$
 
 ## 两条前向路径，两份反向贡献
 
-```mermaid
-flowchart LR
-    x["输入 x"] --> f["残差分支 F(x)"] --> add(("+")) --> y["输出 y"]
-    x -- "恒等路径" --> add
-    gy["上游梯度 ∂L/∂y"] -. "× 1" .-> direct["直接贡献"]
-    gy -. "× J_Fᵀ" .-> branch["残差分支贡献"]
-    direct --> gx["∂L/∂x"]
-    branch --> gx
-```
+<figure class="lesson-figure">
+  <div data-lesson-stage role="img" aria-label="残差连接的前向恒等路径与反向两项梯度贡献">
+    <svg class="lesson-visual__canvas--wide" viewBox="0 0 980 500" role="img" aria-hidden="true" style="color: var(--md-default-fg-color);">
+      <defs>
+        <marker id="residual-contribution-arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L0,6 L9,3 z" fill="currentColor" />
+        </marker>
+      </defs>
+      <text x="35" y="38" font-size="19" font-weight="700" fill="currentColor">前向：保留 x，再学习修正 F(x)</text>
+      <g fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="55" y="85" width="130" height="64" rx="11" />
+        <rect x="325" y="70" width="190" height="64" rx="11" />
+        <circle cx="675" cy="132" r="34" />
+        <rect x="805" y="100" width="130" height="64" rx="11" />
+      </g>
+      <g text-anchor="middle" font-size="18" fill="currentColor">
+        <text x="120" y="123">输入 x</text>
+        <text x="420" y="108">残差分支 F(x)</text>
+        <text x="675" y="140" font-size="28">+</text>
+        <text x="870" y="139">y = x + F(x)</text>
+      </g>
+      <g fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#residual-contribution-arrow)">
+        <path d="M185 112 L325 102 M515 102 C585 102 590 125 641 130 M709 132 L805 132" />
+        <path d="M185 125 C295 205 545 205 650 154" />
+      </g>
+      <text x="380" y="201" text-anchor="middle" font-size="17" fill="currentColor">恒等路径：不带参数，直接送到加法</text>
+
+      <path d="M30 245 L950 245" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="7 7" />
+      <text x="35" y="285" font-size="19" font-weight="700" fill="currentColor">反向：两条路径的贡献在 ∇xL 处相加</text>
+      <g fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="55" y="335" width="170" height="64" rx="11" />
+        <rect x="340" y="305" width="210" height="64" rx="11" />
+        <rect x="340" y="405" width="210" height="64" rx="11" />
+        <circle cx="675" cy="385" r="34" />
+        <rect x="805" y="353" width="130" height="64" rx="11" />
+      </g>
+      <g text-anchor="middle" font-size="17" fill="currentColor">
+        <text x="140" y="362">上游梯度</text><text x="140" y="385">∇yL</text>
+        <text x="445" y="332">直接贡献</text><text x="445" y="355">Iᵀ∇yL = ∇yL</text>
+        <text x="445" y="432">分支贡献</text><text x="445" y="455">J_Fᵀ∇yL</text>
+        <text x="675" y="393" font-size="28">Σ</text>
+        <text x="870" y="380">∇xL</text><text x="870" y="403">两项之和</text>
+      </g>
+      <g fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#residual-contribution-arrow)">
+        <path d="M225 367 C270 367 285 337 340 337 M225 367 C270 367 285 437 340 437" />
+        <path d="M550 337 C610 337 610 370 641 380 M550 437 C610 437 610 400 641 390 M709 385 L805 385" />
+      </g>
+    </svg>
+  </div>
+  <p class="lesson-figure__text">文字等价：前向时，x 一路直接到加法，另一路经 F(x) 后再相加；反向时，上游梯度分别产生直接项 ∇yL 和残差分支项 J_Fᵀ∇yL，两项相加得到 ∇xL。</p>
+  <figcaption>图 1：上半看恒等 shortcut 怎样绕过 F；下半看直接项与残差分支项怎样共同组成输入梯度。</figcaption>
+</figure>
 
 前向时，加法要求两条路径形状完全相同。若
 

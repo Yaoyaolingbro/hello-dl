@@ -9,17 +9,17 @@
 
     读完 RL 基础后再读这份 PDF，你会对行为克隆（BC）、DAgger、以及和 RL 的结合点有清晰的认识。
 
-## 本章知识地图
+## 建议顺序与分支
 
-```mermaid
-graph LR
-    A[强化学习基础\nMDP / 价值函数] --> B[策略梯度\nREINFORCE]
-    A --> C[价值函数方法\nDQN]
-    B --> D[Actor-Critic\nA2C / SAC]
-    D --> E[PPO]
-    A --> F[基于模型的RL\nDreamer]
-    E --> G[DPO\nLLM 对齐]
-```
+| 内容 | 直接前置 |
+|---|---|
+| 强化学习基础（MDP / 价值函数） | 无 |
+| 策略梯度（REINFORCE） | 强化学习基础 |
+| 价值函数方法（DQN） | 强化学习基础 |
+| Actor-Critic（A2C / SAC） | 策略梯度 |
+| PPO | Actor-Critic |
+| 基于模型的 RL（Dreamer） | 强化学习基础 |
+| DPO（LLM 对齐） | PPO |
 
 ## 你将学到
 

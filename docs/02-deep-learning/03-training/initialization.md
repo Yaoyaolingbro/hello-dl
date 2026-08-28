@@ -97,15 +97,66 @@ LeakyReLU 使用固定负斜率；PReLU 的 $a$ 会学习，初始化只能按�
 | He + ReLU | 线性约 $2$，ReLU 二阶矩约乘 $1/2$ | 约 $1$ | 补偿整流造成的衰减 |
 | 权重方差过大，如 $4/\text{fan\_in}$ | 大于 $1$ | 快速放大 | 激活、梯度甚至损失溢出 |
 
-可以把它读成一条紧凑的尺度流：
+把四种选择并排看，差别落在信号经过多层后的去向。
 
-```mermaid
-flowchart LR
-    small["过小方差"] --> shrink["每层缩小"] --> vanish["深层信号接近 0"]
-    xavier["Xavier"] --> balanced["线性/tanh 附近约守恒"] --> usable1["信号可传播"]
-    he["He"] --> relu["先放大 2 倍，再经 ReLU 约减半"] --> usable2["二阶矩约守恒"]
-    large["过大方差"] --> grow["每层放大"] --> explode["溢出或饱和"]
-```
+<figure class="lesson-figure">
+  <div data-lesson-stage role="img" aria-label="四种初始化尺度在深层网络中的方差流对比">
+    <svg class="lesson-visual__canvas--wide" viewBox="0 0 980 500" role="img" aria-hidden="true" style="color: var(--md-default-fg-color);">
+      <defs>
+        <marker id="initialization-variance-arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L0,6 L9,3 z" fill="currentColor" />
+        </marker>
+      </defs>
+      <text x="35" y="35" font-size="18" font-weight="700" fill="currentColor">权重尺度</text>
+      <text x="395" y="35" font-size="18" font-weight="700" fill="currentColor">每层发生什么</text>
+      <text x="780" y="35" font-size="18" font-weight="700" fill="currentColor">多层后的结果</text>
+
+      <g fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="35" y="65" width="230" height="72" rx="12" />
+        <rect x="375" y="65" width="250" height="72" rx="12" />
+        <rect x="735" y="65" width="210" height="72" rx="12" />
+        <rect x="35" y="170" width="230" height="72" rx="12" />
+        <rect x="375" y="170" width="250" height="72" rx="12" />
+        <rect x="735" y="170" width="210" height="72" rx="12" />
+        <rect x="35" y="275" width="230" height="72" rx="12" />
+        <rect x="375" y="275" width="250" height="72" rx="12" />
+        <rect x="735" y="275" width="210" height="72" rx="12" />
+        <rect x="35" y="380" width="230" height="72" rx="12" />
+        <rect x="375" y="380" width="250" height="72" rx="12" />
+        <rect x="735" y="380" width="210" height="72" rx="12" />
+      </g>
+      <g fill="currentColor" fill-opacity="0.05">
+        <rect x="35" y="65" width="910" height="72" rx="12" />
+        <rect x="35" y="380" width="910" height="72" rx="12" />
+      </g>
+      <g fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#initialization-variance-arrow)">
+        <path d="M265 101 L375 101 M625 101 L735 101" />
+        <path d="M265 206 L375 206 M625 206 L735 206" />
+        <path d="M265 311 L375 311 M625 311 L735 311" />
+        <path d="M265 416 L375 416 M625 416 L735 416" />
+      </g>
+      <g text-anchor="middle" font-size="17" fill="currentColor">
+        <text x="150" y="94">过小方差</text><text x="150" y="118">0.25 / fan_in</text>
+        <text x="500" y="94">每层继续缩小</text><text x="500" y="118">接 ReLU 后更弱</text>
+        <text x="840" y="94">接近 0</text><text x="840" y="118">信号消失</text>
+
+        <text x="150" y="199">Xavier</text><text x="150" y="223">2 / (fan_in + fan_out)</text>
+        <text x="500" y="199">线性 / tanh 零点附近</text><text x="500" y="223">前向与反向折中</text>
+        <text x="840" y="199">同一量级</text><text x="840" y="223">可继续传播</text>
+
+        <text x="150" y="304">He + ReLU</text><text x="150" y="328">2 / fan_in</text>
+        <text x="500" y="304">线性先放大约 2 倍</text><text x="500" y="328">ReLU 二阶矩约减半</text>
+        <text x="840" y="304">约为 1</text><text x="840" y="328">二阶矩近似守恒</text>
+
+        <text x="150" y="409">过大方差</text><text x="150" y="433">4 / fan_in</text>
+        <text x="500" y="409">tanh / sigmoid 可能饱和</text><text x="500" y="433">对应梯度会变弱</text>
+        <text x="840" y="409" font-size="14">ReLU 激活与梯度继续放大</text><text x="840" y="433" font-size="14">，直至溢出</text>
+      </g>
+    </svg>
+  </div>
+  <p class="lesson-figure__text">文字等价：过小方差让信号逐层衰减；Xavier 在近线性激活下兼顾前向与反向；He 用更大的线性层方差补偿 ReLU 对二阶矩的削减；过大方差会让 tanh / sigmoid 容易饱和，而 ReLU 激活与梯度会继续放大，直至溢出。</p>
+  <figcaption>图 1：四条方差流的分界在“每层倍率是否接近 1”；Xavier 与 He 依赖不同的激活假设。</figcaption>
+</figure>
 
 ## 偏置、残差与实际边界
 
