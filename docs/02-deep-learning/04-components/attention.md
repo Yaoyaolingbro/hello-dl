@@ -97,9 +97,9 @@ $$
 - padding mask：屏蔽为了凑齐 batch 而添加的 key 位置；
 - causal mask：第 $i$ 个位置不能读取未来的 $j>i$，防止训练时泄漏答案。
 
-先 softmax 再把非法权重乘 0 会破坏“剩余权重和为 1”，除非重新归一化；工程上直接在 logits 上遮蔽更清楚。不同 API 的布尔值可能用 `True` 表示“允许”，也可能表示“屏蔽”，必须查接口约定。若某个 query 的整行 key 都被遮蔽，softmax 没有合法分布可返回，常会产生 `NaN` 或未定义结果；数据管线应保证每行至少一个有效位置，或显式处理空行。
+先 softmax 再把非法权重乘 0 会破坏“剩余权重和为 1”，除非重新归一化；工程上直接在 logits 上遮蔽更清楚。加性掩码可统一理解为“允许为 0、屏蔽为 $-\infty$”，但布尔掩码必须看 API：PyTorch `F.scaled_dot_product_attention` 的 `attn_mask=True` 表示该位置允许参与注意力；`nn.MultiheadAttention` 的布尔 `attn_mask` 或 `key_padding_mask=True` 则表示该位置被屏蔽。不要把一个函数的布尔张量原样传给另一个函数。若某个 query 的整行 key 都被遮蔽，softmax 没有合法分布可返回，常会产生 `NaN` 或未定义结果；数据管线应保证每行至少一个有效位置，或显式处理空行。
 
-下面的手写计算只展示加性掩码语义：
+下面的手写计算只展示 `masked_fill` 的本地选择器语义；`blocked_selector=True` 表示把该 logit 填为 $-\infty$，它不是任何 PyTorch attention API 的 `attn_mask`：
 
 ```python
 import math
@@ -111,8 +111,8 @@ k = torch.randn(B, heads, n, d)
 v = torch.randn(B, heads, n, d)
 
 scores = q @ k.transpose(-2, -1) / math.sqrt(d)
-causal = torch.triu(torch.ones(n, n, dtype=torch.bool), diagonal=1)
-scores = scores.masked_fill(causal, float("-inf"))  # softmax 前屏蔽未来
+blocked_selector = torch.triu(torch.ones(n, n, dtype=torch.bool), diagonal=1)
+scores = scores.masked_fill(blocked_selector, float("-inf"))  # 本地选择器：True 屏蔽未来
 weights = torch.softmax(scores, dim=-1)
 out = weights @ v
 

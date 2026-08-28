@@ -34,7 +34,7 @@ flowchart LR
     x["输入 x"] --> f["残差分支 F(x)"] --> add(("+")) --> y["输出 y"]
     x -- "恒等路径" --> add
     gy["上游梯度 ∂L/∂y"] -. "× 1" .-> direct["直接贡献"]
-    gy -. "× J_F" .-> branch["残差分支贡献"]
+    gy -. "× J_Fᵀ" .-> branch["残差分支贡献"]
     direct --> gx["∂L/∂x"]
     branch --> gx
 ```
