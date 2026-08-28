@@ -44,6 +44,13 @@
 - Jimmy Lei Ba, Jamie Ryan Kiros, Geoffrey E. Hinton. “[Layer Normalization](https://arxiv.org/abs/1607.06450).” 2016。
 - Biao Zhang, Rico Sennrich. “[Root Mean Square Layer Normalization](https://arxiv.org/abs/1910.07467).” NeurIPS 2019。
 - Shibani Santurkar et al. “[How Does Batch Normalization Help Optimization?](https://papers.neurips.cc/paper_files/paper/2018/hash/905056c1ac1dad141560467e0a99e1cf-Abstract.html).” NeurIPS 2018：检验 internal covariate shift 解释并研究优化平滑性。
+- Vincent Dumoulin, Francesco Visin. “[A guide to convolution arithmetic for deep learning](https://arxiv.org/abs/1603.07285).” 2018：stride、padding、dilation 与卷积输出尺寸关系。
+- Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun. “[Deep Residual Learning for Image Recognition](https://openaccess.thecvf.com/content_cvpr_2016/html/He_Deep_Residual_Learning_CVPR_2016_paper.html).” CVPR 2016：残差映射与恒等 shortcut。
+- Razvan Pascanu, Tomas Mikolov, Yoshua Bengio. “[On the difficulty of training Recurrent Neural Networks](https://arxiv.org/abs/1211.5063).” ICML 2013：循环网络中的梯度消失、爆炸与梯度裁剪。
+- Ashish Vaswani et al. “[Attention Is All You Need](https://papers.nips.cc/paper/7181-attention-is-all-you-need).” NeurIPS 2017：缩放点积注意力、mask、正弦位置编码与复杂度。
+- Jianlin Su et al. “[RoFormer: Enhanced Transformer with Rotary Position Embedding](https://arxiv.org/abs/2104.09864).” 2021：旋转位置编码及其相对位置点积形式。
+- Justin Gilmer et al. “[Neural Message Passing for Quantum Chemistry](https://proceedings.mlr.press/v70/gilmer17a.html).” ICML 2017：消息生成、邻域聚合与状态更新的一般框架。
+- Manzil Zaheer et al. “[Deep Sets](https://papers.nips.cc/paper/6931-deep-sets).” NeurIPS 2017：集合函数的置换不变性。
 
 ### 官方资料
 
@@ -54,6 +61,8 @@
 - [PyTorch Optimizers](https://docs.pytorch.org/docs/stable/optim.html)：优化器和学习率调度器的官方行为。
 - [PyTorch `torch.nn.init`](https://docs.pytorch.org/docs/stable/nn.init)：ReLU/LeakyReLU gain 与 Kaiming 初始化的 `a`、`fan_in`/`fan_out` 参数约定。
 - [PyTorch `CrossEntropyLoss`](https://docs.pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html)：交叉熵与将 one-hot 目标混合均匀分布的 `label_smoothing` 约定。
+- [PyTorch `Conv2d`](https://docs.pytorch.org/docs/stable/generated/torch.nn.Conv2d.html)：二维互相关、权重形状、`groups` 与输出尺寸约定。
+- [PyTorch scaled dot product attention](https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.scaled_dot_product_attention.html)：缩放点积注意力和布尔/加性 mask 的接口约定。
 - 框架行为和 API 以 PyTorch 官方文档为准。
 
 ### 解释参考
