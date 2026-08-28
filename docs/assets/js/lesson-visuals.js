@@ -22,6 +22,15 @@
     return Array.from({ length: Math.max(0, stepCount) }, (_, index) => index <= current);
   }
 
+  function stepVisibility(step, stepCount, mode) {
+    if (mode !== "single") return cumulativeVisibility(step, stepCount);
+    const current = clampStep(step, stepCount);
+    return Array.from(
+      { length: Math.max(0, stepCount) },
+      (_, index) => index === current,
+    );
+  }
+
   function prunePlayers(playerSet) {
     playerSet.forEach((player) => {
       if (!player.root.isConnected) {
@@ -75,7 +84,7 @@
     root.append(controls);
 
     function render() {
-      const visible = cumulativeVisibility(current, steps.length);
+      const visible = stepVisibility(current, steps.length, root.dataset.stepMode);
       steps.forEach((step, index) => {
         step.hidden = !visible[index];
         step.setAttribute("aria-hidden", String(!visible[index]));
@@ -167,6 +176,7 @@
     nextStep,
     prunePlayers,
     previousStep,
+    stepVisibility,
   };
 
   if (typeof module !== "undefined" && module.exports) module.exports = api;

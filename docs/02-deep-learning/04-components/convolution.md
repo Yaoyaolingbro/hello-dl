@@ -20,26 +20,86 @@ status: complete
 
 一张 $32\times32$ 图像里，同一种竖直边缘可能出现在左上角，也可能出现在右下角。若每个位置都学习一套互不相干的权重，模型既浪费参数，也必须分别见过每个位置。卷积只看一个局部窗口，并把同一组权重滑到所有位置：在一个位置学会的检测器可以在别处复用。
 
-先看一维的 $3$ 点窗口。窗口每右移一步，就产生一个输出；相邻输出会共享大部分输入，因此堆叠后能逐渐扩大感受野。
+先看一维的 $3$ 点窗口。点“下一步”，窗口会向右移动一格，并多算出一个输出。右上角的核始终不动：变化的是它读到的输入，不是参数。
 
-```mermaid
-flowchart LR
-    src["输入 x0 x1 x2 x3 x4"]
-    w0["窗口 0：x0 x1 x2"]
-    w1["窗口 1：x1 x2 x3"]
-    w2["窗口 2：x2 x3 x4"]
-    y0["输出 y0"]
-    y1["输出 y1"]
-    y2["输出 y2"]
-    src --> w0
-    w0 --> y0
-    src --> w1
-    w1 --> y1
-    src --> w2
-    w2 --> y2
-```
+<figure class="lesson-visual" data-lesson-visual data-step-mode="single" data-interval="1700">
+  <div role="img" aria-label="同一组卷积核在一维输入上依次滑动" data-lesson-stage>
+    <svg class="lesson-visual__canvas--wide" viewBox="0 0 960 430" role="img" aria-hidden="true" style="color: var(--md-default-fg-color);">
+      <defs>
+        <marker id="convolution-arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L0,6 L9,3 z" fill="currentColor" />
+        </marker>
+      </defs>
 
-图中的三个窗口使用的是**同一组核参数**，不是三个独立线性层。二维卷积只是把窗口扩展到高、宽和输入通道。
+      <text x="70" y="54" font-size="18" font-weight="700" fill="currentColor">输入</text>
+      <g fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="70" y="76" width="100" height="72" rx="8" />
+        <rect x="170" y="76" width="100" height="72" rx="8" />
+        <rect x="270" y="76" width="100" height="72" rx="8" />
+        <rect x="370" y="76" width="100" height="72" rx="8" />
+        <rect x="470" y="76" width="100" height="72" rx="8" />
+      </g>
+      <g text-anchor="middle" font-size="21" fill="currentColor">
+        <text x="120" y="120">x0</text>
+        <text x="220" y="120">x1</text>
+        <text x="320" y="120">x2</text>
+        <text x="420" y="120">x3</text>
+        <text x="520" y="120">x4</text>
+      </g>
+
+      <text x="665" y="54" font-size="18" font-weight="700" fill="currentColor">共享核（每一步相同）</text>
+      <g fill="#fef3c7" stroke="#d97706" stroke-width="2">
+        <rect x="665" y="76" width="72" height="72" rx="8" />
+        <rect x="737" y="76" width="72" height="72" rx="8" />
+        <rect x="809" y="76" width="72" height="72" rx="8" />
+      </g>
+      <g text-anchor="middle" font-size="20" font-weight="700" fill="#92400e">
+        <text x="701" y="120">w0</text>
+        <text x="773" y="120">w1</text>
+        <text x="845" y="120">w2</text>
+      </g>
+
+      <text x="70" y="336" font-size="18" font-weight="700" fill="currentColor">输出</text>
+      <g fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="170" y="300" width="110" height="68" rx="10" />
+        <rect x="320" y="300" width="110" height="68" rx="10" />
+        <rect x="470" y="300" width="110" height="68" rx="10" />
+      </g>
+
+      <g data-step data-step-label="窗口 x0 到 x2，得到 y0">
+        <rect x="64" y="68" width="312" height="88" rx="12" fill="#e0f2fe" fill-opacity="0.45" stroke="#0284c7" stroke-width="4" />
+        <text class="convolution-window-label" x="220" y="190" text-anchor="middle" font-size="18" font-weight="700" fill="currentColor">窗口：x0, x1, x2</text>
+        <path d="M220 202 C220 238, 225 258, 225 290" fill="none" stroke="#0284c7" stroke-width="3" marker-end="url(#convolution-arrow)" />
+        <rect x="170" y="300" width="110" height="68" rx="10" fill="#e0f2fe" stroke="#0284c7" stroke-width="3" />
+        <text x="225" y="342" text-anchor="middle" font-size="22" font-weight="700" fill="#075985">y0</text>
+      </g>
+
+      <g data-step data-step-label="窗口 x1 到 x3，得到 y1">
+        <rect x="164" y="68" width="312" height="88" rx="12" fill="#dcfce7" fill-opacity="0.45" stroke="#16a34a" stroke-width="4" />
+        <text class="convolution-window-label" x="320" y="190" text-anchor="middle" font-size="18" font-weight="700" fill="currentColor">窗口：x1, x2, x3</text>
+        <path d="M320 202 C320 238, 375 258, 375 290" fill="none" stroke="#16a34a" stroke-width="3" marker-end="url(#convolution-arrow)" />
+        <rect x="320" y="300" width="110" height="68" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="3" />
+        <text x="375" y="342" text-anchor="middle" font-size="22" font-weight="700" fill="#14532d">y1</text>
+      </g>
+
+      <g data-step data-step-label="窗口 x2 到 x4，得到 y2">
+        <rect x="264" y="68" width="312" height="88" rx="12" fill="#f3e8ff" fill-opacity="0.45" stroke="#9333ea" stroke-width="4" />
+        <text class="convolution-window-label" x="420" y="190" text-anchor="middle" font-size="18" font-weight="700" fill="currentColor">窗口：x2, x3, x4</text>
+        <path d="M420 202 C420 238, 525 258, 525 290" fill="none" stroke="#9333ea" stroke-width="3" marker-end="url(#convolution-arrow)" />
+        <rect x="470" y="300" width="110" height="68" rx="10" fill="#f3e8ff" stroke="#9333ea" stroke-width="3" />
+        <text x="525" y="342" text-anchor="middle" font-size="22" font-weight="700" fill="#581c87">y2</text>
+      </g>
+    </svg>
+  </div>
+  <ol data-lesson-steps>
+    <li>窗口读取 x0、x1、x2，得到 y0；使用的是同一组核参数。</li>
+    <li>窗口右移，读取 x1、x2、x3，得到 y1；仍使用同一组核参数。</li>
+    <li>窗口再右移，读取 x2、x3、x4，得到 y2；共享核没有改变。</li>
+  </ol>
+  <figcaption>图 1：看高亮窗口怎样向右移动；右上角始终是同一组核，位置变了，参数不变。</figcaption>
+</figure>
+
+二维卷积只是把这个窗口扩展到高、宽和输入通道。相邻输出会共享大部分输入；堆叠多层后，感受野会逐渐扩大。
 
 ## 从局部乘加到输出形状
 

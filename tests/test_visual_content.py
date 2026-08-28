@@ -13,13 +13,13 @@ COMPUTATIONAL_GRAPHS_PAGE = (
     / "02-neural-network-foundations"
     / "computational-graphs.md"
 )
+CONVOLUTION_PAGE = PART2_ROOT / "04-components" / "convolution.md"
 MERMAID_PAGE_ALLOWLIST = {
     "docs/02-deep-learning/03-training/backpropagation.md",
     "docs/02-deep-learning/03-training/initialization.md",
     "docs/02-deep-learning/03-training/minibatch-and-training-loop.md",
     "docs/02-deep-learning/03-training/normalization.md",
     "docs/02-deep-learning/04-components/attention.md",
-    "docs/02-deep-learning/04-components/convolution.md",
     "docs/02-deep-learning/04-components/graph-message-passing.md",
     "docs/02-deep-learning/04-components/recurrence.md",
     "docs/02-deep-learning/04-components/residual-connections.md",
@@ -57,6 +57,75 @@ def _attribute_value(opening_tag, attribute):
 
 
 class VisualContentTest(unittest.TestCase):
+    def test_convolution_pilot(self):
+        content = CONVOLUTION_PAGE.read_text(encoding="utf-8")
+
+        self.assertNotIn("```mermaid", content)
+        figures = re.findall(
+            r"<figure\b[^>]*data-lesson-visual\b.*?</figure>",
+            content,
+            re.DOTALL,
+        )
+        self.assertEqual(len(figures), 1)
+        figure = figures[0]
+        figure_tags = _opening_tags_with_attribute(figure, "data-lesson-visual")
+        self.assertEqual(len(figure_tags), 1)
+        self.assertEqual(_attribute_value(figure_tags[0], "data-step-mode"), "single")
+
+        stage_tags = _opening_tags_with_attribute(figure, "data-lesson-stage")
+        self.assertEqual(len(stage_tags), 1)
+        self.assertEqual(_attribute_value(stage_tags[0], "role"), "img")
+        self.assertRegex(_attribute_value(stage_tags[0], "aria-label") or "", r"卷积|滑动")
+
+        svg_tags = re.findall(r"<svg\b[^>]*>", figure, re.DOTALL)
+        self.assertEqual(len(svg_tags), 1)
+        canvas_classes = (_attribute_value(svg_tags[0], "class") or "").split()
+        self.assertIn("lesson-visual__canvas--wide", canvas_classes)
+        window_labels = re.findall(
+            r"<text\b[^>]*class=(?:\"convolution-window-label\"|'convolution-window-label')[^>]*>",
+            figure,
+            re.DOTALL,
+        )
+        self.assertEqual(len(window_labels), 3)
+        for label_tag in window_labels:
+            self.assertEqual(_attribute_value(label_tag, "fill"), "currentColor")
+
+        fallback_matches = re.findall(
+            r"<ol\b[^>]*data-lesson-steps\b.*?</ol>",
+            figure,
+            re.DOTALL,
+        )
+        self.assertEqual(len(fallback_matches), 1)
+        steps = [
+            re.sub(r"\s+", " ", step).strip()
+            for step in re.findall(
+                r"<li\b[^>]*>(.*?)</li>",
+                fallback_matches[0],
+                re.DOTALL,
+            )
+        ]
+        self.assertEqual(len(steps), 3)
+        for step, expected in zip(
+            steps,
+            (
+                r"x0.*x1.*x2.*y0.*(?:同一|共享)",
+                r"x1.*x2.*x3.*y1.*(?:同一|共享)",
+                r"x2.*x3.*x4.*y2.*(?:同一|共享)",
+            ),
+            strict=True,
+        ):
+            self.assertRegex(step, expected)
+
+        step_groups = _opening_tags_with_attribute(figure, "data-step")
+        self.assertEqual(len(step_groups), 3)
+        captions = re.findall(
+            r"<figcaption\b[^>]*>(.*?)</figcaption>",
+            figure,
+            re.DOTALL,
+        )
+        self.assertEqual(len(captions), 1)
+        self.assertRegex(captions[0], r"窗口.*移动.*(?:参数不变|同一组)")
+
     def test_computation_graph_pilot(self):
         content = COMPUTATIONAL_GRAPHS_PAGE.read_text(encoding="utf-8")
 

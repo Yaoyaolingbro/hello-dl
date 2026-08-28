@@ -9,6 +9,7 @@ const {
   nextStep,
   prunePlayers,
   previousStep,
+  stepVisibility,
 } = require("../docs/assets/js/lesson-visuals.js");
 
 test("clampStep keeps a step inside the available range", () => {
@@ -29,6 +30,12 @@ test("previousStep moves back one step without underflow", () => {
 
 test("cumulativeVisibility reveals the current and earlier steps", () => {
   assert.deepEqual(cumulativeVisibility(2, 4), [true, true, true, false]);
+});
+
+test("stepVisibility can show only the current frame", () => {
+  assert.deepEqual(stepVisibility(2, 4, "single"), [false, false, true, false]);
+  assert.deepEqual(stepVisibility(2, 4, "cumulative"), [true, true, true, false]);
+  assert.deepEqual(stepVisibility(2, 4), [true, true, true, false]);
 });
 
 test("nextStep stops at the final step unless looping is enabled", () => {
