@@ -104,9 +104,11 @@ plugins:
 extra_css:
   - https://unpkg.com/katex@0/dist/katex.min.css
   - assets/css/custom.css
+  - assets/css/lesson-visuals.css
 
 extra_javascript:
   - assets/js/katex.js
+  - assets/js/lesson-visuals.js
   - https://unpkg.com/katex@0/dist/katex.min.js
   - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
   - https://unpkg.com/mermaid@11/dist/mermaid.esm.min.mjs

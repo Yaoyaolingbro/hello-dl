@@ -1,0 +1,91 @@
+.lesson-visual {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  overflow: hidden;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.6rem;
+  background: var(--md-default-bg-color);
+}
+
+.lesson-visual [data-lesson-stage] {
+  overflow-x: auto;
+}
+
+.lesson-visual svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.lesson-visual [data-step] {
+  transition: opacity 180ms ease;
+}
+
+.lesson-visual [data-step][hidden] {
+  display: none !important;
+}
+
+.lesson-visual__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+}
+
+.lesson-visual__button {
+  min-height: 2.2rem;
+  padding: 0.35rem 0.75rem;
+  color: var(--md-primary-fg-color);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--md-primary-fg-color);
+  border-radius: 0.35rem;
+  background: transparent;
+}
+
+.lesson-visual__button:hover:not(:disabled) {
+  color: var(--md-primary-bg-color);
+  background: var(--md-primary-fg-color);
+}
+
+.lesson-visual__button:focus-visible {
+  outline: 0.15rem solid var(--md-accent-fg-color);
+  outline-offset: 0.15rem;
+}
+
+.lesson-visual__button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.lesson-visual__status {
+  margin-inline-start: auto;
+  color: var(--md-default-fg-color--light);
+  font-size: 0.8rem;
+}
+
+.lesson-visual [data-lesson-steps] {
+  margin-top: 0.8rem;
+}
+
+@media (max-width: 30rem) {
+  .lesson-visual {
+    padding: 0.75rem;
+  }
+
+  .lesson-visual__status {
+    flex-basis: 100%;
+    margin-inline-start: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lesson-visual [data-step],
+  .lesson-visual__button {
+    scroll-behavior: auto;
+    transition: none;
+  }
+}
