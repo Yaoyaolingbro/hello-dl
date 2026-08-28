@@ -22,7 +22,7 @@
 | Part | 额外 @ 文件 | 核心侧重 |
 |------|------------|---------|
 | Part 1 数学基础（`01-math/`） | `docs/superpowers/style-part1-math.md` | 直觉先于定义、**无代码改用数值例子**、示意图必须插入、定理框、禁用"显然" |
-| Part 2 基础深度学习（`02-deep-learning/`） | `docs/superpowers/style-part2-dl-basics.md` | 每概念必须有 PyTorch 代码、注释说 WHY、消融式解释 |
+| Part 2 基础深度学习（`02-deep-learning/`） | `docs/superpowers/style-part2-dl-basics.md` | 先展示可见变化、代码只在有助理解时使用、消融式解释 |
 | Part 3 深入深度学习（`03-advanced/`） | `docs/superpowers/style-part3-advanced.md` | 以论文为主线、推导不跳步、严格对齐原文符号、引用消融实验 |
 | Part 4 现代 AI 应用（`04-applications/`） | `docs/superpowers/style-part4-applications.md` | 时间脉络叙事、价值优先于推导、真实工程 tip、必写开放问题 |
 
@@ -52,7 +52,8 @@
 3. **读上表对应的 Part 风格文件** — 了解本 Part 的特殊要求和章节结构
 4. **确认资料层级** — 教材、论文和官方资料用于核对事实；知乎、博客和视频用于寻找解释角度
 5. **确认符号约定** — 所有公式符号与主要论文保持一致；有冲突时在 `!!! note` 里声明
-6. 把新资料记录到 `reference.md`。二手讲解中的公式、结论和版本信息必须回到权威来源核对。
+6. **确认视觉任务** — 先写一句“这幅图让读者看见什么”。状态变化用 HTML/SVG 分步图，稳定关系用静态图；没有明确任务就不加图。
+7. 把新资料记录到 `reference.md`。二手讲解中的公式、结论和版本信息必须回到权威来源核对。外部图片同时记录作者、来源和许可证。
 
 ---
 
@@ -100,11 +101,14 @@
 - [ ] 直觉段不超过 5 句话
 - [ ] 代码只写核心逻辑，注释说 WHY 不说 WHAT
 - [ ] 术语第一次出现括号标注英文原文
+- [ ] 每幅图都有学习目标，图注说明“看什么”
+- [ ] 交互图有 `data-lesson-steps` 文字替代，并尊重“减少动态效果”
+- [ ] 外部图片已记录来源与许可证，没有直接复制来路不明的素材
 
 ### 去除 AI 痕迹（对照 `writing-style.md` 中的检查项）
 - [ ] 没有"此外"、"值得注意的是"、"不仅……而且……"
 - [ ] 没有连续三个相同长度的句子
-- [ ] 没有三段式列举（改成两项或四项）
+- [ ] 没有为了显得全面而强凑三项；事实本来有三项时不必改
 - [ ] 没有宣传性语言（"充满活力的"、"令人叹为观止的"）
 - [ ] 没有模糊归因（"专家认为"、"研究表明"）
 - [ ] 段落结尾方式多样，不全是短金句
@@ -154,8 +158,8 @@ git push origin main
 **数学不渲染？**
 检查 `docs/assets/js/katex.js` 是否存在，行内公式用 `$...$`，块级用 `$$...$$`。
 
-**Mermaid 图不显示？**
-代码块标记必须是 ` ```mermaid `，mkdocs.yml 里 superfences 的 format 用 `!!python/name:pymdownx.superfences.fence_code_format`（已配置，无需修改）。
+**HTML/SVG 动画没有按钮？**
+检查外层是否有 `data-lesson-visual`，舞台是否有 `data-lesson-stage`，步骤是否标记为 `data-step`。播放器脚本位于 `docs/assets/js/lesson-visuals.js`。
 
 **git-revision-date 报 WARNING？**
 新文件在 commit 之前会报"no git logs"，提交后自动消失，不影响构建。

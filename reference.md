@@ -14,6 +14,7 @@
 - 李宏毅：《机器学习》《生成模型》课程。
 - Maximilian Du：课程笔记，<https://maximiliandu.com/course_notes.html>。
 - LabML：论文实现讲解，<https://github.com/labmlai/annotated_deep_learning_paper_implementations>。
+- 《Hello 算法》：<https://www.hello-algo.com/>；[开源仓库](https://github.com/krahets/hello-algo)。参考其“具体问题—分步图解—机制说明”的讲解节奏，以及用连续画面和播放控件呈现算法状态变化的做法。原项目采用 CC BY-NC-SA 4.0；本书只借鉴思路，视觉素材和播放器自行实现。
 
 ## Part 1 · 数学基础
 

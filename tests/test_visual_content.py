@@ -8,6 +8,9 @@ MKDOCS_CONFIG = REPO_ROOT / "mkdocs.yml"
 PART2_ROOT = REPO_ROOT / "docs" / "02-deep-learning"
 VISUAL_CSS = REPO_ROOT / "docs" / "assets" / "css" / "lesson-visuals.css"
 VISUAL_JS = REPO_ROOT / "docs" / "assets" / "js" / "lesson-visuals.js"
+WRITING_STYLE = REPO_ROOT / "writing-style.md"
+PART2_STYLE = REPO_ROOT / "docs" / "superpowers" / "style-part2-dl-basics.md"
+WRITING_WORKFLOW = REPO_ROOT / "chapter-writing-workflow.md"
 COMPUTATIONAL_GRAPHS_PAGE = (
     PART2_ROOT
     / "02-neural-network-foundations"
@@ -57,6 +60,45 @@ def _attribute_value(opening_tag, attribute):
 
 
 class VisualContentTest(unittest.TestCase):
+    def test_writing_guides_define_the_visual_contract(self):
+        global_style = WRITING_STYLE.read_text(encoding="utf-8")
+        part2_style = PART2_STYLE.read_text(encoding="utf-8")
+        workflow = WRITING_WORKFLOW.read_text(encoding="utf-8")
+        combined = "\n".join((global_style, part2_style, workflow))
+
+        self.assertNotRegex(combined, r"(?i)mermaid")
+        for phrase in ("HTML/SVG", "学习目标", "文字替代", "减少动态效果"):
+            self.assertIn(phrase, global_style)
+        for token in (
+            'data-lesson-visual',
+            'data-lesson-stage',
+            'role="img"',
+            'data-step',
+            'data-lesson-steps',
+            'figcaption',
+            'lesson-visual__canvas--wide',
+        ):
+            self.assertIn(token, global_style)
+        for phrase in (
+            "作者",
+            "原始来源",
+            "资产授权页",
+            "许可证链接",
+            "修改说明",
+            "NC",
+            "SA",
+            "分发方式兼容",
+        ):
+            self.assertIn(phrase, global_style)
+
+        self.assertRegex(
+            part2_style,
+            r"具体问题.*可见变化.*机制命名.*必要公式.*边界",
+        )
+        self.assertIn('data-step-mode="single"', part2_style)
+        self.assertIn("图注要告诉读者看什么", global_style)
+        self.assertIn("不直接复制", global_style)
+
     def test_convolution_pilot(self):
         content = CONVOLUTION_PAGE.read_text(encoding="utf-8")
 
