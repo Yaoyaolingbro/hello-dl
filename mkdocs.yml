@@ -1,5 +1,5 @@
 site_name: 深度学习入门指南
-site_url: https://yaoyaolingbro.github.io/deep-learning
+site_url: https://yaoyaolingbro.github.io/hello-dl/
 site_author: yaoyaoling
 site_description: 面向 AI 入门者的系统性教程，涵盖数学基础、深度学习、前沿模型与现代应用。
 
@@ -36,20 +36,20 @@ theme:
     - content.action.view
   palette:
     - scheme: default
-      primary: indigo
-      accent: deep purple
+      primary: custom
+      accent: custom
       toggle:
         icon: material/weather-sunny
         name: 切换暗色模式
     - scheme: slate
-      primary: indigo
-      accent: deep purple
+      primary: custom
+      accent: custom
       toggle:
         icon: material/weather-night
         name: 切换亮色模式
   font:
-    text: Roboto
-    code: Roboto Mono
+    text: Noto Sans SC
+    code: JetBrains Mono
   icon:
     repo: fontawesome/brands/github
     edit: material/pencil
