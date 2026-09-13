@@ -1,4 +1,7 @@
-<!DOCTYPE html><html lang="en" class="no-js"><head>
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -9,7 +12,7 @@
         <meta name="author" content="yaoyaoling">
       
       
-        <link rel="canonical" href="https://yaoyaolingbro.github.io/deep-learning/04-applications/perception/optical-flow/">
+        <link rel="canonical" href="https://yaoyaolingbro.github.io/hello-dl/04-applications/perception/optical-flow/">
       
       
         <link rel="prev" href="../segmentation/">
@@ -18,11 +21,8 @@
         <link rel="next" href="../depth-estimation/">
       
       
-        
-      
-      
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.0">
     
     
       
@@ -30,10 +30,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -46,9 +46,9 @@
       
         
         
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans SC";--md-code-font:"JetBrains Mono"}</style>
       
     
     
@@ -56,23 +56,25 @@
     
       <link rel="stylesheet" href="../../../assets/css/custom.css">
     
+      <link rel="stylesheet" href="../../../assets/css/lesson-visuals.css">
+    
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
     
-  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
-            html.glightbox-open { overflow: initial; height: 100%; }
-            .gslide-title { margin-top: 0px; user-select: text; }
-            .gslide-desc { color: #666; user-select: text; }
-            .gslide-image img { background: white; }
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
-        </style></head>
+    
+   <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -82,7 +84,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -108,12 +110,12 @@
     <a href="../../.." title="深度学习入门指南" class="md-header__button md-logo" aria-label="深度学习入门指南" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
       
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -138,20 +140,20 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple" aria-label="切换暗色模式" type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="切换暗色模式"  type="radio" name="__palette" id="__palette_0">
     
-      <label class="md-header__button md-icon" title="切换暗色模式" for="__palette_1" hidden="">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+      <label class="md-header__button md-icon" title="切换暗色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
       </label>
     
   
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-purple" aria-label="切换亮色模式" type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="切换亮色模式"  type="radio" name="__palette" id="__palette_1">
     
-      <label class="md-header__button md-icon" title="切换亮色模式" for="__palette_0" hidden="">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+      <label class="md-header__button md-icon" title="切换亮色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
       </label>
     
   
@@ -163,33 +165,31 @@
     
     
     
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
         
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
       </label>
       <nav class="md-search__options" aria-label="Search">
         
-          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard="" data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
             
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
           </a>
         
         <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
       </nav>
       
@@ -197,7 +197,7 @@
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             Initializing search
@@ -208,14 +208,13 @@
     </div>
   </div>
 </div>
-      
     
     
       <div class="md-header__source">
         <a href="https://github.com/Yaoyaolingbro/hello-dl" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
     Yaoyaolingbro/hello-dl
@@ -241,11 +240,9 @@
   
   
   
-  
     <li class="md-tabs__item">
       <a href="../../.." class="md-tabs__link">
         
-  
   
     
   
@@ -260,13 +257,11 @@
   
   
   
-  
     
     
       <li class="md-tabs__item">
         <a href="../../../01-math/" class="md-tabs__link">
           
-  
   
     
   
@@ -282,13 +277,11 @@
   
   
   
-  
     
     
       <li class="md-tabs__item">
         <a href="../../../02-deep-learning/" class="md-tabs__link">
           
-  
   
     
   
@@ -304,13 +297,11 @@
   
   
   
-  
     
     
       <li class="md-tabs__item">
         <a href="../../../03-advanced/" class="md-tabs__link">
           
-  
   
     
   
@@ -325,7 +316,6 @@
         
   
   
-  
     
   
   
@@ -334,7 +324,6 @@
       <li class="md-tabs__item md-tabs__item--active">
         <a href="../../" class="md-tabs__link">
           
-  
   
     
   
@@ -357,7 +346,7 @@
           
             
               
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -371,7 +360,7 @@
     <a href="../../.." title="深度学习入门指南" class="md-nav__button md-logo" aria-label="深度学习入门指南" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
     深度学习入门指南
@@ -381,7 +370,7 @@
       <a href="https://github.com/Yaoyaolingbro/hello-dl" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
     Yaoyaolingbro/hello-dl
@@ -389,7 +378,7 @@
 </a>
     </div>
   
-  <ul class="md-nav__list" data-md-scrollfix="">
+  <ul class="md-nav__list" data-md-scrollfix>
     
       
       
@@ -401,16 +390,10 @@
       <a href="../../.." class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     首页
-  
-
     
   </span>
-  
   
 
       </a>
@@ -441,7 +424,6 @@
       
     
     
-    
       
       
     
@@ -454,22 +436,15 @@
     <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
       
         
-  
   
   
     <a href="../../../01-math/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     Part 1 · 数学基础
-  
-
     
   </span>
-  
   
 
       
@@ -512,7 +487,6 @@
       
     
     
-    
       
       
     
@@ -525,22 +499,15 @@
     <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
       
         
-  
   
   
     <a href="../../../02-deep-learning/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     Part 2 · 深度学习基础
-  
-
     
   </span>
-  
   
 
       
@@ -573,7 +540,6 @@
       
         
       
-    
     
     
       
@@ -590,20 +556,13 @@
         
   
   
-  
     <a href="../../../03-advanced/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     Part 3 · 深入深度学习
-  
-
     
   </span>
-  
   
 
       
@@ -650,7 +609,6 @@
       
         
       
-    
     
     
       
@@ -666,23 +624,18 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked="">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
+          
           
           <div class="md-nav__link md-nav__container">
             <a href="../../" class="md-nav__link ">
               
   
-  
   <span class="md-ellipsis">
-    
-  
     Part 4 · 现代人工智能应用
-  
-
     
   </span>
-  
   
 
             </a>
@@ -697,13 +650,9 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Part 4 · 现代人工智能应用
-  
-
+            Part 4 · 现代人工智能应用
           </label>
-          <ul class="md-nav__list" data-md-scrollfix="">
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
             
@@ -736,7 +685,6 @@
       
     
     
-    
       
       
     
@@ -747,23 +695,18 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" checked="">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" checked>
         
+          
           
           <div class="md-nav__link md-nav__container">
             <a href="../" class="md-nav__link ">
               
   
-  
   <span class="md-ellipsis">
-    
-  
     4.1 感知
-  
-
     
   </span>
-  
   
 
             </a>
@@ -778,13 +721,9 @@
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5_2">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    4.1 感知
-  
-
+            4.1 感知
           </label>
-          <ul class="md-nav__list" data-md-scrollfix="">
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
             
@@ -798,16 +737,10 @@
       <a href="../image-classification/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     图像分类
-  
-
     
   </span>
-  
   
 
       </a>
@@ -826,16 +759,10 @@
       <a href="../object-detection/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     目标检测
-  
-
     
   </span>
-  
   
 
       </a>
@@ -854,16 +781,10 @@
       <a href="../segmentation/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     图像分割
-  
-
     
   </span>
-  
   
 
       </a>
@@ -891,16 +812,10 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
-  
   <span class="md-ellipsis">
-    
-  
     光流估计
-  
-
     
   </span>
-  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -909,16 +824,10 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     光流估计
-  
-
     
   </span>
-  
   
 
       </a>
@@ -936,14 +845,12 @@
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#intuition" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        直觉 (Intuition)
-      
+      直觉 (Intuition)
     </span>
   </a>
   
@@ -952,9 +859,7 @@
         <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        任务定义
-      
+      任务定义
     </span>
   </a>
   
@@ -963,9 +868,7 @@
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        发展脉络
-      
+      发展脉络
     </span>
   </a>
   
@@ -975,9 +878,7 @@
           <li class="md-nav__item">
   <a href="#horn-schunck" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Horn-Schunck：把匹配写成全局优化
-      
+      Horn-Schunck：把匹配写成全局优化
     </span>
   </a>
   
@@ -986,9 +887,7 @@
           <li class="md-nav__item">
   <a href="#flownet" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        FlowNet：第一次把光流作为监督学习问题
-      
+      FlowNet：第一次把光流作为监督学习问题
     </span>
   </a>
   
@@ -997,9 +896,7 @@
           <li class="md-nav__item">
   <a href="#pwc-net" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        PWC-Net：把经典结构写进网络
-      
+      PWC-Net：把经典结构写进网络
     </span>
   </a>
   
@@ -1008,9 +905,7 @@
           <li class="md-nav__item">
   <a href="#raft" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        RAFT：在固定高分辨率上反复查匹配
-      
+      RAFT：在固定高分辨率上反复查匹配
     </span>
   </a>
   
@@ -1019,9 +914,7 @@
           <li class="md-nav__item">
   <a href="#sea-raft" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        SEA-RAFT：改进初值、损失与预训练
-      
+      SEA-RAFT：改进初值、损失与预训练
     </span>
   </a>
   
@@ -1035,9 +928,7 @@
         <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        核心方法
-      
+      核心方法
     </span>
   </a>
   
@@ -1047,9 +938,7 @@
           <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        相关体
-      
+      相关体
     </span>
   </a>
   
@@ -1058,9 +947,7 @@
           <li class="md-nav__item">
   <a href="#warping" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Warping 与迭代修正
-      
+      Warping 与迭代修正
     </span>
   </a>
   
@@ -1069,9 +956,7 @@
           <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        遮挡
-      
+      遮挡
     </span>
   </a>
   
@@ -1085,9 +970,7 @@
         <li class="md-nav__item">
   <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        工程实践
-      
+      工程实践
     </span>
   </a>
   
@@ -1097,9 +980,7 @@
           <li class="md-nav__item">
   <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        帧间隔定义了任务难度
-      
+      帧间隔定义了任务难度
     </span>
   </a>
   
@@ -1108,9 +989,7 @@
           <li class="md-nav__item">
   <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        输入尺寸通常要满足网络步长
-      
+      输入尺寸通常要满足网络步长
     </span>
   </a>
   
@@ -1119,9 +998,7 @@
           <li class="md-nav__item">
   <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        合成数据与真实数据要分开看
-      
+      合成数据与真实数据要分开看
     </span>
   </a>
   
@@ -1135,9 +1012,7 @@
         <li class="md-nav__item">
   <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        开放问题
-      
+      开放问题
     </span>
   </a>
   
@@ -1162,16 +1037,10 @@
       <a href="../depth-estimation/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     深度估计
-  
-
     
   </span>
-  
   
 
       </a>
@@ -1190,16 +1059,10 @@
       <a href="../ocr/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     OCR 与文档智能
-  
-
     
   </span>
-  
   
 
       </a>
@@ -1253,7 +1116,6 @@
       
     
     
-    
       
       
     
@@ -1266,22 +1128,15 @@
     <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
       
         
-  
   
   
     <a href="../../3dv/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     4.2 3D 视觉与空间智能
-  
-
     
   </span>
-  
   
 
       
@@ -1319,7 +1174,6 @@
       
     
     
-    
       
       
     
@@ -1332,22 +1186,15 @@
     <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
       
         
-  
   
   
     <a href="../../audio/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     4.3 语音与音频智能
-  
-
     
   </span>
-  
   
 
       
@@ -1391,7 +1238,6 @@
       
     
     
-    
       
       
     
@@ -1404,22 +1250,15 @@
     <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
       
         
-  
   
   
     <a href="../../retrieval/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     4.4 搜索、排序与信息检索
-  
-
     
   </span>
-  
   
 
       
@@ -1465,7 +1304,6 @@
       
     
     
-    
       
       
     
@@ -1478,22 +1316,15 @@
     <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
       
         
-  
   
   
     <a href="../../generation/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     4.5 图像与视频生成
-  
-
     
   </span>
-  
   
 
       
@@ -1543,7 +1374,6 @@
       
     
     
-    
       
       
     
@@ -1556,22 +1386,15 @@
     <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
       
         
-  
   
   
     <a href="../../multimodal/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     4.6 多模态大模型
-  
-
     
   </span>
-  
   
 
       
@@ -1615,7 +1438,6 @@
       
     
     
-    
       
       
     
@@ -1628,22 +1450,15 @@
     <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
       
         
-  
   
   
     <a href="../../mlsys/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     4.7 MLSys
-  
-
     
   </span>
-  
   
 
       
@@ -1685,7 +1500,6 @@
       
     
     
-    
       
       
     
@@ -1698,22 +1512,15 @@
     <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
       
         
-  
   
   
     <a href="../../agent/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     4.8 Agent 与工具使用
-  
-
     
   </span>
-  
   
 
       
@@ -1763,7 +1570,6 @@
       
     
     
-    
       
       
     
@@ -1778,20 +1584,13 @@
         
   
   
-  
     <a href="../../embodied/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     4.9 具身智能与机器人
-  
-
     
   </span>
-  
   
 
       
@@ -1821,7 +1620,7 @@
             
             
               
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -1837,14 +1636,12 @@
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#intuition" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        直觉 (Intuition)
-      
+      直觉 (Intuition)
     </span>
   </a>
   
@@ -1853,9 +1650,7 @@
         <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        任务定义
-      
+      任务定义
     </span>
   </a>
   
@@ -1864,9 +1659,7 @@
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        发展脉络
-      
+      发展脉络
     </span>
   </a>
   
@@ -1876,9 +1669,7 @@
           <li class="md-nav__item">
   <a href="#horn-schunck" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Horn-Schunck：把匹配写成全局优化
-      
+      Horn-Schunck：把匹配写成全局优化
     </span>
   </a>
   
@@ -1887,9 +1678,7 @@
           <li class="md-nav__item">
   <a href="#flownet" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        FlowNet：第一次把光流作为监督学习问题
-      
+      FlowNet：第一次把光流作为监督学习问题
     </span>
   </a>
   
@@ -1898,9 +1687,7 @@
           <li class="md-nav__item">
   <a href="#pwc-net" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        PWC-Net：把经典结构写进网络
-      
+      PWC-Net：把经典结构写进网络
     </span>
   </a>
   
@@ -1909,9 +1696,7 @@
           <li class="md-nav__item">
   <a href="#raft" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        RAFT：在固定高分辨率上反复查匹配
-      
+      RAFT：在固定高分辨率上反复查匹配
     </span>
   </a>
   
@@ -1920,9 +1705,7 @@
           <li class="md-nav__item">
   <a href="#sea-raft" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        SEA-RAFT：改进初值、损失与预训练
-      
+      SEA-RAFT：改进初值、损失与预训练
     </span>
   </a>
   
@@ -1936,9 +1719,7 @@
         <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        核心方法
-      
+      核心方法
     </span>
   </a>
   
@@ -1948,9 +1729,7 @@
           <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        相关体
-      
+      相关体
     </span>
   </a>
   
@@ -1959,9 +1738,7 @@
           <li class="md-nav__item">
   <a href="#warping" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Warping 与迭代修正
-      
+      Warping 与迭代修正
     </span>
   </a>
   
@@ -1970,9 +1747,7 @@
           <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        遮挡
-      
+      遮挡
     </span>
   </a>
   
@@ -1986,9 +1761,7 @@
         <li class="md-nav__item">
   <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        工程实践
-      
+      工程实践
     </span>
   </a>
   
@@ -1998,9 +1771,7 @@
           <li class="md-nav__item">
   <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        帧间隔定义了任务难度
-      
+      帧间隔定义了任务难度
     </span>
   </a>
   
@@ -2009,9 +1780,7 @@
           <li class="md-nav__item">
   <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        输入尺寸通常要满足网络步长
-      
+      输入尺寸通常要满足网络步长
     </span>
   </a>
   
@@ -2020,9 +1789,7 @@
           <li class="md-nav__item">
   <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        合成数据与真实数据要分开看
-      
+      合成数据与真实数据要分开看
     </span>
   </a>
   
@@ -2036,9 +1803,7 @@
         <li class="md-nav__item">
   <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        开放问题
-      
+      开放问题
     </span>
   </a>
   
@@ -2054,16 +1819,15 @@
           
           
             <div class="md-content" data-md-component="content">
-              
               <article class="md-content__inner md-typeset">
                 
                   
 
 
   
-    <a href="https://github.com/Yaoyaolingbro/hello-dl/edit/main/docs/04-applications/perception/optical-flow.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/Yaoyaolingbro/hello-dl/edit/main/docs/04-applications/perception/optical-flow.md" title="Edit this page" class="md-content__button md-icon">
       
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
     </a>
   
   
@@ -2072,12 +1836,12 @@
     
     <a href="https://github.com/Yaoyaolingbro/hello-dl/raw/main/docs/04-applications/perception/optical-flow.md" title="View source of this page" class="md-content__button md-icon">
       
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/></svg>
     </a>
   
 
 
-<h1 id="_1">光流估计<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
+<h1 id="_1">光流估计<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <div class="admonition info">
 <p class="admonition-title">参考资料</p>
 <p><strong>必读论文</strong></p>
@@ -2089,9 +1853,9 @@
 <li><a href="https://arxiv.org/abs/2405.14793">SEA-RAFT: Simple, Efficient, Accurate RAFT for Optical Flow</a> — Wang et al., ECCV 2024</li>
 </ul>
 </div>
-<h2 id="intuition">直觉 (Intuition)<a class="headerlink" href="#intuition" title="Permanent link">¶</a></h2>
+<h2 id="intuition">直觉 (Intuition)<a class="headerlink" href="#intuition" title="Permanent link">&para;</a></h2>
 <p>光流要估计同一个视觉点从第一帧移动到第二帧的二维位移。输入是相邻图像 <span class="arithmatex">\(\mathbf{I}_1\)</span> 和 <span class="arithmatex">\(\mathbf{I}_2\)</span>，输出是每个像素的运动向量。难点是纹理重复、遮挡、光照变化和大位移会让“同一个点”难以匹配。现代方法通常先比较两帧特征，再反复修正整张位移场。光流描述的是图像上的表观运动，不一定等于物体在三维世界中的真实运动。</p>
-<h2 id="_2">任务定义<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<h2 id="_2">任务定义<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>对第一帧中的像素位置 <span class="arithmatex">\(\mathbf{x}=(x,y)\)</span>，光流场</p>
 <div class="arithmatex">\[
 \mathbf{f}(\mathbf{x})=(u(\mathbf{x}),v(\mathbf{x}))
@@ -2103,14 +1867,57 @@
 \left\|\hat{\mathbf{f}}(\mathbf{x})-\mathbf{f}^{*}(\mathbf{x})\right\|_2.
 \]</div>
 <p>其中 <span class="arithmatex">\(\hat{\mathbf{f}}\)</span> 是预测光流，<span class="arithmatex">\(\mathbf{f}^{*}\)</span> 是真值。KITTI 还常报告异常像素比例，因为自动驾驶更关心少量巨大错误。</p>
-<h2 id="_3">发展脉络<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
-<pre class="mermaid"><code>graph LR
-    A[Horn-Schunck&lt;br/&gt;全局能量优化] --&gt; B[FlowNet&lt;br/&gt;端到端学习]
-    B --&gt; C[PWC-Net&lt;br/&gt;金字塔+Warp+Cost Volume]
-    C --&gt; D[RAFT&lt;br/&gt;All-pairs 相关体]
-    D --&gt; E[SEA-RAFT&lt;br/&gt;更好的初值与训练目标]</code></pre>
-<p><em>光流主线：经典方法把匹配写成优化问题，深度方法先学习匹配，再把迭代优化写进网络。来源：本文示意图。</em></p>
-<h3 id="horn-schunck">Horn-Schunck：把匹配写成全局优化<a class="headerlink" href="#horn-schunck" title="Permanent link">¶</a></h3>
+<h2 id="_3">发展脉络<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<figure class="lesson-visual" data-lesson-visual>
+  <div data-lesson-stage role="img" aria-label="光流估计从全局能量优化演进到端到端学习、金字塔匹配、全对相关体和更高效的迭代更新">
+    <svg class="lesson-visual__canvas--wide" viewBox="0 0 900 240" aria-hidden="true">
+      <defs>
+        <marker id="flow-history-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M 0 0 L 8 4 L 0 8 z" fill="var(--md-default-fg-color--lighter)"/>
+        </marker>
+      </defs>
+    <g data-step data-step-label="Horn–Schunck">
+      <rect x="16" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="80" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Horn–Schunck</text>
+      <text x="80" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">能量优化</text>
+    </g>
+    <g data-step data-step-label="FlowNet">
+      <path d="M 144 115 L 201 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#flow-history-arrow)"/>
+      <rect x="201" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="265" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">FlowNet</text>
+      <text x="265" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">端到端学习</text>
+    </g>
+    <g data-step data-step-label="PWC-Net">
+      <path d="M 329 115 L 386 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#flow-history-arrow)"/>
+      <rect x="386" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="450" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">PWC-Net</text>
+      <text x="450" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">金字塔＋Warp</text>
+    </g>
+    <g data-step data-step-label="RAFT">
+      <path d="M 514 115 L 571 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#flow-history-arrow)"/>
+      <rect x="571" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="635" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">RAFT</text>
+      <text x="635" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">全对相关体</text>
+    </g>
+    <g data-step data-step-label="SEA-RAFT">
+      <path d="M 699 115 L 756 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#flow-history-arrow)"/>
+      <rect x="756" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="820" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">SEA-RAFT</text>
+      <text x="820" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">初值与目标</text>
+    </g>
+    </svg>
+  </div>
+  <ol data-lesson-steps>
+    <li>Horn–Schunck 用数据项与平滑项共同求解光流。</li>
+    <li>FlowNet 首次用 CNN 端到端预测两帧间的稠密位移。</li>
+    <li>PWC-Net 把金字塔、warping 和 cost volume 写进网络。</li>
+    <li>RAFT 在固定高分辨率流场上反复查询全对相关体。</li>
+    <li>SEA-RAFT 改善初值、误差分布和预训练，让迭代更高效。</li>
+  </ol>
+  <figcaption>观察经典匹配与优化并没有消失，它们逐步变成了网络里的相关体、对齐和迭代更新。</figcaption>
+</figure>
+
+<h3 id="horn-schunck">Horn-Schunck：把匹配写成全局优化<a class="headerlink" href="#horn-schunck" title="Permanent link">&para;</a></h3>
 <p>如果一个像素在短时间内亮度不变，就有亮度恒常假设：</p>
 <div class="arithmatex">\[
 I_xu+I_yv+I_t=0.
@@ -2118,10 +1925,10 @@ I_xu+I_yv+I_t=0.
 <p>其中 <span class="arithmatex">\(I_x\)</span>、<span class="arithmatex">\(I_y\)</span> 和 <span class="arithmatex">\(I_t\)</span> 是图像在空间与时间上的导数。一个方程无法唯一解出 <span class="arithmatex">\(u\)</span>、<span class="arithmatex">\(v\)</span> 两个未知量，这就是 aperture problem：只看局部边缘，无法判断沿边缘方向的运动。</p>
 <p>Horn-Schunck（<a href="https://doi.org/10.1016/0004-3702%2881%2990024-2">Paper</a>）加入全局平滑约束，让邻近像素倾向于具有相似运动。它奠定了经典光流的能量优化范式：数据项负责匹配，正则项负责补足歧义。</p>
 <p>平滑假设在物体边界会失效，亮度恒常也会被反光、阴影和曝光变化破坏。后来的经典方法不断设计更鲁棒的数据项、边缘保持正则和粗到细优化。</p>
-<h3 id="flownet">FlowNet：第一次把光流作为监督学习问题<a class="headerlink" href="#flownet" title="Permanent link">¶</a></h3>
+<h3 id="flownet">FlowNet：第一次把光流作为监督学习问题<a class="headerlink" href="#flownet" title="Permanent link">&para;</a></h3>
 <p>经典算法依赖手工设计的匹配代价和优化过程。FlowNet（<a href="https://openaccess.thecvf.com/content_iccv_2015/html/Dosovitskiy_FlowNet_Learning_Optical_ICCV_2015_paper.html">Paper</a> | <a href="https://lmb.informatik.uni-freiburg.de/people/dosovits/code.html">Project</a>）用 CNN 直接从两帧图像预测光流，并比较了直接堆叠输入与显式相关操作两种架构。</p>
 <p>真实光流真值难以采集，论文使用合成数据训练。这是一个重要转折：数据生成方式开始与网络架构同样重要。FlowNet 证明端到端学习可行，但跨到真实场景时仍有明显域差异。</p>
-<h3 id="pwc-net">PWC-Net：把经典结构写进网络<a class="headerlink" href="#pwc-net" title="Permanent link">¶</a></h3>
+<h3 id="pwc-net">PWC-Net：把经典结构写进网络<a class="headerlink" href="#pwc-net" title="Permanent link">&para;</a></h3>
 <p>直接在原分辨率搜索大位移会产生很大的匹配空间。PWC-Net（<a href="https://openaccess.thecvf.com/content_cvpr_2018/html/Sun_PWC-Net_CNNs_for_CVPR_2018_paper.html">Paper</a> | <a href="https://github.com/NVlabs/PWC-Net">Project</a>）重新引入三类经典思想：</p>
 <ul>
 <li>Pyramid：在低分辨率先估计大运动</li>
@@ -2130,37 +1937,37 @@ I_xu+I_yv+I_t=0.
 </ul>
 <p>这些模块都是可学习管线的一部分。PWC-Net 比大型堆叠网络紧凑，也说明深度学习并不要求丢掉几何和优化先验。</p>
 <p>粗到细方法的弱点是，小物体和细结构可能在金字塔底部消失。第一次粗估错误后，后续 warping 也可能把特征拉到错误位置。</p>
-<h3 id="raft">RAFT：在固定高分辨率上反复查匹配<a class="headerlink" href="#raft" title="Permanent link">¶</a></h3>
+<h3 id="raft">RAFT：在固定高分辨率上反复查匹配<a class="headerlink" href="#raft" title="Permanent link">&para;</a></h3>
 <p>RAFT（<a href="https://www.ecva.net/papers/eccv_2020/papers_ECCV/html/3526_ECCV_2020_paper.php">Paper</a> | <a href="https://github.com/princeton-vl/RAFT">Project</a>）先计算第一帧与第二帧所有特征位置之间的相关性，形成 all-pairs correlation volume。网络从零流场开始，用循环更新模块多次查询相关体并修正预测。</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://github.com/princeton-vl/RAFT/raw/master/RAFT.png" data-desc-position="bottom"><img alt="RAFT 通过相关体和循环更新估计光流" src="https://github.com/princeton-vl/RAFT/raw/master/RAFT.png"></a></p>
+<p><a class="glightbox" href="https://github.com/princeton-vl/RAFT/raw/master/RAFT.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="RAFT 通过相关体和循环更新估计光流" src="https://github.com/princeton-vl/RAFT/raw/master/RAFT.png" /></a></p>
 <p><em>RAFT 先构建全局相关体，再用循环单元逐步更新光流场。来源：<a href="https://github.com/princeton-vl/RAFT">RAFT 官方仓库</a></em></p>
 <p>它不再依赖传统的逐层粗到细解码器。高分辨率流场在迭代中持续存在，因此边界和小结构更容易保留。它的代价是相关体占用显存，推理时间也随更新次数增加。</p>
-<h3 id="sea-raft">SEA-RAFT：改进初值、损失与预训练<a class="headerlink" href="#sea-raft" title="Permanent link">¶</a></h3>
+<h3 id="sea-raft">SEA-RAFT：改进初值、损失与预训练<a class="headerlink" href="#sea-raft" title="Permanent link">&para;</a></h3>
 <p>SEA-RAFT（<a href="https://arxiv.org/abs/2405.14793">Paper</a> | <a href="https://github.com/princeton-vl/SEA-RAFT">Project</a>）保留 RAFT 的迭代框架，但直接回归更好的初始光流，使用混合 Laplace 分布描述误差，并加入刚体运动预训练。它说明 RAFT 之后的提升不一定来自更复杂的 Transformer，训练目标、初值和数据先验仍能显著改变效率与泛化。</p>
-<h2 id="_4">核心方法<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
-<h3 id="_5">相关体<a class="headerlink" href="#_5" title="Permanent link">¶</a></h3>
+<h2 id="_4">核心方法<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="_5">相关体<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>两帧特征 <span class="arithmatex">\(\mathbf{g}_1(\mathbf{x})\)</span> 与 <span class="arithmatex">\(\mathbf{g}_2(\mathbf{y})\)</span> 的相似度可以写成点积：</p>
 <div class="arithmatex">\[
 C(\mathbf{x},\mathbf{y})=
 \mathbf{g}_1(\mathbf{x})^\top\mathbf{g}_2(\mathbf{y}).
 \]</div>
 <p>其中 <span class="arithmatex">\(C\)</span> 是匹配代价。局部 cost volume 只比较邻域，显存低但依赖当前估计；all-pairs correlation 比较所有位置，搜索范围大但更耗内存。</p>
-<h3 id="warping">Warping 与迭代修正<a class="headerlink" href="#warping" title="Permanent link">¶</a></h3>
+<h3 id="warping">Warping 与迭代修正<a class="headerlink" href="#warping" title="Permanent link">&para;</a></h3>
 <p>给定当前光流，可以把第二帧特征采样回第一帧坐标系。对齐后仍不一致的位置提示网络继续修正。RAFT 类方法把这个过程写成学习到的优化器：每一步读取匹配证据和上下文，再输出增量 <span class="arithmatex">\(\Delta\mathbf{f}\)</span>。</p>
-<h3 id="_6">遮挡<a class="headerlink" href="#_6" title="Permanent link">¶</a></h3>
+<h3 id="_6">遮挡<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <p>第一帧中的点可能在第二帧被挡住，此时不存在可见对应点。训练时若把遮挡区域强行套进亮度恒常损失，模型会得到错误监督。前后向一致性、显式遮挡头和鲁棒损失都用于缓解这个问题。</p>
-<h2 id="_7">工程实践<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
-<h3 id="_8">帧间隔定义了任务难度<a class="headerlink" href="#_8" title="Permanent link">¶</a></h3>
+<h2 id="_7">工程实践<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="_8">帧间隔定义了任务难度<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <p>相机帧率降低或丢帧后，同一物体的位移会变大。只在短间隔数据上训练的模型，不能默认处理任意间隔。部署时要固定采样策略，并在运动速度分布上评测。</p>
-<h3 id="_9">输入尺寸通常要满足网络步长<a class="headerlink" href="#_9" title="Permanent link">¶</a></h3>
+<h3 id="_9">输入尺寸通常要满足网络步长<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <p>RAFT 等网络会多次下采样。输入宽高不满足步长倍数时，需要 padding，输出后再正确裁剪。直接 resize 会改变位移尺度，恢复原尺寸时必须同步缩放 <span class="arithmatex">\(u\)</span>、<span class="arithmatex">\(v\)</span>。</p>
 <div class="admonition tip">
 <p class="admonition-title">工程重点</p>
 <p>光流可视化颜色图只适合快速检查方向和大小。下游任务需要保存浮点向量，不能把彩色 PNG 再解码成光流。</p>
 </div>
-<h3 id="_10">合成数据与真实数据要分开看<a class="headerlink" href="#_10" title="Permanent link">¶</a></h3>
+<h3 id="_10">合成数据与真实数据要分开看<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <p>合成数据能提供稠密真值，但材质、运动和模糊分布与真实相机不同。报告结果时要区分 synthetic pretraining、真实数据微调和 zero-shot 测试。</p>
-<h2 id="_11">开放问题<a class="headerlink" href="#_11" title="Permanent link">¶</a></h2>
+<h2 id="_11">开放问题<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
 <p>以下判断基于截至 2026 年 6 月公开的论文与项目资料。</p>
 <ul>
 <li><strong>遮挡和出视野区域仍缺少直接证据。</strong> 模型只能依赖上下文推断，错误却常被普通 EPE 平均掉。</li>
@@ -2189,9 +1996,9 @@ C(\mathbf{x},\mathbf{y})=
       
   <span class="md-source-file__fact">
     <span class="md-icon" title="Last update">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年6月16日 17:38:10 CST">2026年6月16日 17:38:10</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2026年9月13日 16:17:41</span>
   </span>
 
     
@@ -2199,9 +2006,9 @@ C(\mathbf{x},\mathbf{y})=
       
   <span class="md-source-file__fact">
     <span class="md-icon" title="Created">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2026年4月26日 15:08:02 CST">2026年4月26日 15:08:02</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2026年9月13日 16:17:41</span>
   </span>
 
     
@@ -2213,9 +2020,65 @@ C(\mathbf{x},\mathbf{y})=
 
 
 
+  
+    
+    <nav class="md-footer__inner md-grid md-page-navigation" aria-label="Footer" >
+      
+        
+        <a href="../segmentation/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 图像分割">
+          <div class="md-footer__button md-icon">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <span class="md-footer__direction">
+              Previous
+            </span>
+            <div class="md-ellipsis">
+              图像分割
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../depth-estimation/" class="md-footer__link md-footer__link--next" aria-label="Next: 深度估计">
+          <div class="md-footer__title">
+            <span class="md-footer__direction">
+              Next
+            </span>
+            <div class="md-ellipsis">
+              深度估计
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+
+
 <h2 id="__comments">Comments</h2>
 
-<script src="https://giscus.app/client.js" data-repo="Yaoyaolingbro/hello-dl" data-repo-id="R_kgDOSOpkKg" data-category="Announcements" data-category-id="DIC_kwDOSOpkKs4C73GA" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async="">
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Yaoyaolingbro/hello-dl"
+  data-repo-id="R_kgDOSOpkKg"
+  data-category="Announcements"
+  data-category-id="DIC_kwDOSOpkKs4C73GA"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async>
 </script>
 
 <!-- 跟随 Material 主题的亮/暗切换 -->
@@ -2246,76 +2109,34 @@ C(\mathbf{x},\mathbf{y})=
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
-          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
   Back to top
 </button>
         
       </main>
       
         <footer class="md-footer">
-  
-    
-      
-      <nav class="md-footer__inner md-grid" aria-label="Footer">
-        
-          
-          <a href="../segmentation/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 图像分割">
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
-            </div>
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              <div class="md-ellipsis">
-                图像分割
-              </div>
-            </div>
-          </a>
-        
-        
-          
-          <a href="../depth-estimation/" class="md-footer__link md-footer__link--next" aria-label="Next: 深度估计">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
-                深度估计
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
-            </div>
-          </a>
-        
-      </nav>
-    
-  
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright © 2024 yaoyaoling · <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+      Copyright &copy; 2024 yaoyaoling · <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
     </div>
   
   
 </div>
       
-        
-<div class="md-social">
+        <div class="md-social">
   
     
     
     
     
     <a href="https://github.com/Yaoyaolingbro/hello-dl" target="_blank" rel="noopener" title="GitHub 仓库" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
     </a>
   
 </div>
@@ -2330,24 +2151,21 @@ C(\mathbf{x},\mathbf{y})=
     </div>
     
     
-    
-      
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.tracking", "navigation.top", "navigation.footer", "navigation.prune", "toc.follow", "header.autohide", "search.highlight", "search.suggest", "search.share", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.tracking", "navigation.top", "navigation.footer", "navigation.prune", "toc.follow", "header.autohide", "search.highlight", "search.suggest", "search.share", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.5090c770.min.js"></script>
       
         <script src="../../../assets/js/katex.js"></script>
+      
+        <script src="../../../assets/js/lesson-visuals.js"></script>
       
         <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
       
         <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@11/dist/mermaid.esm.min.mjs" type="module"></script>
-      
     
-  
-<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
-document$.subscribe(()=>{ lightbox.reload(); });
-</script></body></html>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
