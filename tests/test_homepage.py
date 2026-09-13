@@ -49,6 +49,13 @@ class HomepageTest(unittest.TestCase):
         self.assertIn("accent: custom", config)
         self.assertIn("site_url: https://yaoyaolingbro.github.io/hello-dl/", config)
 
+    def test_deploy_validates_navigation_and_builds_strictly(self):
+        workflow = (ROOT / ".github" / "workflows" / "deploy.yml").read_text(encoding="utf-8")
+        self.assertIn("--mkdocs-config mkdocs.yml", workflow)
+        self.assertNotIn("--require-complete", workflow)
+        self.assertIn("mkdocs build --strict", workflow)
+        self.assertIn("mkdocs gh-deploy --force", workflow)
+
 
 if __name__ == "__main__":
     unittest.main()

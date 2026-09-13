@@ -23,8 +23,11 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Validate Part 2 content
-        run: python scripts/check_part2_content.py --root docs/02-deep-learning --require-complete
+      - name: Validate Part 2 content and navigation
+        run: python scripts/check_part2_content.py --root docs/02-deep-learning --mkdocs-config mkdocs.yml
+
+      - name: Build strictly
+        run: mkdocs build --strict
 
       - name: Deploy
         run: mkdocs gh-deploy --force
