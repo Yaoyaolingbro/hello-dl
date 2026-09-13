@@ -278,7 +278,7 @@ input:focus-visible {
   padding: 0.6rem 1.1rem;
   border: 1px solid var(--dl-indigo);
   border-radius: 0.3rem;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 500;
   line-height: 1.4;
   text-decoration: none;
@@ -359,7 +359,7 @@ input:focus-visible {
 .md-typeset .home-route p {
   margin: 0;
   color: var(--dl-muted);
-  font-size: 0.75rem;
+  font-size: 0.8rem;
 }
 
 .home-route__note {
@@ -386,10 +386,11 @@ input:focus-visible {
   max-width: 40em;
   margin: 0 0 1.4rem;
   color: var(--dl-muted);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
 }
 
-.md-typeset .home-parts {
+/* Match Material's ol:not([hidden]) specificity, then win by source order. */
+.md-typeset ol.home-parts {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.8rem;
@@ -398,7 +399,8 @@ input:focus-visible {
   list-style: none;
 }
 
-.md-typeset .home-part {
+/* Outrank directional list indentation without touching textbook lists. */
+.md-typeset ol.home-parts > li.home-part {
   display: flex;
   flex-direction: column;
   min-width: 0;
@@ -424,18 +426,18 @@ input:focus-visible {
 
 .md-typeset .home-part__role {
   margin: 0 0 1rem;
-  font-size: 0.76rem;
+  font-size: 0.8rem;
 }
 
 .md-typeset .home-part__reader {
   margin: auto 0 1.1rem;
   color: var(--dl-muted);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
 }
 
 .md-typeset .home-part__link {
   align-self: flex-start;
-  font-size: 0.73rem;
+  font-size: 0.8rem;
   font-weight: 500;
   text-decoration: underline;
   text-underline-offset: 0.25em;
@@ -459,7 +461,7 @@ input:focus-visible {
 .md-typeset .home-reading p {
   max-width: 45em;
   margin: 0 0 0.7rem;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
 }
 
 .md-typeset .home-references p {
@@ -471,7 +473,7 @@ input:focus-visible {
 }
 
 @media (max-width: 1100px) {
-  .md-typeset .home-parts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .md-typeset ol.home-parts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .home-route { padding: 0 1rem; }
 }
 
@@ -488,7 +490,7 @@ input:focus-visible {
   .home-route:first-child,
   .home-route:last-child { padding: 1rem 0; }
   .home-route + .home-route { border-left: 0; border-top: 1px solid var(--dl-rule); }
-  .md-typeset .home-parts { grid-template-columns: 1fr; }
+  .md-typeset ol.home-parts { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
