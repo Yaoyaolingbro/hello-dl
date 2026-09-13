@@ -34,15 +34,54 @@ $$
 
 ## 发展脉络
 
-```mermaid
-graph LR
-    A[Horn-Schunck<br/>全局能量优化] --> B[FlowNet<br/>端到端学习]
-    B --> C[PWC-Net<br/>金字塔+Warp+Cost Volume]
-    C --> D[RAFT<br/>All-pairs 相关体]
-    D --> E[SEA-RAFT<br/>更好的初值与训练目标]
-```
-
-*光流主线：经典方法把匹配写成优化问题，深度方法先学习匹配，再把迭代优化写进网络。来源：本文示意图。*
+<figure class="lesson-visual" data-lesson-visual>
+  <div data-lesson-stage role="img" aria-label="光流估计从全局能量优化演进到端到端学习、金字塔匹配、全对相关体和更高效的迭代更新">
+    <svg class="lesson-visual__canvas--wide" viewBox="0 0 900 240" aria-hidden="true">
+      <defs>
+        <marker id="flow-history-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M 0 0 L 8 4 L 0 8 z" fill="var(--md-default-fg-color--lighter)"/>
+        </marker>
+      </defs>
+    <g data-step data-step-label="Horn–Schunck">
+      <rect x="16" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="80" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Horn–Schunck</text>
+      <text x="80" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">能量优化</text>
+    </g>
+    <g data-step data-step-label="FlowNet">
+      <path d="M 144 115 L 201 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#flow-history-arrow)"/>
+      <rect x="201" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="265" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">FlowNet</text>
+      <text x="265" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">端到端学习</text>
+    </g>
+    <g data-step data-step-label="PWC-Net">
+      <path d="M 329 115 L 386 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#flow-history-arrow)"/>
+      <rect x="386" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="450" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">PWC-Net</text>
+      <text x="450" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">金字塔＋Warp</text>
+    </g>
+    <g data-step data-step-label="RAFT">
+      <path d="M 514 115 L 571 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#flow-history-arrow)"/>
+      <rect x="571" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="635" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">RAFT</text>
+      <text x="635" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">全对相关体</text>
+    </g>
+    <g data-step data-step-label="SEA-RAFT">
+      <path d="M 699 115 L 756 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#flow-history-arrow)"/>
+      <rect x="756" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="820" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">SEA-RAFT</text>
+      <text x="820" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">初值与目标</text>
+    </g>
+    </svg>
+  </div>
+  <ol data-lesson-steps>
+    <li>Horn–Schunck 用数据项与平滑项共同求解光流。</li>
+    <li>FlowNet 首次用 CNN 端到端预测两帧间的稠密位移。</li>
+    <li>PWC-Net 把金字塔、warping 和 cost volume 写进网络。</li>
+    <li>RAFT 在固定高分辨率流场上反复查询全对相关体。</li>
+    <li>SEA-RAFT 改善初值、误差分布和预训练，让迭代更高效。</li>
+  </ol>
+  <figcaption>观察经典匹配与优化并没有消失，它们逐步变成了网络里的相关体、对齐和迭代更新。</figcaption>
+</figure>
 
 ### Horn-Schunck：把匹配写成全局优化
 

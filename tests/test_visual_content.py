@@ -7,6 +7,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 MKDOCS_CONFIG = REPO_ROOT / "mkdocs.yml"
 DOCS_ROOT = REPO_ROOT / "docs"
 PART2_ROOT = DOCS_ROOT / "02-deep-learning"
+PERCEPTION_ROOT = DOCS_ROOT / "04-applications" / "perception"
 VISUAL_CSS = REPO_ROOT / "docs" / "assets" / "css" / "lesson-visuals.css"
 VISUAL_JS = REPO_ROOT / "docs" / "assets" / "js" / "lesson-visuals.js"
 WRITING_STYLE = REPO_ROOT / "writing-style.md"
@@ -385,6 +386,50 @@ class VisualContentTest(unittest.TestCase):
 
         self.assertSetEqual(mermaid_pages, MERMAID_PAGE_ALLOWLIST)
         self.assertSetEqual(mermaid_config, MERMAID_CONFIG_ALLOWLIST)
+
+    def test_perception_visuals_follow_the_accessible_lesson_contract(self):
+        expected_pages = {
+            "index.md": 1,
+            "image-classification.md": 3,
+            "object-detection.md": 2,
+            "segmentation.md": 3,
+            "depth-estimation.md": 1,
+            "optical-flow.md": 1,
+            "ocr.md": 1,
+        }
+        problems = []
+
+        for filename, expected_count in expected_pages.items():
+            page = PERCEPTION_ROOT / filename
+            content = page.read_text(encoding="utf-8")
+            figures = re.findall(
+                r"<figure\b[^>]*data-lesson-visual\b.*?</figure>",
+                content,
+                re.DOTALL,
+            )
+            if len(figures) != expected_count:
+                problems.append(
+                    f"{filename}: expected {expected_count} lesson visuals, found {len(figures)}"
+                )
+            for number, figure in enumerate(figures, start=1):
+                stage_tags = _opening_tags_with_attribute(figure, "data-lesson-stage")
+                if len(stage_tags) != 1:
+                    problems.append(f"{filename} figure {number}: expected one stage")
+                else:
+                    if _attribute_value(stage_tags[0], "role") != "img":
+                        problems.append(f"{filename} figure {number}: stage role must be img")
+                    if not _attribute_value(stage_tags[0], "aria-label"):
+                        problems.append(f"{filename} figure {number}: stage needs an aria-label")
+                if len(re.findall(r"<svg\b[^>]*>", figure, re.DOTALL)) != 1:
+                    problems.append(f"{filename} figure {number}: expected one inline svg")
+                if not _opening_tags_with_attribute(figure, "data-step"):
+                    problems.append(f"{filename} figure {number}: missing visual steps")
+                if not re.search(r"<ol\b[^>]*data-lesson-steps\b.*?</ol>", figure, re.DOTALL):
+                    problems.append(f"{filename} figure {number}: missing text fallback")
+                if len(re.findall(r"<figcaption\b[^>]*>.*?</figcaption>", figure, re.DOTALL)) != 1:
+                    problems.append(f"{filename} figure {number}: expected one figcaption")
+
+        self.assertEqual(problems, [], "\n".join(problems))
 
 
 if __name__ == "__main__":

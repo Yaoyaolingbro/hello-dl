@@ -34,17 +34,68 @@ $$
 
 ## 发展脉络
 
-```mermaid
-graph LR
-    A[Monodepth<br/>双目自监督] --> B[MiDaS<br/>混合数据相对深度]
-    B --> C[DPT<br/>Transformer 密集预测]
-    C --> D[ZoeDepth<br/>相对+米制]
-    D --> E[Depth Anything V2<br/>大规模伪标签]
-    E --> F[Depth Pro<br/>零样本米制深度]
-    E --> G[Depth Anything 3<br/>多图空间一致]
-```
-
-*深度估计主线：先解决没有稠密真值时如何训练，再解决跨数据集泛化、米制尺度和多视图一致性。来源：本文示意图。*
+<figure class="lesson-visual" data-lesson-visual>
+  <div data-lesson-stage role="img" aria-label="深度估计从双目自监督走向混合数据相对深度、Transformer 密集预测、米制深度和多图空间一致性">
+    <svg class="lesson-visual__canvas--wide" viewBox="0 0 900 240" aria-hidden="true">
+      <defs>
+        <marker id="depth-history-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M 0 0 L 8 4 L 0 8 z" fill="var(--md-default-fg-color--lighter)"/>
+        </marker>
+      </defs>
+    <g data-step data-step-label="Monodepth">
+      <rect x="1" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="65" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Monodepth</text>
+      <text x="65" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">双目自监督</text>
+    </g>
+    <g data-step data-step-label="MiDaS">
+      <path d="M 129 115 L 126 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#depth-history-arrow)"/>
+      <rect x="126" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="190" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">MiDaS</text>
+      <text x="190" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">混合数据</text>
+    </g>
+    <g data-step data-step-label="DPT">
+      <path d="M 254 115 L 251 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#depth-history-arrow)"/>
+      <rect x="251" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="315" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">DPT</text>
+      <text x="315" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">全局密集预测</text>
+    </g>
+    <g data-step data-step-label="ZoeDepth">
+      <path d="M 379 115 L 376 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#depth-history-arrow)"/>
+      <rect x="376" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="440" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">ZoeDepth</text>
+      <text x="440" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">相对＋米制</text>
+    </g>
+    <g data-step data-step-label="Depth Anything V2">
+      <path d="M 504 115 L 516 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#depth-history-arrow)"/>
+      <rect x="516" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="580" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Depth Anything V2</text>
+      <text x="580" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">大规模伪标签</text>
+    </g>
+    <g data-step data-step-label="Depth Pro">
+      <path d="M 644 115 L 716 55" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#depth-history-arrow)"/>
+      <rect x="716" y="27" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="780" y="50" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Depth Pro</text>
+      <text x="780" y="71" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">零样本米制</text>
+    </g>
+    <g data-step data-step-label="Depth Anything 3">
+      <path d="M 644 115 L 716 175" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#depth-history-arrow)"/>
+      <rect x="716" y="147" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="780" y="170" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Depth Anything 3</text>
+      <text x="780" y="191" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">多图一致</text>
+    </g>
+    </svg>
+  </div>
+  <ol data-lesson-steps>
+    <li>Monodepth 用校准双目重建提供自监督信号。</li>
+    <li>MiDaS 混合不同尺度的数据，优先学习可泛化的相对深度。</li>
+    <li>DPT 用 Transformer 全局表征做密集预测。</li>
+    <li>ZoeDepth 在相对深度骨干上接入米制深度头。</li>
+    <li>Depth Anything V2 用大规模伪标签扩大场景覆盖。</li>
+    <li>Depth Pro 强调零样本米制尺度和清晰边界。</li>
+    <li>Depth Anything 3 转向多张图之间的空间一致性。</li>
+  </ol>
+  <figcaption>看主线在大规模伪标签之后分成两问：单图能否给出米制距离，多图能否保持同一空间。</figcaption>
+</figure>
 
 ### 从双目几何到单目学习
 

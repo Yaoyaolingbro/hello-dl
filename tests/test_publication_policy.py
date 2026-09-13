@@ -36,6 +36,8 @@ class PublicationPolicyTest(unittest.TestCase):
         self.assertTrue(PART4_IMITATION.is_file())
         self.assertNotIn("Part 3 模仿学习", embodied_index)
         self.assertNotIn("Part 3 模仿学习", imitation_page)
+        self.assertIn("神经网络基础", embodied_index)
+        self.assertIn("监督学习", embodied_index)
 
     def test_require_complete_is_reserved_for_a_fully_written_part2(self):
         guide = WRITING_STYLE.read_text(encoding="utf-8")

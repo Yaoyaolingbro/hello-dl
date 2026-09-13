@@ -36,16 +36,61 @@ $$
 
 ## 发展脉络
 
-```mermaid
-graph LR
-    A[CRNN<br/>文字行识别] --> B[CRAFT<br/>字符区域检测]
-    B --> C[LayoutLM<br/>文本+版面预训练]
-    C --> D[TrOCR<br/>视觉到文本生成]
-    C --> E[Donut<br/>OCR-free 文档理解]
-    C --> F[LayoutLMv3<br/>统一文本与图像掩码]
-```
-
-*OCR 与文档智能主线：先解决文字在哪里、读成什么，再把文字、坐标和页面图像合成文档理解模型。来源：本文示意图。*
+<figure class="lesson-visual" data-lesson-visual>
+  <div data-lesson-stage role="img" aria-label="OCR 从文字行识别和字符区域检测走向文本版面预训练，并分出视觉生成、无 OCR 文档理解与统一多模态掩码三条路线">
+    <svg class="lesson-visual__canvas--wide" viewBox="0 0 900 240" aria-hidden="true">
+      <defs>
+        <marker id="ocr-history-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M 0 0 L 8 4 L 0 8 z" fill="var(--md-default-fg-color--lighter)"/>
+        </marker>
+      </defs>
+    <g data-step data-step-label="CRNN">
+      <rect x="6" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="70" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">CRNN</text>
+      <text x="70" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">文字行识别</text>
+    </g>
+    <g data-step data-step-label="CRAFT">
+      <path d="M 134 115 L 166 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#ocr-history-arrow)"/>
+      <rect x="166" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="230" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">CRAFT</text>
+      <text x="230" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">字符区域</text>
+    </g>
+    <g data-step data-step-label="LayoutLM">
+      <path d="M 294 115 L 336 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#ocr-history-arrow)"/>
+      <rect x="336" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="400" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">LayoutLM</text>
+      <text x="400" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">文本＋版面</text>
+    </g>
+    <g data-step data-step-label="TrOCR">
+      <path d="M 464 115 L 576 45" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#ocr-history-arrow)"/>
+      <rect x="576" y="17" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="640" y="40" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">TrOCR</text>
+      <text x="640" y="61" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">视觉到文本</text>
+    </g>
+    <g data-step data-step-label="Donut">
+      <path d="M 464 115 L 576 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#ocr-history-arrow)"/>
+      <rect x="576" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="640" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Donut</text>
+      <text x="640" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">OCR-free</text>
+    </g>
+    <g data-step data-step-label="LayoutLMv3">
+      <path d="M 464 115 L 576 185" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#ocr-history-arrow)"/>
+      <rect x="576" y="157" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="640" y="180" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">LayoutLMv3</text>
+      <text x="640" y="201" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">统一掩码</text>
+    </g>
+    </svg>
+  </div>
+  <ol data-lesson-steps>
+    <li>CRNN 把整行文字图像直接转成可变长度字符序列。</li>
+    <li>CRAFT 先找字符区域，再把相邻字符连接成文字。</li>
+    <li>LayoutLM 联合建模 OCR 文本、二维坐标和页面视觉。</li>
+    <li>TrOCR 用视觉编码器和文本解码器直接生成文字。</li>
+    <li>Donut 从整页图像直接生成结构化任务序列，不暴露 OCR 中间接口。</li>
+    <li>LayoutLMv3 统一掩码文本、图像 patch 与跨模态对齐。</li>
+  </ol>
+  <figcaption>看 LayoutLM 之后的三条选择：生成文字、绕过显式 OCR，或保留文字坐标并统一图文预训练。</figcaption>
+</figure>
 
 ### CRNN：不再逐字符切割
 
