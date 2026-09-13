@@ -32,52 +32,52 @@
 
 <figure class="lesson-visual" data-lesson-visual>
   <div data-lesson-stage role="img" aria-label="图像分割从固定类别的像素分类演进到实例掩码、掩码分类、位置提示和概念提示">
-    <svg class="lesson-visual__canvas--wide" viewBox="0 0 900 240" aria-hidden="true">
+    <svg class="lesson-visual__canvas--wide" viewBox="0 0 1120 240" aria-hidden="true">
       <defs>
         <marker id="segmentation-history-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
           <path d="M 0 0 L 8 4 L 0 8 z" fill="var(--md-default-fg-color--lighter)"/>
         </marker>
       </defs>
     <g data-step data-step-label="FCN">
-      <rect x="1" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
-      <text x="65" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">FCN</text>
-      <text x="65" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">像素分类</text>
+      <rect x="16" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="80" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">FCN</text>
+      <text x="80" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">像素分类</text>
     </g>
     <g data-step data-step-label="U-Net">
-      <path d="M 129 115 L 126 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#segmentation-history-arrow)"/>
-      <rect x="126" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
-      <text x="190" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">U-Net</text>
-      <text x="190" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">编码器-解码器</text>
+      <path d="M 144 115 L 176 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#segmentation-history-arrow)"/>
+      <rect x="176" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="240" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">U-Net</text>
+      <text x="240" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">编码器-解码器</text>
     </g>
     <g data-step data-step-label="DeepLabv3">
-      <path d="M 254 115 L 251 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#segmentation-history-arrow)"/>
-      <rect x="251" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
-      <text x="315" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">DeepLabv3</text>
-      <text x="315" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">空洞卷积</text>
+      <path d="M 304 115 L 336 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#segmentation-history-arrow)"/>
+      <rect x="336" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="400" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">DeepLabv3</text>
+      <text x="400" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">空洞卷积</text>
     </g>
     <g data-step data-step-label="Mask R-CNN">
-      <path d="M 379 115 L 376 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#segmentation-history-arrow)"/>
-      <rect x="376" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
-      <text x="440" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Mask R-CNN</text>
-      <text x="440" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">实例掩码</text>
+      <path d="M 464 115 L 496 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#segmentation-history-arrow)"/>
+      <rect x="496" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="560" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Mask R-CNN</text>
+      <text x="560" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">实例掩码</text>
     </g>
     <g data-step data-step-label="Mask2Former">
-      <path d="M 504 115 L 501 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#segmentation-history-arrow)"/>
-      <rect x="501" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
-      <text x="565" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Mask2Former</text>
-      <text x="565" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">掩码分类</text>
+      <path d="M 624 115 L 656 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#segmentation-history-arrow)"/>
+      <rect x="656" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="720" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Mask2Former</text>
+      <text x="720" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">掩码分类</text>
     </g>
     <g data-step data-step-label="SAM">
-      <path d="M 629 115 L 626 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#segmentation-history-arrow)"/>
-      <rect x="626" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
-      <text x="690" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">SAM</text>
-      <text x="690" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">提示分割</text>
+      <path d="M 784 115 L 816 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#segmentation-history-arrow)"/>
+      <rect x="816" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="880" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">SAM</text>
+      <text x="880" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">提示分割</text>
     </g>
     <g data-step data-step-label="SAM 3">
-      <path d="M 754 115 L 751 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#segmentation-history-arrow)"/>
-      <rect x="751" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
-      <text x="815" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">SAM 3</text>
-      <text x="815" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">概念提示</text>
+      <path d="M 944 115 L 976 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#segmentation-history-arrow)"/>
+      <rect x="976" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="1040" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">SAM 3</text>
+      <text x="1040" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">概念提示</text>
     </g>
     </svg>
   </div>

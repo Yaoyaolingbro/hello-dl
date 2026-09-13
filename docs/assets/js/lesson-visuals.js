@@ -81,7 +81,8 @@
     }
 
     controls.append(previousButton, playButton, nextButton, status);
-    root.append(controls);
+    if (stage) stage.insertAdjacentElement("afterend", controls);
+    else root.append(controls);
 
     function render() {
       const visible = stepVisibility(current, steps.length, root.dataset.stepMode);

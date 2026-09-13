@@ -5,12 +5,60 @@ import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
 const {
   clampStep,
+  createPlayer,
   cumulativeVisibility,
   nextStep,
   prunePlayers,
   previousStep,
   stepVisibility,
 } = require("../docs/assets/js/lesson-visuals.js");
+
+test("createPlayer inserts controls directly after the lesson stage", () => {
+  const originalDocument = globalThis.document;
+  const stage = {
+    id: "",
+    setAttribute() {},
+    insertAdjacentElement(position, element) {
+      assert.equal(position, "afterend");
+      const stageIndex = root.children.indexOf(this);
+      root.children.splice(stageIndex + 1, 0, element);
+    },
+  };
+  const fallback = { name: "fallback" };
+  const caption = { name: "caption" };
+  const step = {
+    dataset: { stepLabel: "第一步" },
+    setAttribute() {},
+  };
+  const root = {
+    children: [stage, fallback, caption],
+    dataset: {},
+    querySelectorAll() { return [step]; },
+    querySelector() { return stage; },
+    append(element) { this.children.push(element); },
+  };
+
+  globalThis.document = {
+    createElement() {
+      return {
+        children: [],
+        append(...elements) { this.children.push(...elements); },
+        addEventListener() {},
+        setAttribute() {},
+      };
+    },
+  };
+
+  try {
+    const player = createPlayer(root);
+    assert.ok(player);
+    assert.match(root.children[1].className, /lesson-visual__controls/);
+    assert.equal(root.children[2], fallback);
+    assert.equal(root.children[3], caption);
+  } finally {
+    globalThis.document = originalDocument;
+  }
+});
 
 test("clampStep keeps a step inside the available range", () => {
   assert.equal(clampStep(-2, 4), 0);

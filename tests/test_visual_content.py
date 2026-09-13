@@ -431,6 +431,46 @@ class VisualContentTest(unittest.TestCase):
 
         self.assertEqual(problems, [], "\n".join(problems))
 
+    def test_dense_perception_timelines_leave_room_for_connectors(self):
+        pages_and_markers = (
+            (PERCEPTION_ROOT / "segmentation.md", "segmentation-history-arrow"),
+            (PERCEPTION_ROOT / "depth-estimation.md", "depth-history-arrow"),
+        )
+
+        for page, marker_id in pages_and_markers:
+            content = page.read_text(encoding="utf-8")
+            figure = re.search(
+                rf'<figure\b[^>]*>.*?id="{marker_id}".*?</figure>',
+                content,
+                re.DOTALL,
+            ).group(0)
+            boxes = [
+                tuple(map(float, match))
+                for match in re.findall(
+                    r'<rect x="([\d.]+)" y="([\d.]+)" width="([\d.]+)" height="([\d.]+)"',
+                    figure,
+                )
+            ]
+            for index, first in enumerate(boxes):
+                x1, y1, w1, h1 = first
+                for x2, y2, w2, h2 in boxes[index + 1:]:
+                    overlaps = (
+                        x1 < x2 + w2
+                        and x2 < x1 + w1
+                        and y1 < y2 + h2
+                        and y2 < y1 + h1
+                    )
+                    self.assertFalse(overlaps, f"{page.name}: overlapping timeline nodes")
+
+            connectors = re.findall(
+                r'<path d="M ([\d.]+) ([\d.]+) L ([\d.]+) ([\d.]+)"[^>]*marker-end=',
+                figure,
+            )
+            self.assertGreater(len(connectors), 0, page.name)
+            for x1, y1, x2, y2 in connectors:
+                length = ((float(x2) - float(x1)) ** 2 + (float(y2) - float(y1)) ** 2) ** 0.5
+                self.assertGreaterEqual(length, 24, f"{page.name}: connector too short")
+
 
 if __name__ == "__main__":
     unittest.main()

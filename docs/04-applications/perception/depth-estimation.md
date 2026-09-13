@@ -36,52 +36,52 @@ $$
 
 <figure class="lesson-visual" data-lesson-visual>
   <div data-lesson-stage role="img" aria-label="深度估计从双目自监督走向混合数据相对深度、Transformer 密集预测、米制深度和多图空间一致性">
-    <svg class="lesson-visual__canvas--wide" viewBox="0 0 900 240" aria-hidden="true">
+    <svg class="lesson-visual__canvas--wide" viewBox="0 0 1080 240" aria-hidden="true">
       <defs>
         <marker id="depth-history-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
           <path d="M 0 0 L 8 4 L 0 8 z" fill="var(--md-default-fg-color--lighter)"/>
         </marker>
       </defs>
     <g data-step data-step-label="Monodepth">
-      <rect x="1" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
-      <text x="65" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Monodepth</text>
-      <text x="65" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">双目自监督</text>
+      <rect x="16" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="80" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Monodepth</text>
+      <text x="80" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">双目自监督</text>
     </g>
     <g data-step data-step-label="MiDaS">
-      <path d="M 129 115 L 126 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#depth-history-arrow)"/>
-      <rect x="126" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
-      <text x="190" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">MiDaS</text>
-      <text x="190" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">混合数据</text>
+      <path d="M 144 115 L 176 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#depth-history-arrow)"/>
+      <rect x="176" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="240" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">MiDaS</text>
+      <text x="240" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">混合数据</text>
     </g>
     <g data-step data-step-label="DPT">
-      <path d="M 254 115 L 251 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#depth-history-arrow)"/>
-      <rect x="251" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
-      <text x="315" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">DPT</text>
-      <text x="315" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">全局密集预测</text>
+      <path d="M 304 115 L 336 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#depth-history-arrow)"/>
+      <rect x="336" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="400" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">DPT</text>
+      <text x="400" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">全局密集预测</text>
     </g>
     <g data-step data-step-label="ZoeDepth">
-      <path d="M 379 115 L 376 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#depth-history-arrow)"/>
-      <rect x="376" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
-      <text x="440" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">ZoeDepth</text>
-      <text x="440" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">相对＋米制</text>
+      <path d="M 464 115 L 496 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#depth-history-arrow)"/>
+      <rect x="496" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="560" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">ZoeDepth</text>
+      <text x="560" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">相对＋米制</text>
     </g>
     <g data-step data-step-label="Depth Anything V2">
-      <path d="M 504 115 L 516 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#depth-history-arrow)"/>
-      <rect x="516" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
-      <text x="580" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Depth Anything V2</text>
-      <text x="580" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">大规模伪标签</text>
+      <path d="M 624 115 L 676 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#depth-history-arrow)"/>
+      <rect x="676" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="740" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Depth Anything V2</text>
+      <text x="740" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">大规模伪标签</text>
     </g>
     <g data-step data-step-label="Depth Pro">
-      <path d="M 644 115 L 716 55" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#depth-history-arrow)"/>
-      <rect x="716" y="27" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
-      <text x="780" y="50" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Depth Pro</text>
-      <text x="780" y="71" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">零样本米制</text>
+      <path d="M 804 115 L 896 55" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#depth-history-arrow)"/>
+      <rect x="896" y="27" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="960" y="50" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Depth Pro</text>
+      <text x="960" y="71" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">零样本米制</text>
     </g>
     <g data-step data-step-label="Depth Anything 3">
-      <path d="M 644 115 L 716 175" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#depth-history-arrow)"/>
-      <rect x="716" y="147" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
-      <text x="780" y="170" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Depth Anything 3</text>
-      <text x="780" y="191" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">多图一致</text>
+      <path d="M 804 115 L 896 175" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#depth-history-arrow)"/>
+      <rect x="896" y="147" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="960" y="170" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Depth Anything 3</text>
+      <text x="960" y="191" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">多图一致</text>
     </g>
     </svg>
   </div>
