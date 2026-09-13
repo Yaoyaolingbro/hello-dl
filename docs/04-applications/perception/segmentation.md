@@ -30,17 +30,68 @@
 
 ## 发展脉络
 
-```mermaid
-graph LR
-    A[FCN<br/>像素分类] --> B[U-Net<br/>编码器-解码器]
-    B --> C[DeepLabv3<br/>空洞卷积]
-    C --> D[Mask R-CNN<br/>实例掩码]
-    D --> E[Mask2Former<br/>掩码分类]
-    E --> F[SAM<br/>提示分割]
-    F --> G[SAM 3<br/>概念提示]
-```
-
-*图像分割主线：从固定类别像素分类，走向实例级掩码，再走向由点、框、文本和样例驱动的提示分割。来源：本文示意图。*
+<figure class="lesson-visual" data-lesson-visual>
+  <div data-lesson-stage role="img" aria-label="图像分割从固定类别的像素分类演进到实例掩码、掩码分类、位置提示和概念提示">
+    <svg class="lesson-visual__canvas--wide" viewBox="0 0 1120 240" aria-hidden="true">
+      <defs>
+        <marker id="segmentation-history-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M 0 0 L 8 4 L 0 8 z" fill="var(--md-default-fg-color--lighter)"/>
+        </marker>
+      </defs>
+    <g data-step data-step-label="FCN">
+      <rect x="16" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="80" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">FCN</text>
+      <text x="80" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">像素分类</text>
+    </g>
+    <g data-step data-step-label="U-Net">
+      <path d="M 144 115 L 176 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#segmentation-history-arrow)"/>
+      <rect x="176" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="240" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">U-Net</text>
+      <text x="240" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">编码器-解码器</text>
+    </g>
+    <g data-step data-step-label="DeepLabv3">
+      <path d="M 304 115 L 336 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#segmentation-history-arrow)"/>
+      <rect x="336" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="400" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">DeepLabv3</text>
+      <text x="400" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">空洞卷积</text>
+    </g>
+    <g data-step data-step-label="Mask R-CNN">
+      <path d="M 464 115 L 496 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#segmentation-history-arrow)"/>
+      <rect x="496" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="560" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Mask R-CNN</text>
+      <text x="560" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">实例掩码</text>
+    </g>
+    <g data-step data-step-label="Mask2Former">
+      <path d="M 624 115 L 656 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#segmentation-history-arrow)"/>
+      <rect x="656" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="720" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Mask2Former</text>
+      <text x="720" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">掩码分类</text>
+    </g>
+    <g data-step data-step-label="SAM">
+      <path d="M 784 115 L 816 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#segmentation-history-arrow)"/>
+      <rect x="816" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="880" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">SAM</text>
+      <text x="880" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">提示分割</text>
+    </g>
+    <g data-step data-step-label="SAM 3">
+      <path d="M 944 115 L 976 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#segmentation-history-arrow)"/>
+      <rect x="976" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="1040" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">SAM 3</text>
+      <text x="1040" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">概念提示</text>
+    </g>
+    </svg>
+  </div>
+  <ol data-lesson-steps>
+    <li>FCN 让分类网络一次输出整张像素标签图。</li>
+    <li>U-Net 用对称解码器和跳跃连接补回定位细节。</li>
+    <li>DeepLabv3 用空洞卷积扩大感受野，同时保留分辨率。</li>
+    <li>Mask R-CNN 在检测框内增加实例掩码分支。</li>
+    <li>Mask2Former 把多种分割统一为掩码分类。</li>
+    <li>SAM 用点、框或掩码提示选择目标区域。</li>
+    <li>SAM 3 把提示扩展到文本概念和图像样例。</li>
+  </ol>
+  <figcaption>观察监督信号怎样从固定类别，逐步扩展到实例、位置提示和开放概念。</figcaption>
+</figure>
 
 ### FCN：分类网络可以输出像素标签
 
@@ -88,16 +139,61 @@ Mask R-CNN（[Paper](https://openaccess.thecvf.com/content_iccv_2017/html/He_Mas
 
 Segment Anything Model，简称 SAM（[Paper](https://ai.meta.com/research/publications/segment-anything/) | [Project](https://github.com/facebookresearch/segment-anything)），用点、框或已有掩码提示目标区域，并通过大规模数据引擎训练可迁移的掩码生成能力。它更像一个分割基础组件，而不是直接回答固定语义类别的模型。
 
-```mermaid
-graph LR
-    I[图像] --> IE[Image Encoder]
-    P[点/框/掩码提示] --> PE[Prompt Encoder]
-    IE --> D[Mask Decoder]
-    PE --> D
-    D --> M[候选掩码]
-```
-
-*SAM 把图像特征和提示特征分开编码，再由掩码解码器生成与提示对应的区域。来源：本文示意图。*
+<figure class="lesson-visual" data-lesson-visual>
+  <div data-lesson-stage role="img" aria-label="SAM 分别编码图像与点框掩码提示，再在掩码解码器中融合并输出候选掩码">
+    <svg class="lesson-visual__canvas--wide" viewBox="0 0 900 240" aria-hidden="true">
+      <defs>
+        <marker id="sam-pipeline-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M 0 0 L 8 4 L 0 8 z" fill="var(--md-default-fg-color--lighter)"/>
+        </marker>
+      </defs>
+    <g data-step data-step-label="图像">
+      <rect x="26" y="32" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="90" y="55" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">图像</text>
+      <text x="90" y="76" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">像素</text>
+    </g>
+    <g data-step data-step-label="Image Encoder">
+      <path d="M 154 60 L 266 60" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#sam-pipeline-arrow)"/>
+      <rect x="266" y="32" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="330" y="55" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Image Encoder</text>
+      <text x="330" y="76" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">图像特征</text>
+    </g>
+    <g data-step data-step-label="点／框／掩码">
+      <rect x="26" y="152" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="90" y="175" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">点／框／掩码</text>
+      <text x="90" y="196" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">用户提示</text>
+    </g>
+    <g data-step data-step-label="Prompt Encoder">
+      <path d="M 154 180 L 266 180" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#sam-pipeline-arrow)"/>
+      <rect x="266" y="152" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="330" y="175" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Prompt Encoder</text>
+      <text x="330" y="196" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">提示特征</text>
+    </g>
+    <g data-step data-step-label="Mask Decoder">
+      <path d="M 394 60 L 536 120" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#sam-pipeline-arrow)"/>
+      <path d="M 394 180 L 536 120" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#sam-pipeline-arrow)"/>
+      <rect x="536" y="92" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="600" y="115" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Mask Decoder</text>
+      <text x="600" y="136" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">融合两路信息</text>
+    </g>
+    <g data-step data-step-label="候选掩码">
+      <path d="M 664 120 L 746 120" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#sam-pipeline-arrow)"/>
+      <rect x="746" y="92" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="810" y="115" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">候选掩码</text>
+      <text x="810" y="136" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">对应提示</text>
+    </g>
+    </svg>
+  </div>
+  <ol data-lesson-steps>
+    <li>图像进入图像编码器，得到可复用的视觉特征。</li>
+    <li>图像特征先独立计算，不随每次提示改变。</li>
+    <li>用户给出点、框或已有掩码。</li>
+    <li>提示编码器把交互转换为提示特征。</li>
+    <li>掩码解码器融合图像与提示两路信息。</li>
+    <li>模型输出与当前提示对应的候选掩码。</li>
+  </ol>
+  <figcaption>看图像与提示怎样分开编码、只在解码器汇合；因此同一张图可以快速尝试多次提示。</figcaption>
+</figure>
 
 SAM 擅长“沿着提示切出一个区域”，但提示本身不一定包含语义。它可能给出视觉上合理、业务上错误的边界，在医学和遥感等分布外场景中仍需验证或适配。
 
@@ -105,17 +201,68 @@ SAM 擅长“沿着提示切出一个区域”，但提示本身不一定包含�
 
 截至 2025 年，SAM 3（[Paper](https://openreview.net/forum?id=r35clVtGzw) | [Project](https://ai.meta.com/research/sam3/)）把点、框等视觉提示扩展到短文本和图像样例，并统一图像、视频中的检测、分割和跟踪。用户可以请求“所有黄色校车”，模型需要找到全部匹配实例并维持身份。
 
-```mermaid
-graph LR
-    T[文本概念] --> E[Concept Encoder]
-    V[图像/视频] --> I[Visual Encoder]
-    S[样例提示] --> E
-    E --> M[概念匹配]
-    I --> M
-    M --> O[检测+分割+跟踪]
-```
-
-*SAM 3 的目标是把“位置提示”扩展到“概念提示”，并统一图像和视频中的检测、分割与跟踪。来源：本文示意图，参考 [SAM 3 官方项目页](https://ai.meta.com/research/sam3/)*
+<figure class="lesson-visual" data-lesson-visual>
+  <div data-lesson-stage role="img" aria-label="SAM 3 编码文本概念与图像样例，也编码图像或视频，在概念匹配后统一输出检测分割和跟踪">
+    <svg class="lesson-visual__canvas--wide" viewBox="0 0 900 240" aria-hidden="true">
+      <defs>
+        <marker id="sam3-pipeline-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M 0 0 L 8 4 L 0 8 z" fill="var(--md-default-fg-color--lighter)"/>
+        </marker>
+      </defs>
+    <g data-step data-step-label="文本概念">
+      <rect x="11" y="17" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="75" y="40" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">文本概念</text>
+      <text x="75" y="61" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">语义提示</text>
+    </g>
+    <g data-step data-step-label="图像样例">
+      <rect x="11" y="97" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="75" y="120" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">图像样例</text>
+      <text x="75" y="141" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">示例提示</text>
+    </g>
+    <g data-step data-step-label="Concept Encoder">
+      <path d="M 139 45 L 266 85" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#sam3-pipeline-arrow)"/>
+      <path d="M 139 125 L 266 85" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#sam3-pipeline-arrow)"/>
+      <rect x="266" y="57" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="330" y="80" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Concept Encoder</text>
+      <text x="330" y="101" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">概念表示</text>
+    </g>
+    <g data-step data-step-label="图像／视频">
+      <rect x="11" y="182" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="75" y="205" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">图像／视频</text>
+      <text x="75" y="226" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">视觉输入</text>
+    </g>
+    <g data-step data-step-label="Visual Encoder">
+      <path d="M 139 210 L 266 210" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#sam3-pipeline-arrow)"/>
+      <rect x="266" y="182" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="330" y="205" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Visual Encoder</text>
+      <text x="330" y="226" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">时空特征</text>
+    </g>
+    <g data-step data-step-label="概念匹配">
+      <path d="M 394 85 L 546 145" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#sam3-pipeline-arrow)"/>
+      <path d="M 394 210 L 546 145" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#sam3-pipeline-arrow)"/>
+      <rect x="546" y="117" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="610" y="140" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">概念匹配</text>
+      <text x="610" y="161" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">找出全部实例</text>
+    </g>
+    <g data-step data-step-label="统一输出">
+      <path d="M 674 145 L 756 145" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#sam3-pipeline-arrow)"/>
+      <rect x="756" y="117" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="820" y="140" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">统一输出</text>
+      <text x="820" y="161" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">检测＋分割＋跟踪</text>
+    </g>
+    </svg>
+  </div>
+  <ol data-lesson-steps>
+    <li>文本短语描述要寻找的概念。</li>
+    <li>图像样例也可以定义目标概念。</li>
+    <li>概念编码器把两类提示映射为可匹配的表示。</li>
+    <li>图像或视频提供待搜索的视觉内容。</li>
+    <li>视觉编码器提取空间或时空特征。</li>
+    <li>概念表示与视觉特征匹配，找出所有符合条件的实例。</li>
+    <li>输出统一包含检测框、分割掩码和跨帧跟踪结果。</li>
+  </ol>
+  <figcaption>观察位置提示怎样升级为概念提示：模型先理解“找什么”，再在图像或视频里找全并维持身份。</figcaption>
+</figure>
 
 这一步把提示分割从“这里是什么区域”推进到“哪些区域符合这个概念”。概念边界、开放词汇误匹配和跨帧身份稳定性也成为新的问题。
 

@@ -1,5 +1,5 @@
 site_name: 深度学习入门指南
-site_url: https://yaoyaolingbro.github.io/deep-learning
+site_url: https://yaoyaolingbro.github.io/hello-dl/
 site_author: yaoyaoling
 site_description: 面向 AI 入门者的系统性教程，涵盖数学基础、深度学习、前沿模型与现代应用。
 
@@ -36,20 +36,20 @@ theme:
     - content.action.view
   palette:
     - scheme: default
-      primary: indigo
-      accent: deep purple
+      primary: custom
+      accent: custom
       toggle:
         icon: material/weather-sunny
         name: 切换暗色模式
     - scheme: slate
-      primary: indigo
-      accent: deep purple
+      primary: custom
+      accent: custom
       toggle:
         icon: material/weather-night
         name: 切换亮色模式
   font:
-    text: Roboto
-    code: Roboto Mono
+    text: Noto Sans SC
+    code: JetBrains Mono
   icon:
     repo: fontawesome/brands/github
     edit: material/pencil
@@ -82,11 +82,7 @@ markdown_extensions:
       anchor_linenums: true
       line_spans: __span
       pygments_lang_class: true
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.superfences
   - pymdownx.arithmatex:
       generic: true
 
@@ -104,12 +100,13 @@ plugins:
 extra_css:
   - https://unpkg.com/katex@0/dist/katex.min.css
   - assets/css/custom.css
+  - assets/css/lesson-visuals.css
 
 extra_javascript:
   - assets/js/katex.js
+  - assets/js/lesson-visuals.js
   - https://unpkg.com/katex@0/dist/katex.min.js
   - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
-  - https://unpkg.com/mermaid@11/dist/mermaid.esm.min.mjs
 
 extra:
   generator: false           # 隐藏 "Made with Material for MkDocs" 脚注
@@ -170,13 +167,58 @@ nav:
 
   - Part 2 · 深度学习基础:
     - 02-deep-learning/index.md
-    - 神经网络基础: 02-deep-learning/neural-networks.md
-    - 梯度下降与反向传播: 02-deep-learning/gradient-backprop.md
-    - 卷积神经网络: 02-deep-learning/cnn.md
-    - ResNet 与残差连接: 02-deep-learning/resnet.md
-    - 循环神经网络: 02-deep-learning/rnn.md
-    - Transformer: 02-deep-learning/transformer.md
-    - 图神经网络: 02-deep-learning/gnn.md
+    - 01 · 机器学习基础:
+      - 02-deep-learning/01-machine-learning-basics/index.md
+      - 学习问题的基本形式: 02-deep-learning/01-machine-learning-basics/learning-problem.md
+      - 线性模型: 02-deep-learning/01-machine-learning-basics/linear-models.md
+      - 分类与回归: 02-deep-learning/01-machine-learning-basics/classification-regression.md
+      - 决策树与集成学习: 02-deep-learning/01-machine-learning-basics/trees-and-ensembles.md
+      - SVM 与核方法: 02-deep-learning/01-machine-learning-basics/svm-and-kernels.md
+      - 无监督学习: 02-deep-learning/01-machine-learning-basics/unsupervised-learning.md
+      - 泛化与数据: 02-deep-learning/01-machine-learning-basics/generalization-and-data.md
+    - 02 · 神经网络基础:
+      - 02-deep-learning/02-neural-network-foundations/index.md
+      - 感知机与多层感知机: 02-deep-learning/02-neural-network-foundations/perceptron-and-mlp.md
+      - 计算图与自动微分: 02-deep-learning/02-neural-network-foundations/computational-graphs.md
+      - 损失函数: 02-deep-learning/02-neural-network-foundations/loss-functions.md
+      - 激活函数: 02-deep-learning/02-neural-network-foundations/activations.md
+      - 归纳偏置: 02-deep-learning/02-neural-network-foundations/inductive-bias.md
+    - 03 · 模型训练:
+      - 02-deep-learning/03-training/index.md
+      - 反向传播: 02-deep-learning/03-training/backpropagation.md
+      - Mini-batch 与训练循环: 02-deep-learning/03-training/minibatch-and-training-loop.md
+      - 参数初始化: 02-deep-learning/03-training/initialization.md
+      - 优化器与学习率: 02-deep-learning/03-training/optimization.md
+      - 正则化: 02-deep-learning/03-training/regularization.md
+      - 归一化: 02-deep-learning/03-training/normalization.md
+    - 04 · 可复用组件:
+      - 02-deep-learning/04-components/index.md
+      - 卷积: 02-deep-learning/04-components/convolution.md
+      - 残差连接: 02-deep-learning/04-components/residual-connections.md
+      - 循环状态: 02-deep-learning/04-components/recurrence.md
+      - 注意力: 02-deep-learning/04-components/attention.md
+      - 位置编码: 02-deep-learning/04-components/positional-encoding.md
+      - 图消息传递: 02-deep-learning/04-components/graph-message-passing.md
+    - 05 · 模型架构:
+      - 02-deep-learning/05-architectures/index.md
+      - CNN 与 ResNet: 02-deep-learning/05-architectures/cnn-and-resnet.md
+      - RNN、LSTM 与 GRU: 02-deep-learning/05-architectures/rnn-lstm-gru.md
+      - Transformer: 02-deep-learning/05-architectures/transformer.md
+      - 图神经网络: 02-deep-learning/05-architectures/graph-neural-networks.md
+      - 如何选择架构: 02-deep-learning/05-architectures/architecture-selection.md
+    - 06 · 评估与排错:
+      - 02-deep-learning/06-evaluation-debugging/index.md
+      - 指标与决策阈值: 02-deep-learning/06-evaluation-debugging/metrics-and-thresholds.md
+      - 训练故障诊断: 02-deep-learning/06-evaluation-debugging/diagnosing-training.md
+      - 数据与分布漂移: 02-deep-learning/06-evaluation-debugging/data-and-distribution-shift.md
+      - 效率基础: 02-deep-learning/06-evaluation-debugging/efficiency-basics.md
+      - 可复现实验: 02-deep-learning/06-evaluation-debugging/reproducible-experiments.md
+    - 07 · 面试复习:
+      - 02-deep-learning/07-interview-review/index.md
+      - 核心概念辨析: 02-deep-learning/07-interview-review/core-concepts.md
+      - 必要推导: 02-deep-learning/07-interview-review/essential-derivations.md
+      - 排障题: 02-deep-learning/07-interview-review/troubleshooting.md
+      - 设计取舍题: 02-deep-learning/07-interview-review/design-tradeoffs.md
 
   - Part 3 · 深入深度学习:
     - 03-advanced/index.md

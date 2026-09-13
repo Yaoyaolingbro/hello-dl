@@ -30,16 +30,61 @@ COCO 常用平均精度 (Average Precision, AP)，在不同 IoU 阈值和类别�
 
 ## 发展脉络
 
-```mermaid
-graph LR
-    A[Faster R-CNN<br/>候选区域] --> B[YOLO<br/>单阶段实时检测]
-    B --> C[RetinaNet<br/>Focal Loss]
-    C --> D[FCOS<br/>Anchor-free]
-    D --> E[DETR<br/>集合预测]
-    E --> F[Deformable DETR<br/>稀疏多尺度注意力]
-```
-
-*目标检测主线：从“先找候选再分类”走向密集预测，再走向不依赖 NMS 的集合预测。来源：本文示意图。*
+<figure class="lesson-visual" data-lesson-visual>
+  <div data-lesson-stage role="img" aria-label="目标检测从候选区域方法演进到单阶段密集预测、无锚框检测和基于集合预测的 DETR">
+    <svg class="lesson-visual__canvas--wide" viewBox="0 0 900 240" aria-hidden="true">
+      <defs>
+        <marker id="detection-history-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M 0 0 L 8 4 L 0 8 z" fill="var(--md-default-fg-color--lighter)"/>
+        </marker>
+      </defs>
+    <g data-step data-step-label="Faster R-CNN">
+      <rect x="11" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="75" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Faster R-CNN</text>
+      <text x="75" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">候选区域</text>
+    </g>
+    <g data-step data-step-label="YOLO">
+      <path d="M 139 115 L 156 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#detection-history-arrow)"/>
+      <rect x="156" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="220" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">YOLO</text>
+      <text x="220" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">实时单阶段</text>
+    </g>
+    <g data-step data-step-label="RetinaNet">
+      <path d="M 284 115 L 301 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#detection-history-arrow)"/>
+      <rect x="301" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="365" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">RetinaNet</text>
+      <text x="365" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">Focal Loss</text>
+    </g>
+    <g data-step data-step-label="FCOS">
+      <path d="M 429 115 L 446 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#detection-history-arrow)"/>
+      <rect x="446" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="510" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">FCOS</text>
+      <text x="510" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">Anchor-free</text>
+    </g>
+    <g data-step data-step-label="DETR">
+      <path d="M 574 115 L 591 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#detection-history-arrow)"/>
+      <rect x="591" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="655" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">DETR</text>
+      <text x="655" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">集合预测</text>
+    </g>
+    <g data-step data-step-label="Deformable DETR">
+      <path d="M 719 115 L 756 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#detection-history-arrow)"/>
+      <rect x="756" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="820" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Deformable DETR</text>
+      <text x="820" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">稀疏多尺度</text>
+    </g>
+    </svg>
+  </div>
+  <ol data-lesson-steps>
+    <li>Faster R-CNN 先产生候选区域，再精细分类和回归。</li>
+    <li>YOLO 把检测改成一次单阶段密集预测。</li>
+    <li>RetinaNet 用 Focal Loss 压低大量容易背景样本的影响。</li>
+    <li>FCOS 去掉预设 anchor，直接回归到框边界的距离。</li>
+    <li>DETR 用一对一匹配学习一组不重复的预测。</li>
+    <li>Deformable DETR 只采样少量多尺度位置，改善收敛和小目标。</li>
+  </ol>
+  <figcaption>看检测器怎样逐步减少手工候选与去重规则，最终把一对一预测写进训练目标。</figcaption>
+</figure>
 
 ### Faster R-CNN：让候选区域也由网络学习
 
@@ -85,16 +130,61 @@ Anchor-free 不代表没有设计选择。正样本区域、特征层分配和�
 
 DETR（[Paper](https://arxiv.org/abs/2005.12872) | [Project](https://github.com/facebookresearch/detr)）把检测视为集合预测。固定数量的 object query 产生一组结果，训练时用匈牙利匹配为每个真实物体分配唯一预测。重复预测会受到惩罚，因此推理时不再依赖 NMS。
 
-```mermaid
-graph LR
-    I[图像特征] --> Q[Object Queries]
-    Q --> P[一组预测框]
-    G[真实框集合] --> M[匈牙利匹配]
-    P --> M
-    M --> L[集合损失]
-```
-
-*DETR 用一对一匹配训练固定数量的 query，让“去重”成为训练目标的一部分。来源：本文示意图。*
+<figure class="lesson-visual" data-lesson-visual>
+  <div data-lesson-stage role="img" aria-label="DETR 从图像特征与 object query 生成预测框，再与真实框做匈牙利一对一匹配并计算集合损失">
+    <svg class="lesson-visual__canvas--wide" viewBox="0 0 900 240" aria-hidden="true">
+      <defs>
+        <marker id="detr-matching-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M 0 0 L 8 4 L 0 8 z" fill="var(--md-default-fg-color--lighter)"/>
+        </marker>
+      </defs>
+    <g data-step data-step-label="图像特征">
+      <rect x="16" y="37" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="80" y="60" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">图像特征</text>
+      <text x="80" y="81" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">视觉证据</text>
+    </g>
+    <g data-step data-step-label="Object Queries">
+      <path d="M 144 65 L 216 65" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#detr-matching-arrow)"/>
+      <rect x="216" y="37" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="280" y="60" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Object Queries</text>
+      <text x="280" y="81" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">固定槽位</text>
+    </g>
+    <g data-step data-step-label="预测框集合">
+      <path d="M 344 65 L 416 65" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#detr-matching-arrow)"/>
+      <rect x="416" y="37" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="480" y="60" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">预测框集合</text>
+      <text x="480" y="81" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">含空结果</text>
+    </g>
+    <g data-step data-step-label="真实框集合">
+      <rect x="216" y="152" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="280" y="175" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">真实框集合</text>
+      <text x="280" y="196" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">标注目标</text>
+    </g>
+    <g data-step data-step-label="匈牙利匹配">
+      <path d="M 544 65 L 586 120" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#detr-matching-arrow)"/>
+      <path d="M 344 180 L 586 120" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#detr-matching-arrow)"/>
+      <rect x="586" y="92" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="650" y="115" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">匈牙利匹配</text>
+      <text x="650" y="136" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">一对一分配</text>
+    </g>
+    <g data-step data-step-label="集合损失">
+      <path d="M 714 120 L 756 120" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#detr-matching-arrow)"/>
+      <rect x="756" y="92" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="820" y="115" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">集合损失</text>
+      <text x="820" y="136" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">分类＋框</text>
+    </g>
+    </svg>
+  </div>
+  <ol data-lesson-steps>
+    <li>编码后的图像特征提供视觉证据。</li>
+    <li>固定数量的 object query 充当预测槽位。</li>
+    <li>每个 query 输出一个框、类别或空结果。</li>
+    <li>真实框作为无顺序的目标集合参与训练。</li>
+    <li>匈牙利算法寻找预测与真实框的一对一匹配。</li>
+    <li>集合损失惩罚错配和重复预测，因此推理时不再依赖 NMS。</li>
+  </ol>
+  <figcaption>观察预测框与真实框只在匹配节点相遇；一对一分配让去重成为训练的一部分。</figcaption>
+</figure>
 
 DETR 的代价是训练收敛慢，对小目标不够友好。全局注意力要处理整张特征图，计算和匹配学习都更困难。
 

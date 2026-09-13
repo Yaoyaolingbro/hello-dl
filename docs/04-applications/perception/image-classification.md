@@ -30,15 +30,54 @@ $$
 
 ## 发展脉络
 
-```mermaid
-graph LR
-    A[AlexNet<br/>端到端 CNN] --> B[ResNet<br/>残差连接]
-    B --> C[EfficientNet<br/>复合缩放]
-    B --> D[ViT<br/>Patch Token]
-    D --> E[ConvNeXt<br/>现代化 ConvNet]
-```
-
-*图像分类主线：先解决“CNN 能不能在大数据上学出特征”，再解决深层优化、模型缩放和卷积/Transformer 归纳偏置的取舍。来源：本文示意图。*
+<figure class="lesson-visual" data-lesson-visual>
+  <div data-lesson-stage role="img" aria-label="图像分类从端到端卷积网络，经残差连接分为复合缩放和视觉 Transformer 两条路线，之后卷积网络吸收现代训练设计">
+    <svg class="lesson-visual__canvas--wide" viewBox="0 0 900 240" aria-hidden="true">
+      <defs>
+        <marker id="classification-history-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M 0 0 L 8 4 L 0 8 z" fill="var(--md-default-fg-color--lighter)"/>
+        </marker>
+      </defs>
+    <g data-step data-step-label="AlexNet">
+      <rect x="16" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="80" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">AlexNet</text>
+      <text x="80" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">端到端 CNN</text>
+    </g>
+    <g data-step data-step-label="ResNet">
+      <path d="M 144 115 L 186 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#classification-history-arrow)"/>
+      <rect x="186" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="250" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">ResNet</text>
+      <text x="250" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">残差连接</text>
+    </g>
+    <g data-step data-step-label="EfficientNet">
+      <path d="M 314 115 L 386 55" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#classification-history-arrow)"/>
+      <rect x="386" y="27" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="450" y="50" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">EfficientNet</text>
+      <text x="450" y="71" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">复合缩放</text>
+    </g>
+    <g data-step data-step-label="ViT">
+      <path d="M 314 115 L 386 175" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#classification-history-arrow)"/>
+      <rect x="386" y="147" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="450" y="170" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">ViT</text>
+      <text x="450" y="191" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">Patch Token</text>
+    </g>
+    <g data-step data-step-label="ConvNeXt">
+      <path d="M 514 175 L 626 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#classification-history-arrow)"/>
+      <rect x="626" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="690" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">ConvNeXt</text>
+      <text x="690" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">现代化 ConvNet</text>
+    </g>
+    </svg>
+  </div>
+  <ol data-lesson-steps>
+    <li>AlexNet 证明大规模数据上的端到端 CNN 可以学出视觉特征。</li>
+    <li>ResNet 用残差连接缓解深层网络的优化困难。</li>
+    <li>EfficientNet 同时缩放深度、宽度和输入分辨率。</li>
+    <li>ViT 把图像切成 patch token，用全局注意力建模。</li>
+    <li>ConvNeXt 把现代训练与尺度设计带回纯卷积网络。</li>
+  </ol>
+  <figcaption>观察 ResNet 之后的两条分支：一条研究怎样缩放 CNN，另一条改用 token 与全局注意力。</figcaption>
+</figure>
 
 ### AlexNet：让大规模 CNN 真正可训练
 
@@ -52,16 +91,55 @@ AlexNet（[Paper](https://papers.nips.cc/paper/4824-imagenet-classification-with
 
 直接堆叠卷积层会出现“退化问题”：更深的网络在训练集上反而更差，这不能只用过拟合解释。ResNet（[Paper](https://openaccess.thecvf.com/content_cvpr_2016/html/He_Deep_Residual_Learning_CVPR_2016_paper.html) | [Project](https://github.com/kaiminghe/deep-residual-networks)）让一个模块学习残差：
 
-```mermaid
-graph LR
-    X[输入 x] --> F[卷积块 F x]
-    X --> S[跳连 identity]
-    F --> Add[相加]
-    S --> Add
-    Add --> Y[输出 F x + x]
-```
-
-*ResNet 的基本块不是直接学习完整映射，而是学习对输入的修正量。来源：本文示意图。*
+<figure class="lesson-visual" data-lesson-visual>
+  <div data-lesson-stage role="img" aria-label="输入 x 分成卷积变换和恒等跳连两路，在相加节点汇合后得到 F x 加 x">
+    <svg class="lesson-visual__canvas--wide" viewBox="0 0 900 240" aria-hidden="true">
+      <defs>
+        <marker id="residual-block-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M 0 0 L 8 4 L 0 8 z" fill="var(--md-default-fg-color--lighter)"/>
+        </marker>
+      </defs>
+    <g data-step data-step-label="输入">
+      <rect x="26" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="90" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">输入</text>
+      <text x="90" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">x</text>
+    </g>
+    <g data-step data-step-label="卷积块">
+      <path d="M 154 115 L 266 55" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#residual-block-arrow)"/>
+      <rect x="266" y="27" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="330" y="50" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">卷积块</text>
+      <text x="330" y="71" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">F(x)</text>
+    </g>
+    <g data-step data-step-label="恒等跳连">
+      <path d="M 154 115 L 266 175" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#residual-block-arrow)"/>
+      <rect x="266" y="147" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="330" y="170" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">恒等跳连</text>
+      <text x="330" y="191" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">x</text>
+    </g>
+    <g data-step data-step-label="相加">
+      <path d="M 394 55 L 516 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#residual-block-arrow)"/>
+      <path d="M 394 175 L 516 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#residual-block-arrow)"/>
+      <rect x="516" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="580" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">相加</text>
+      <text x="580" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">＋</text>
+    </g>
+    <g data-step data-step-label="输出">
+      <path d="M 644 115 L 726 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#residual-block-arrow)"/>
+      <rect x="726" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="790" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">输出</text>
+      <text x="790" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">F(x) + x</text>
+    </g>
+    </svg>
+  </div>
+  <ol data-lesson-steps>
+    <li>输入 x 同时进入卷积路径和恒等跳连。</li>
+    <li>卷积块学习修正量 F(x)。</li>
+    <li>跳连原样保留输入 x。</li>
+    <li>两条路径在相加节点汇合。</li>
+    <li>输出得到 F(x)+x；当修正量接近零时，模块接近恒等映射。</li>
+  </ol>
+  <figcaption>看两条路径怎样在相加处汇合：卷积只需学习修正量，原输入由跳连直接保留。</figcaption>
+</figure>
 
 $$
 \mathbf{y}=\mathcal{F}(\mathbf{x})+\mathbf{x}.
@@ -84,15 +162,54 @@ CNN 天然偏好局部连接和平移等变，这种归纳偏置在数据有限�
 
 Vision Transformer，简称 ViT（[Paper](https://openreview.net/forum?id=YicbFdNTTy) | [Project](https://github.com/google-research/vision_transformer)），把图像切成固定大小的 patch，并把 patch 当作 token 送入 Transformer。实验说明，当预训练数据和模型规模足够大时，较少依赖卷积先验的模型也能学到强视觉表征。
 
-```mermaid
-graph LR
-    I[图像] --> P[切成 patch]
-    P --> T[Patch Embedding]
-    T --> Enc[Transformer Encoder]
-    Enc --> C[分类头]
-```
-
-*ViT 把二维图像转成 token 序列，再复用 Transformer 的全局注意力。来源：本文示意图。*
+<figure class="lesson-visual" data-lesson-visual>
+  <div data-lesson-stage role="img" aria-label="视觉 Transformer 把图像切成 patch，映射为 token，经过 Transformer 编码器后送入分类头">
+    <svg class="lesson-visual__canvas--wide" viewBox="0 0 900 240" aria-hidden="true">
+      <defs>
+        <marker id="vit-pipeline-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M 0 0 L 8 4 L 0 8 z" fill="var(--md-default-fg-color--lighter)"/>
+        </marker>
+      </defs>
+    <g data-step data-step-label="图像">
+      <rect x="11" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="75" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">图像</text>
+      <text x="75" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">H × W × C</text>
+    </g>
+    <g data-step data-step-label="切成 patch">
+      <path d="M 139 115 L 186 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#vit-pipeline-arrow)"/>
+      <rect x="186" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="250" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">切成 patch</text>
+      <text x="250" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">固定网格</text>
+    </g>
+    <g data-step data-step-label="Patch Embedding">
+      <path d="M 314 115 L 376 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#vit-pipeline-arrow)"/>
+      <rect x="376" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="440" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Patch Embedding</text>
+      <text x="440" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">转成 token</text>
+    </g>
+    <g data-step data-step-label="Transformer">
+      <path d="M 504 115 L 571 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#vit-pipeline-arrow)"/>
+      <rect x="571" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="635" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">Transformer</text>
+      <text x="635" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">全局交互</text>
+    </g>
+    <g data-step data-step-label="分类头">
+      <path d="M 699 115 L 756 115" fill="none" stroke="var(--md-default-fg-color--lighter)" stroke-width="3" marker-end="url(#vit-pipeline-arrow)"/>
+      <rect x="756" y="87" width="128" height="56" rx="12" fill="var(--md-code-bg-color)" stroke="var(--md-primary-fg-color)" stroke-width="2"/>
+      <text x="820" y="110" text-anchor="middle" fill="currentColor" font-size="15" font-weight="700">分类头</text>
+      <text x="820" y="131" text-anchor="middle" fill="var(--md-default-fg-color--light)" font-size="12">类别概率</text>
+    </g>
+    </svg>
+  </div>
+  <ol data-lesson-steps>
+    <li>输入是一张二维图像。</li>
+    <li>图像按固定大小切成 patch。</li>
+    <li>每个 patch 被映射为一个 token。</li>
+    <li>Transformer 编码器让所有 token 建立全局联系。</li>
+    <li>分类头根据编码结果输出类别概率。</li>
+  </ol>
+  <figcaption>观察二维像素怎样变成 token 序列；真正改变表示方式的是切块与嵌入这两步。</figcaption>
+</figure>
 
 ViT 没有证明 CNN 失效。它证明了数据规模、预训练和全局交互可以替代一部分手工写进网络的视觉先验。小数据训练、细粒度边界和高分辨率计算仍会让卷积或分层结构占据优势。
 

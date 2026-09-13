@@ -10,7 +10,8 @@
 项目路径：`/Users/yaoyaoling/Desktop/博士生资料/deep learning/`
 远程仓库：`git@github.com:Yaoyaolingbro/hello-dl.git`
 
-写作风格规范在 `writing-style.md`，项目整体结构在 `docs/superpowers/specs/2026-04-25-ai-tutorial-design.md`。
+写作风格规范在 `writing-style.md`，当前重写结构在
+`docs/superpowers/specs/2026-08-16-mainline-rewrite-design.md`。
 
 ---
 
@@ -21,7 +22,7 @@
 | Part | 额外 @ 文件 | 核心侧重 |
 |------|------------|---------|
 | Part 1 数学基础（`01-math/`） | `docs/superpowers/style-part1-math.md` | 直觉先于定义、**无代码改用数值例子**、示意图必须插入、定理框、禁用"显然" |
-| Part 2 基础深度学习（`02-deep-learning/`） | `docs/superpowers/style-part2-dl-basics.md` | 每概念必须有 PyTorch 代码、注释说 WHY、消融式解释 |
+| Part 2 基础深度学习（`02-deep-learning/`） | `docs/superpowers/style-part2-dl-basics.md` | 先展示可见变化、代码只在有助理解时使用、消融式解释 |
 | Part 3 深入深度学习（`03-advanced/`） | `docs/superpowers/style-part3-advanced.md` | 以论文为主线、推导不跳步、严格对齐原文符号、引用消融实验 |
 | Part 4 现代 AI 应用（`04-applications/`） | `docs/superpowers/style-part4-applications.md` | 时间脉络叙事、价值优先于推导、真实工程 tip、必写开放问题 |
 
@@ -45,13 +46,14 @@
    find docs -path "docs/superpowers" -prune -o -path "docs/assets" -prune -o -name "*.md" -print | sort
    ```
 
-   看完后，先用一句话总结：**当前章节在整本书里的位置、前置依赖、后续会被哪些章节引用。**
+   看完后，先写三行工作笔记：当前章节解决什么问题、依赖哪些章节、后续哪些章节会使用它。
+   再搜索相邻章节是否已经解释过同一概念。已有完整解释时，只做简短提醒并链接原文。
 2. **读 `writing-style.md`** — 重点看"直觉段模板"、"数学的写法四条规则"、"去除 AI 痕迹规则"
 3. **读上表对应的 Part 风格文件** — 了解本 Part 的特殊要求和章节结构
-4. **确认主要参考论文** — 在章节开头 `!!! info "参考资料"` 块里列出
+4. **确认资料层级** — 教材、论文和官方资料用于核对事实；知乎、博客和视频用于寻找解释角度
 5. **确认符号约定** — 所有公式符号与主要论文保持一致；有冲突时在 `!!! note` 里声明
-6. **确认配图计划** — 每个核心方法第一次展开时，都要考虑是否需要图。优先使用论文或官方项目页的架构图、结果图；如果没有稳定图片链接，就用 Mermaid 画简化机制图，并写清楚“来源：本文示意图”。
-7. 可以编写前联网搜索相关资料查找，但不要过于依赖。参考重要精华内容，讲出核心直觉和观点。
+6. **确认视觉任务** — 每个核心方法第一次展开时，先写一句“这幅图让读者看见什么”。状态变化用 HTML/SVG 分步图，稳定关系优先使用论文、官方项目页或自制静态图；没有明确任务就不加图。
+7. **核对并记录来源** — 可以在编写前联网查找解释角度，但公式、结论和版本信息必须回到权威来源核对。把新资料记入 `reference.md`；外部图片同时记录作者、来源和许可证。
 
 ---
 
@@ -81,8 +83,10 @@
 
 每个核心方法首次讲解时，至少提供一种视觉辅助：
 
-- 官方论文 / 项目页图片：用网络图片直链插入，不转存；caption 标明来源链接
-- 自绘机制图：用 Mermaid，节点不超过 10 个；caption 标明“来源：本文示意图”
+- 状态变化或信息流：使用原创 HTML/SVG 分步图，让读者逐步播放；同时提供完整的文字步骤。
+- 稳定的结构或空间关系：使用自制静态 SVG，或者来源与许可证清楚的外部图片。
+
+原创图统一遵守 `writing-style.md` 的可访问性约定：外层使用 `data-lesson-visual`，舞台设置 `data-lesson-stage`、`role="img"` 和准确的 `aria-label`；需要分步观察时标记 `data-step`，并提供 `data-lesson-steps` 文字替代。图注只说观察重点。
 
 !!! note "直觉小结"
     一句话总结这段推导的直觉含义
@@ -104,12 +108,14 @@
 - [ ] 直觉段不超过 5 句话
 - [ ] 代码只写核心逻辑，注释说 WHY 不说 WHAT
 - [ ] 术语第一次出现括号标注英文原文
-- [ ] 每个核心方法是否有配图、流程图或机制图？图片是否注明来源？
+- [ ] 每幅图都有学习目标，图注说明“看什么”
+- [ ] 交互图有 `data-lesson-steps` 文字替代，并尊重“减少动态效果”
+- [ ] 外部图片已记录来源与许可证，没有直接复制来路不明的素材
 
 ### 去除 AI 痕迹（对照 `writing-style.md` 中的检查项）
 - [ ] 没有"此外"、"值得注意的是"、"不仅……而且……"
 - [ ] 没有连续三个相同长度的句子
-- [ ] 没有三段式列举（改成两项或四项）
+- [ ] 没有为了显得全面而强凑三项；事实本来有三项时不必改
 - [ ] 没有宣传性语言（"充满活力的"、"令人叹为观止的"）
 - [ ] 没有模糊归因（"专家认为"、"研究表明"）
 - [ ] 段落结尾方式多样，不全是短金句
@@ -118,14 +124,15 @@
 
 ## 构建验证
 
-每次完成一个文件后，运行：
+每次完成一个文件后，运行内容检查；完成一个目录后，再做严格构建：
 
 ```bash
 cd "/Users/yaoyaoling/Desktop/博士生资料/deep learning"
-mkdocs build 2>&1 | grep -E "(ERROR|WARNING(?!.*git-revision))"
+.venv/bin/python scripts/check_part2_content.py --root docs/02-deep-learning
+.venv/bin/mkdocs build --strict
 ```
 
-只要没有 ERROR，git-revision-date 的 WARNING（新文件无 git log）可以忽略。
+Part 2 全部完成后还要加 `--require-complete`，确保没有计划页或草稿页混入发布版本。
 
 ---
 
@@ -137,16 +144,16 @@ cd "/Users/yaoyaoling/Desktop/博士生资料/deep learning"
 # 查看改动
 git diff --stat
 
-# 提交（按章节提交，不要攒太多再提交）
-git add docs/路径/文件.md
-git commit -m "feat(章节标识): 添加 XXX 章节内容"
+# 提交（每个目录形成一个可独立检查的提交）
+git add docs/02-deep-learning/目录 reference.md
+git commit -m "docs(part2): 完成 XXX 目录"
 
 # 推送触发 GitHub Actions 自动部署
 git push origin main
 ```
 
 提交信息前缀约定：
-- `feat(section)`: 新增章节内容
+- `docs(section)`: 新增或重写章节内容
 - `fix(section)`: 修正错误
 - `refactor(section)`: 重构结构（不改内容）
 - `chore`: mkdocs.yml、workflow 等配置改动
@@ -158,8 +165,8 @@ git push origin main
 **数学不渲染？**
 检查 `docs/assets/js/katex.js` 是否存在，行内公式用 `$...$`，块级用 `$$...$$`。
 
-**Mermaid 图不显示？**
-代码块标记必须是 ` ```mermaid `，mkdocs.yml 里 superfences 的 format 用 `!!python/name:pymdownx.superfences.fence_code_format`（已配置，无需修改）。
+**HTML/SVG 动画没有按钮？**
+检查外层是否有 `data-lesson-visual`，舞台是否有 `data-lesson-stage`，步骤是否标记为 `data-step`。播放器脚本位于 `docs/assets/js/lesson-visuals.js`。
 
 **git-revision-date 报 WARNING？**
 新文件在 commit 之前会报"no git logs"，提交后自动消失，不影响构建。
