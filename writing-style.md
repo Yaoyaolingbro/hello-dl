@@ -167,7 +167,7 @@ status: complete
 - `estimated_time`：整数分钟，例如 `35min`；
 - `status`：`planned`、`draft` 或 `complete`。
 
-发布前运行 `scripts/check_part2_content.py --require-complete`，Part 2 不允许残留计划页。
+日常发布运行 `scripts/check_part2_content.py`，允许保留如实标记为 `planned` 的页面。只有当 Part 2 全部章节完成后，才运行 `scripts/check_part2_content.py --require-complete`；这个选项会拒绝任何未完成页面。
 
 ### 章节开头模板
 
