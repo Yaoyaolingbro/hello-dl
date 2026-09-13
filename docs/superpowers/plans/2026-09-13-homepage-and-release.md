@@ -141,11 +141,11 @@ git commit -m "feat(site): add original learning path hero"
 <div class="home-page">
   <section class="home-hero" aria-labelledby="home-title">
     <div class="home-hero__copy">
-      <p class="home-eyebrow">DEEP LEARNING · VISUAL NOTES</p>
+      <p class="home-kicker">一本从基础走向前沿的深度学习笔记</p>
       <h1 id="home-title">从数学直觉出发，<br>把深度学习真正学明白</h1>
       <p class="home-lead">一套面向初学者的开放教材。沿着主线掌握基础，在需要时进入面试拆解与科研速览。</p>
       <div class="home-actions">
-        <a class="home-button home-button--primary" href="01-math/">从 Part 1 开始 →</a>
+        <a class="home-button home-button--primary" href="01-math/">开始学习</a>
         <a class="home-button home-button--secondary" href="#learning-path">查看学习路线</a>
       </div>
     </div>
@@ -156,7 +156,7 @@ git commit -m "feat(site): add original learning path hero"
 </div>
 ```
 
-After the hero, add three equal-height route cards for `主线教材`、`面试拆解`、`科研速览`, then a `#learning-path` section with four cards linking to `01-math/` through `04-applications/`. Each Part card contains its title, one-sentence role, reader cue, and a text link.
+After the hero, add one quiet three-column route band for `主线教材`、`面试拆解`、`科研速览`, separated by rules rather than three floating SaaS-style cards. Then add a `#learning-path` section with four equal-height sequential cards linking to `01-math/` through `04-applications/`. Each Part card contains its title, one-sentence role, reader cue, and a text link. Use numbering only for these four cards because they form a real learning sequence. Avoid decorative uppercase English labels and avoid appending arrows to every link.
 
 - [ ] **Step 2: Add shared theme tokens and grid rules**
 
@@ -198,7 +198,7 @@ Add the following root tokens and layout contract to `docs/assets/css/custom.css
 }
 ```
 
-Use the image as a contained 4:3 object inside `.home-hero__visual`; never position it absolutely over the heading. Set card grids to three columns for routes and four columns for Parts, with two-column and one-column breakpoints.
+Use the image as a contained 4:3 object inside `.home-hero__visual`; never position it absolutely over the heading. Set the route band to three columns and the Part sequence to four columns, with two-column and one-column breakpoints. Keep the illustration as the one expressive element; surrounding surfaces should be quiet, with restrained corner radii and little or no generic drop shadow.
 
 - [ ] **Step 3: Select Material custom colors and correct the canonical URL**
 
@@ -214,6 +214,8 @@ Set:
 ```yaml
 site_url: https://yaoyaolingbro.github.io/hello-dl/
 ```
+
+Also use `Noto Sans SC` for Chinese body and display text and `JetBrains Mono` for code, matching the long-form Chinese technical reading context.
 
 - [ ] **Step 4: Run the homepage test**
 
