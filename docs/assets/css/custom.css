@@ -311,6 +311,12 @@ input:focus-visible {
   background: #fbfaf6;
 }
 
+.md-typeset .home-hero__visual picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .md-typeset .home-hero__visual img {
   display: block;
   width: 100%;
@@ -480,6 +486,7 @@ input:focus-visible {
 @media (max-width: 800px) {
   .home-hero { grid-template-columns: 1fr; }
   .md-typeset .home-hero h1 { font-size: clamp(1.55rem, 5.8vw, 2.3rem); }
+  .md-typeset .home-hero h1 br { display: none; }
   .md-typeset .home-hero__visual { max-width: 28rem; justify-self: center; }
   .home-reading { grid-template-columns: 1fr; gap: 0.4rem; }
 }

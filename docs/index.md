@@ -20,7 +20,10 @@ glightbox: false
       </div>
     </div>
     <figure class="home-hero__visual">
-      <img src="assets/images/home/learning-path-hero.png" alt="从数学基础逐步连接到现代人工智能研究方向的抽象学习地图" width="1200" height="900" fetchpriority="high">
+      <picture>
+        <source srcset="assets/images/home/learning-path-hero.avif" type="image/avif">
+        <img src="assets/images/home/learning-path-hero.png" alt="从数学基础逐步连接到现代人工智能研究方向的抽象学习地图" width="1200" height="900" fetchpriority="high">
+      </picture>
     </figure>
   </section>
 
