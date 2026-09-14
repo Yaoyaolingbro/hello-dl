@@ -11,6 +11,27 @@ HERO_PNG = ROOT / "docs" / "assets" / "images" / "home" / "learning-path-hero.pn
 HERO_AVIF = ROOT / "docs" / "assets" / "images" / "home" / "learning-path-hero.avif"
 
 
+def split_selector_list(selector_group):
+    selectors = []
+    start = 0
+    parentheses_depth = 0
+    bracket_depth = 0
+    for index, character in enumerate(selector_group):
+        if character == "(":
+            parentheses_depth += 1
+        elif character == ")":
+            parentheses_depth = max(0, parentheses_depth - 1)
+        elif character == "[":
+            bracket_depth += 1
+        elif character == "]":
+            bracket_depth = max(0, bracket_depth - 1)
+        elif character == "," and parentheses_depth == bracket_depth == 0:
+            selectors.append(selector_group[start:index].strip())
+            start = index + 1
+    selectors.append(selector_group[start:].strip())
+    return selectors
+
+
 def find_homepage_width_overrides(css):
     css_without_comments = re.sub(r"/\*.*?\*/", "", css, flags=re.DOTALL)
     overrides = []
@@ -19,8 +40,10 @@ def find_homepage_width_overrides(css):
     ):
         if not re.search(r"\bmax-width\s*:", declarations):
             continue
-        for selector in selector_group.split(","):
-            if ".md-main__inner" in selector and ".home-page" in selector:
+        for selector in split_selector_list(selector_group):
+            if re.search(
+                r"\.md-main__inner(?![A-Za-z0-9_-])", selector
+            ) and re.search(r"\.home-page(?![A-Za-z0-9_-])", selector):
                 overrides.append(selector.strip())
     return overrides
 
@@ -45,6 +68,24 @@ class HomepageTest(unittest.TestCase):
             [],
             find_homepage_width_overrides(
                 "/* .md-main__inner */ .home-page { max-width: 40rem; }"
+            ),
+        )
+        self.assertEqual(
+            [],
+            find_homepage_width_overrides(
+                ".md-main__innerish .home-page-preview { max-width: 40rem; }"
+            ),
+        )
+        self.assertEqual(
+            [],
+            find_homepage_width_overrides(
+                ".md-main__inner .home-page__section { max-width: 40rem; }"
+            ),
+        )
+        self.assertEqual(
+            [".md-main__inner:has(.article, .home-page)"],
+            find_homepage_width_overrides(
+                ".md-main__inner:has(.article, .home-page) { max-width: 80rem; }"
             ),
         )
 
