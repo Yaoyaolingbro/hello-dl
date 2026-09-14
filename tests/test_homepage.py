@@ -1,3 +1,4 @@
+import re
 import unittest
 from pathlib import Path
 
@@ -10,7 +11,223 @@ HERO_PNG = ROOT / "docs" / "assets" / "images" / "home" / "learning-path-hero.pn
 HERO_AVIF = ROOT / "docs" / "assets" / "images" / "home" / "learning-path-hero.avif"
 
 
+def split_selector_list(selector_group):
+    selectors = []
+    start = 0
+    parentheses_depth = 0
+    bracket_depth = 0
+    for index, character in enumerate(selector_group):
+        if character == "(":
+            parentheses_depth += 1
+        elif character == ")":
+            parentheses_depth = max(0, parentheses_depth - 1)
+        elif character == "[":
+            bracket_depth += 1
+        elif character == "]":
+            bracket_depth = max(0, bracket_depth - 1)
+        elif character == "," and parentheses_depth == bracket_depth == 0:
+            selectors.append(selector_group[start:index].strip())
+            start = index + 1
+    selectors.append(selector_group[start:].strip())
+    return selectors
+
+
+def strip_balanced_content(text, opening, closing):
+    depth = 0
+    stripped = []
+    for character in text:
+        if character == opening:
+            depth += 1
+        if depth == 0:
+            stripped.append(character)
+        if character == closing and depth:
+            depth -= 1
+    return "".join(stripped)
+
+
+def selector_subject(selector):
+    selector_without_attributes = strip_balanced_content(selector, "[", "]")
+    parentheses_depth = 0
+    subject_start = 0
+    for index, character in enumerate(selector_without_attributes):
+        if character == "(":
+            parentheses_depth += 1
+        elif character == ")":
+            parentheses_depth = max(0, parentheses_depth - 1)
+        elif parentheses_depth == 0 and (
+            character.isspace() or character in ">+~"
+        ):
+            subject_start = index + 1
+    return selector_without_attributes[subject_start:].strip()
+
+
+def find_closing_brace(css, opening_brace):
+    depth = 0
+    for index in range(opening_brace, len(css)):
+        if css[index] == "{":
+            depth += 1
+        elif css[index] == "}":
+            depth -= 1
+            if depth == 0:
+                return index
+    return len(css)
+
+
+def top_level_declarations(rule_body):
+    """Remove nested rule preludes and blocks, retaining this rule's declarations."""
+    declarations = []
+    position = 0
+    while (opening_brace := rule_body.find("{", position)) != -1:
+        closing_brace = find_closing_brace(rule_body, opening_brace)
+        last_semicolon = rule_body.rfind(";", position, opening_brace)
+        nested_prelude_start = last_semicolon + 1 if last_semicolon != -1 else position
+        declarations.append(rule_body[position:nested_prelude_start])
+        position = closing_brace + 1
+    declarations.append(rule_body[position:])
+    return "".join(declarations)
+
+
+def iter_css_rules(css, parent_selectors=()):
+    """Yield effective selectors from the balanced rule shapes used in custom.css."""
+    position = 0
+    while (opening_brace := css.find("{", position)) != -1:
+        prelude = css[position:opening_brace].rsplit(";", 1)[-1].strip()
+        closing_brace = find_closing_brace(css, opening_brace)
+        declarations = css[opening_brace + 1 : closing_brace]
+        if prelude.startswith("@"):
+            effective_selectors = parent_selectors
+        else:
+            selectors = split_selector_list(prelude)
+            if parent_selectors:
+                effective_selectors = [
+                    child.replace("&", parent)
+                    if "&" in child
+                    else f"{parent} {child}"
+                    for parent in parent_selectors
+                    for child in selectors
+                ]
+            else:
+                effective_selectors = selectors
+            for selector in effective_selectors:
+                yield selector, top_level_declarations(declarations)
+        yield from iter_css_rules(declarations, effective_selectors)
+        position = closing_brace + 1
+
+
+def find_homepage_width_overrides(css):
+    css_without_comments = re.sub(r"/\*.*?\*/", "", css, flags=re.DOTALL)
+    overrides = []
+    for selector, declarations in iter_css_rules(css_without_comments):
+        if not re.search(
+            r"(?:^|;)\s*max-width\s*:", declarations, flags=re.IGNORECASE
+        ):
+            continue
+        selector_without_attributes = strip_balanced_content(selector, "[", "]")
+        subject_without_functions = strip_balanced_content(
+            selector_subject(selector), "(", ")"
+        )
+        if re.search(
+            r"\.md-main__inner(?![A-Za-z0-9_-])", subject_without_functions
+        ) and re.search(
+            r"\.home-page(?![A-Za-z0-9_-])", selector_without_attributes
+        ):
+            overrides.append(selector.strip())
+    return overrides
+
+
 class HomepageTest(unittest.TestCase):
+    def test_homepage_inherits_the_standard_material_content_width(self):
+        css = CSS.read_text(encoding="utf-8")
+        self.assertEqual([], find_homepage_width_overrides(css))
+        self.assertEqual(
+            ["body:has(.home-page) .md-main__inner"],
+            find_homepage_width_overrides(
+                "body:has(.home-page) .md-main__inner { max-width: 80rem; }"
+            ),
+        )
+        self.assertEqual(
+            [],
+            find_homepage_width_overrides(
+                ".md-main__inner .article, .home-page { max-width: 40rem; }"
+            ),
+        )
+        self.assertEqual(
+            [],
+            find_homepage_width_overrides(
+                "/* .md-main__inner */ .home-page { max-width: 40rem; }"
+            ),
+        )
+        self.assertEqual(
+            [],
+            find_homepage_width_overrides(
+                ".md-main__innerish .home-page-preview { max-width: 40rem; }"
+            ),
+        )
+        self.assertEqual(
+            [],
+            find_homepage_width_overrides(
+                ".md-main__inner .home-page__section { max-width: 40rem; }"
+            ),
+        )
+        self.assertEqual(
+            [".md-main__inner:has(.article, .home-page)"],
+            find_homepage_width_overrides(
+                ".md-main__inner:has(.article, .home-page) { max-width: 80rem; }"
+            ),
+        )
+        self.assertEqual(
+            [],
+            find_homepage_width_overrides(
+                ".md-main__inner .home-page { --home-max-width: 80rem; }"
+            ),
+        )
+        self.assertEqual(
+            [],
+            find_homepage_width_overrides(
+                ".md-main__inner .home-page { max-width: 80rem; }"
+            ),
+        )
+        self.assertEqual(
+            [],
+            find_homepage_width_overrides(
+                '.md-main__inner[data-example=".home-page"] { max-width: 80rem; }'
+            ),
+        )
+        self.assertEqual(
+            ['.md-main__inner[data-x="home page"]:has(.home-page)'],
+            find_homepage_width_overrides(
+                '.md-main__inner[data-x="home page"]:has(.home-page) '
+                "{ max-width: 80rem; }"
+            ),
+        )
+        self.assertEqual(
+            ['.md-main__inner[data-x="home\tpage"]:has(.home-page)'],
+            find_homepage_width_overrides(
+                '.md-main__inner[data-x="home\tpage"]:has(.home-page) '
+                "{ max-width: 80rem; }"
+            ),
+        )
+        self.assertEqual(
+            [".home-page .md-main__inner"],
+            find_homepage_width_overrides(
+                ".home-page .md-main__inner { Max-Width: 80rem; }"
+            ),
+        )
+        self.assertEqual(
+            [".home-page .md-main__inner"],
+            find_homepage_width_overrides(
+                ".home-page { .md-main__inner { max-width: 80rem; } }"
+            ),
+        )
+        self.assertEqual(
+            [],
+            find_homepage_width_overrides(
+                ".home-page .md-main__inner { "
+                ".child { color: red; max-width: 10rem; } "
+                "}"
+            ),
+        )
+
     def test_homepage_has_required_learning_routes(self):
         page = INDEX.read_text(encoding="utf-8")
         self.assertIn('class="home-hero"', page)
