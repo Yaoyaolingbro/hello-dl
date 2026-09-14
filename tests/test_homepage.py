@@ -13,8 +13,10 @@ HERO_AVIF = ROOT / "docs" / "assets" / "images" / "home" / "learning-path-hero.a
 class HomepageTest(unittest.TestCase):
     def test_homepage_inherits_the_standard_material_content_width(self):
         css = CSS.read_text(encoding="utf-8")
-        self.assertNotIn(".md-main__inner:has(.home-page)", css)
-        self.assertNotIn("max-width: 76rem", css)
+        self.assertNotRegex(
+            css,
+            r"(?s)\.md-main__inner[^\{]*home-page[^\{]*\{[^\}]*max-width\s*:",
+        )
 
     def test_homepage_has_required_learning_routes(self):
         page = INDEX.read_text(encoding="utf-8")
