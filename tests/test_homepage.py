@@ -1,3 +1,4 @@
+import re
 import unittest
 from pathlib import Path
 
@@ -10,12 +11,41 @@ HERO_PNG = ROOT / "docs" / "assets" / "images" / "home" / "learning-path-hero.pn
 HERO_AVIF = ROOT / "docs" / "assets" / "images" / "home" / "learning-path-hero.avif"
 
 
+def find_homepage_width_overrides(css):
+    css_without_comments = re.sub(r"/\*.*?\*/", "", css, flags=re.DOTALL)
+    overrides = []
+    for selector_group, declarations in re.findall(
+        r"([^{}]+)\{([^{}]*)\}", css_without_comments
+    ):
+        if not re.search(r"\bmax-width\s*:", declarations):
+            continue
+        for selector in selector_group.split(","):
+            if ".md-main__inner" in selector and ".home-page" in selector:
+                overrides.append(selector.strip())
+    return overrides
+
+
 class HomepageTest(unittest.TestCase):
     def test_homepage_inherits_the_standard_material_content_width(self):
         css = CSS.read_text(encoding="utf-8")
-        self.assertNotRegex(
-            css,
-            r"(?s)\.md-main__inner[^\{]*home-page[^\{]*\{[^\}]*max-width\s*:",
+        self.assertEqual([], find_homepage_width_overrides(css))
+        self.assertEqual(
+            ["body:has(.home-page) .md-main__inner"],
+            find_homepage_width_overrides(
+                "body:has(.home-page) .md-main__inner { max-width: 80rem; }"
+            ),
+        )
+        self.assertEqual(
+            [],
+            find_homepage_width_overrides(
+                ".md-main__inner .article, .home-page { max-width: 40rem; }"
+            ),
+        )
+        self.assertEqual(
+            [],
+            find_homepage_width_overrides(
+                "/* .md-main__inner */ .home-page { max-width: 40rem; }"
+            ),
         )
 
     def test_homepage_has_required_learning_routes(self):
