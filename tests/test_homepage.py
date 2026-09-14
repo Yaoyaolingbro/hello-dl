@@ -40,8 +40,6 @@ def strip_balanced_content(text, opening, closing):
             depth += 1
         if depth == 0:
             stripped.append(character)
-        elif character.isspace():
-            stripped.append(character)
         if character == closing and depth:
             depth -= 1
     return "".join(stripped)
@@ -179,6 +177,20 @@ class HomepageTest(unittest.TestCase):
             [],
             find_homepage_width_overrides(
                 '.md-main__inner[data-example=".home-page"] { max-width: 80rem; }'
+            ),
+        )
+        self.assertEqual(
+            ['.md-main__inner[data-x="home page"]:has(.home-page)'],
+            find_homepage_width_overrides(
+                '.md-main__inner[data-x="home page"]:has(.home-page) '
+                "{ max-width: 80rem; }"
+            ),
+        )
+        self.assertEqual(
+            ['.md-main__inner[data-x="home\tpage"]:has(.home-page)'],
+            find_homepage_width_overrides(
+                '.md-main__inner[data-x="home\tpage"]:has(.home-page) '
+                "{ max-width: 80rem; }"
             ),
         )
         self.assertEqual(
