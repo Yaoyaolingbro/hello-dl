@@ -212,11 +212,6 @@ input:focus-visible {
   outline-offset: 4px;
 }
 
-/* Only the landing page gets a wider canvas; article widths stay unchanged. */
-.md-main__inner:has(.home-page) {
-  max-width: 76rem;
-}
-
 .md-content:has(.home-page) {
   min-width: 0;
 }
