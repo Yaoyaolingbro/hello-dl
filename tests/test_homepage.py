@@ -38,7 +38,9 @@ def find_homepage_width_overrides(css):
     for selector_group, declarations in re.findall(
         r"([^{}]+)\{([^{}]*)\}", css_without_comments
     ):
-        if not re.search(r"\bmax-width\s*:", declarations):
+        if not re.search(
+            r"(?:^|;)\s*max-width\s*:", declarations, flags=re.IGNORECASE
+        ):
             continue
         for selector in split_selector_list(selector_group):
             if re.search(
@@ -86,6 +88,18 @@ class HomepageTest(unittest.TestCase):
             [".md-main__inner:has(.article, .home-page)"],
             find_homepage_width_overrides(
                 ".md-main__inner:has(.article, .home-page) { max-width: 80rem; }"
+            ),
+        )
+        self.assertEqual(
+            [],
+            find_homepage_width_overrides(
+                ".md-main__inner .home-page { --home-max-width: 80rem; }"
+            ),
+        )
+        self.assertEqual(
+            [".md-main__inner .home-page"],
+            find_homepage_width_overrides(
+                ".md-main__inner .home-page { Max-Width: 80rem; }"
             ),
         )
 
