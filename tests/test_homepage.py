@@ -73,6 +73,20 @@ def find_closing_brace(css, opening_brace):
     return len(css)
 
 
+def top_level_declarations(rule_body):
+    """Remove nested rule preludes and blocks, retaining this rule's declarations."""
+    declarations = []
+    position = 0
+    while (opening_brace := rule_body.find("{", position)) != -1:
+        closing_brace = find_closing_brace(rule_body, opening_brace)
+        last_semicolon = rule_body.rfind(";", position, opening_brace)
+        nested_prelude_start = last_semicolon + 1 if last_semicolon != -1 else position
+        declarations.append(rule_body[position:nested_prelude_start])
+        position = closing_brace + 1
+    declarations.append(rule_body[position:])
+    return "".join(declarations)
+
+
 def iter_css_rules(css, parent_selectors=()):
     """Yield effective selectors from the balanced rule shapes used in custom.css."""
     position = 0
@@ -95,7 +109,7 @@ def iter_css_rules(css, parent_selectors=()):
             else:
                 effective_selectors = selectors
             for selector in effective_selectors:
-                yield selector, declarations
+                yield selector, top_level_declarations(declarations)
         yield from iter_css_rules(declarations, effective_selectors)
         position = closing_brace + 1
 
@@ -203,6 +217,14 @@ class HomepageTest(unittest.TestCase):
             [".home-page .md-main__inner"],
             find_homepage_width_overrides(
                 ".home-page { .md-main__inner { max-width: 80rem; } }"
+            ),
+        )
+        self.assertEqual(
+            [],
+            find_homepage_width_overrides(
+                ".home-page .md-main__inner { "
+                ".child { color: red; max-width: 10rem; } "
+                "}"
             ),
         )
 
